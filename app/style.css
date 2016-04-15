@@ -1,0 +1,48 @@
+@charset "UTF-8";
+#main {
+    width:1020px;
+}
+
+#right_container {
+   width:78%;
+   float:right;
+}
+
+#left_container {
+   
+   width:22%;
+   float:left;
+   color:#AB3C3E;
+}
+
+.menu_container{
+	height:50px;
+}
+
+.top_bar{
+	height:150px;
+}
+
+footer {
+    clear:both;
+}
+
+#logodiv {
+	
+}
+
+#logodiv img{
+	display:block;
+    margin:auto;
+}
+
+#headerdiv {
+	font-size: 40px;
+}
+
+#manage_container{
+	
+}#managemode {
+}
+#installmode {
+}
