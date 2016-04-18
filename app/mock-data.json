@@ -1,4 +1,4 @@
-{
+[{
         "provides_services": [
             {
                 "service_name": "spaceify.org/services/bigscreen",
@@ -63,4 +63,4 @@
         "versions": [
             "1.0.3"
         ]
-    }
+    }]

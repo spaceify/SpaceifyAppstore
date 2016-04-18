@@ -1,8 +1,9 @@
 import {Component, OnInit} from 'angular2/core';
+import {HTTP_PROVIDERS } from 'angular2/http';
 import {AppService} from './app.service';
 import {AppItem} from './appitem';
 import { AppFilterPipe } from './app.pipe';
-import { HTTP_PROVIDERS }    from 'angular2/http';
+
 
 
 
@@ -23,7 +24,17 @@ export class AppComponent implements OnInit {
 
 	public apps_error: Boolean = false;
 
-	constructor(private _appservice: AppService) { }
+	constructor(private _appservice: AppService) { 
+
+		this._appservice.getManifests().subscribe(
+			data => {
+				this.apps = data;
+				console.log(data);
+			},
+			err => { this.apps_error = true }
+		);
+
+	}
 
 
 	getApps() {
@@ -33,10 +44,18 @@ export class AppComponent implements OnInit {
 
 		//this.apps = this._appservice.getManifests();
 
+		/*
 		this._appservice.getManifests().subscribe(
-			data => { this.apps = data },
+			data => {
+			this.apps = data;
+				console.log(data);
+			},
 			err => { this.apps_error = true }
 		);
+
+		*/
+
+
 	}
 
 	getInstalledApps() {

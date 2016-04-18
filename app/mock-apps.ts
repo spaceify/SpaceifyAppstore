@@ -23,8 +23,10 @@ export var INSTALLEDAPPS: AppItem[] = [
     
 ];
 
-*/
+
 
 
        
 ];
+
+*/

@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/http'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/http', 'rxjs/add/operator/map', 'rxjs/Rx', './appitem'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/http'], function(exports_1, context_
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1;
+    var core_1, http_1, appitem_1, Rx_1;
     var AppService;
     return {
         setters:[
@@ -19,41 +19,50 @@ System.register(['angular2/core', 'angular2/http'], function(exports_1, context_
             },
             function (http_1_1) {
                 http_1 = http_1_1;
+            },
+            function (_1) {},
+            function (Rx_1_1) {
+                Rx_1 = Rx_1_1;
+            },
+            function (appitem_1_1) {
+                appitem_1 = appitem_1_1;
             }],
         execute: function() {
             AppService = (function () {
                 function AppService(http) {
                     this.http = http;
                 }
-                /*
-                  getApps() {
-                      return Promise.resolve(APPS);
-                  }
-                
-                
-                  getInstalledApps() {
-                      return Promise.resolve(INSTALLEDAPPS);
-                  }
-                  */
                 AppService.prototype.getManifests = function () {
                     // return an observable
-                    /*
-                    return this.http.get('/app/mock-data.json')
-                        .map((responseData) => {
-                            return responseData.json();
-                        })
-                        .map((apps: Array<any>) => {
-                            let result: Array<AppItem> = [];
-                            if (apps) {
-                                apps.forEach((app) => {
-                                    result.push(
-                                        new AppItem(app.name, app.readme));
-                                });
-                            }
-                            return result;
+                    return this.http.get('app/mock-data.json')
+                        .map(this.extractData)
+                        .map(this.mapData)
+                        .catch(this.handleError);
+                };
+                AppService.prototype.extractData = function (res) {
+                    if (res.status < 200 || res.status >= 300) {
+                        throw new Error('Bad response status: ' + res.status);
+                    }
+                    var body = res.json();
+                    console.log(body);
+                    //var app =
+                    return body || {};
+                };
+                AppService.prototype.mapData = function (apps) {
+                    var result = [];
+                    console.log(apps);
+                    if (apps) {
+                        apps.forEach(function (app) {
+                            result.push(new appitem_1.AppItem(app.name, app.readme, app.icon));
                         });
-                        */
-                    return this.http.get('/app/mock-data.json').map(function (res) { return res.json(); });
+                    }
+                    return result;
+                };
+                AppService.prototype.handleError = function (error) {
+                    // In a real world app we might send the error to remote logging infrastructure
+                    var errMsg = error.message || 'Server error';
+                    console.error(errMsg);
+                    return Rx_1.Observable.throw(errMsg);
                 };
                 AppService = __decorate([
                     core_1.Injectable(), 

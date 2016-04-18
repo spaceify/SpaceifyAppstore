@@ -6,9 +6,10 @@ System.register([], function(exports_1, context_1) {
         setters:[],
         execute: function() {
             AppItem = (function () {
-                function AppItem(name, readme) {
+                function AppItem(name, readme, icon) {
                     this.name = name;
                     this.readme = readme;
+                    this.icon = icon;
                 }
                 return AppItem;
             }());
