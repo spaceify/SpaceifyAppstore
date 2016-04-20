@@ -1,0 +1,3 @@
+SpaceifyAppstore
+
+npm install #sudo?
