@@ -4,10 +4,6 @@ import {AppService} from './app.service';
 import {AppItem} from './appitem';
 import { AppFilterPipe } from './app.pipe';
 
-
-
-
-
 @Component({
     selector: 'my-app',
     pipes: [AppFilterPipe],
