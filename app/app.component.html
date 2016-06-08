@@ -30,7 +30,7 @@
 
 <div id="applist">Applist</div>
 <!--<ul><li>App</li><li>App</li><li>App</li><li>App</li><li>App</li></ul>-->
-<li *ngFor="#app of apps" (click)="onSelect(app)">
+<li *ngFor="let app of apps" (click)="onSelect(app)">
       <p>{{app.name}} </p>
       <!--<<img src="app/icon.jpg" alt="" height="80"/> -->
       <img src="http://{{app.icon}}" alt="" height="80" onError="this.src='./app/icon.jpg';"/>
