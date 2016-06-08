@@ -1,5 +1,5 @@
-import {Component, OnInit} from 'angular2/core';
-import {HTTP_PROVIDERS } from 'angular2/http';
+import {Component, OnInit} from '@angular/core';
+import {HTTP_PROVIDERS } from '@angular/http';
 import {AppService} from './app.service';
 import {AppItem} from './appitem';
 import { AppFilterPipe } from './app.pipe';
