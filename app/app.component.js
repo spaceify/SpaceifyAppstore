@@ -13,18 +13,28 @@ var http_1 = require('@angular/http');
 var app_service_1 = require('./app.service');
 var app_pipe_1 = require('./app.pipe');
 var AppComponent = (function () {
-    function AppComponent(_appservice) {
-        var _this = this;
+    //appService: AppService;
+    //ngzone not needed
+    function AppComponent(_appservice, _ngZone) {
+        /*
+        this._appservice.getManifests().subscribe(
+            data => {
+                this.apps = data;
+                console.log(data);
+            },
+            err => { this.apps_error = true }
+        );
+
+        */
         this._appservice = _appservice;
+        this._ngZone = _ngZone;
         this.selectedMode = "Install";
         this.query = "";
         this.apps_error = false;
-        this._appservice.getManifests().subscribe(function (data) {
-            _this.apps = data;
-            console.log(data);
-        }, function (err) { _this.apps_error = true; });
+        //this.appService = _appservice;
+        //window.angularComponentRef = { component: this, zone: _ngZone };
     }
-    AppComponent.prototype.getApps = function () {
+    AppComponent.prototype.getAppsStoreApps = function () {
         //this._appservice.getApps().then(apps => { this.apps = apps; this.selectedApp = apps[0]; });
         //this._appservice.getManifests().then(apps => { this.apps = apps; this.selectedApp = apps[0]; });
         //this.apps = this._appservice.getManifests();
@@ -38,21 +48,36 @@ var AppComponent = (function () {
         );
 
         */
+        this.apps = this._appservice.getAppsStoreApps();
     };
     AppComponent.prototype.getInstalledApps = function () {
         //this._appservice.getInstalledApps().then(apps => { this.apps = apps; this.selectedApp = apps[0]; });
         //this.apps = this._appservice.getManifests();
+        this.apps = this._appservice.getInstalledApps();
+    };
+    AppComponent.prototype.installApp = function (selectedApp) {
+        console.log(selectedApp);
+        this._appservice.installApp(selectedApp.uniquename);
+    };
+    AppComponent.prototype.uninstallApp = function (selectedApp) {
+        console.log(selectedApp);
+        this._appservice.uninstallApp(selectedApp.uniquename);
     };
     AppComponent.prototype.ngOnInit = function () {
-        this.getApps();
+        //this.getApps();
+        //this.getAppsStoreApps()
         //this.selectedMode = "Install";
         //this.selectedApp = this.apps[0];
+        //DOM.dispatchEvent(elementRef.nativeElement, new CustomEvent('angular-ready'));
+    };
+    AppComponent.prototype.ngOnDestroy = function () {
+        //window.angularComponent = null;
     };
     AppComponent.prototype.onSelect = function (app) { this.selectedApp = app; };
     AppComponent.prototype.setMode = function (mode) {
         this.selectedMode = mode;
         if (mode == "Install")
-            this.getApps();
+            this.getAppsStoreApps();
         else
             this.getInstalledApps();
     };
@@ -63,7 +88,7 @@ var AppComponent = (function () {
             templateUrl: 'app/app.component.html',
             providers: [http_1.HTTP_PROVIDERS, app_service_1.AppService]
         }), 
-        __metadata('design:paramtypes', [app_service_1.AppService])
+        __metadata('design:paramtypes', [app_service_1.AppService, core_1.NgZone])
     ], AppComponent);
     return AppComponent;
 }());

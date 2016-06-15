@@ -1,7 +1,8 @@
 "use strict";
 var AppItem = (function () {
-    function AppItem(name, readme, icon) {
+    function AppItem(name, uniquename, readme, icon) {
         this.name = name;
+        this.uniquename = uniquename;
         this.readme = readme;
         this.icon = icon;
     }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy, NgZone} from '@angular/core';
 import {HTTP_PROVIDERS } from '@angular/http';
 import {AppService} from './app.service';
 import {AppItem} from './appitem';
@@ -11,7 +11,7 @@ import { AppFilterPipe } from './app.pipe';
     providers: [HTTP_PROVIDERS, AppService]
 })
 
-export class AppComponent implements OnInit { 
+export class AppComponent implements OnInit, OnDestroy { 
 
 	apps: AppItem[];
 	selectedApp: AppItem;
@@ -20,8 +20,14 @@ export class AppComponent implements OnInit {
 
 	public apps_error: Boolean = false;
 
-	constructor(private _appservice: AppService) { 
+	//appService: AppService;
 
+	
+
+	//ngzone not needed
+	constructor(private _appservice: AppService, private _ngZone: NgZone) { 
+
+		/*
 		this._appservice.getManifests().subscribe(
 			data => {
 				this.apps = data;
@@ -30,10 +36,16 @@ export class AppComponent implements OnInit {
 			err => { this.apps_error = true }
 		);
 
+		*/
+
+		//this.appService = _appservice;
+
+		//window.angularComponentRef = { component: this, zone: _ngZone };
+
 	}
 
 
-	getApps() {
+	getAppsStoreApps() {
 		//this._appservice.getApps().then(apps => { this.apps = apps; this.selectedApp = apps[0]; });
 
 		//this._appservice.getManifests().then(apps => { this.apps = apps; this.selectedApp = apps[0]; });
@@ -51,6 +63,8 @@ export class AppComponent implements OnInit {
 
 		*/
 
+		this.apps = this._appservice.getAppsStoreApps();
+
 
 	}
 
@@ -58,13 +72,39 @@ export class AppComponent implements OnInit {
 		//this._appservice.getInstalledApps().then(apps => { this.apps = apps; this.selectedApp = apps[0]; });
 
 		//this.apps = this._appservice.getManifests();
+		this.apps = this._appservice.getInstalledApps();
+	}
+
+	installApp(selectedApp){
+
+		console.log(selectedApp);
+
+		this._appservice.installApp(selectedApp.uniquename);
+	}
+
+	uninstallApp(selectedApp) {
+		console.log(selectedApp);
+
+		this._appservice.uninstallApp(selectedApp.uniquename);
 	}
 
 	ngOnInit() {
-		this.getApps();
+		//this.getApps();
+
+		//this.getAppsStoreApps()
+		
+
 		//this.selectedMode = "Install";
 		//this.selectedApp = this.apps[0];
+
+		//DOM.dispatchEvent(elementRef.nativeElement, new CustomEvent('angular-ready'));
 	}
+
+	ngOnDestroy() {
+		//window.angularComponent = null;
+	}
+
+
 
 	onSelect(app: AppItem) { this.selectedApp = app; }
 
@@ -72,7 +112,7 @@ export class AppComponent implements OnInit {
 		this.selectedMode = mode;
 
 		if (mode == "Install")
-			this.getApps();
+			this.getAppsStoreApps();
 		else
 			this.getInstalledApps();
 	

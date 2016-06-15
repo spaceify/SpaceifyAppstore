@@ -46,8 +46,16 @@
 </div>
 
 <div [ngSwitch]="selectedMode">
-	<div class="menu_container" id="install_container" *ngSwitchWhen="'Install'"><input type="button" value="Install"></div>
-	<div class="menu_container" id="manage_container" *ngSwitchWhen="'Manage'"><input type="button" value="Start"><input type="button" value="Stop"><input type="button" value="Restart"><input type="button" value="Uninstall"><input type="button" value="Configure">
+	<div class="menu_container" id="install_container" *ngSwitchWhen="'Install'">
+    <input type="button" value="Install" (click)="installApp(selectedApp)">
+  </div>
+
+	<div class="menu_container" id="manage_container" *ngSwitchWhen="'Manage'">
+    <input type="button" value="Start">
+    <input type="button" value="Stop">
+    <input type="button" value="Restart">
+    <input type="button" value="Uninstall" (click)="uninstallApp(selectedApp)">
+    <input type="button" value="Configure">
 	</div>
 </div>
 
