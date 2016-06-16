@@ -13,67 +13,44 @@ var http_1 = require('@angular/http');
 var app_service_1 = require('./app.service');
 var app_pipe_1 = require('./app.pipe');
 var AppComponent = (function () {
-    //appService: AppService;
+    //public apps_error: Boolean = false;
+    //servermessages: string[];
     //ngzone not needed
     function AppComponent(_appservice, _ngZone) {
-        /*
-        this._appservice.getManifests().subscribe(
-            data => {
-                this.apps = data;
-                console.log(data);
-            },
-            err => { this.apps_error = true }
-        );
-
-        */
         this._appservice = _appservice;
         this._ngZone = _ngZone;
         this.selectedMode = "Install";
         this.query = "";
-        this.apps_error = false;
-        //this.appService = _appservice;
-        //window.angularComponentRef = { component: this, zone: _ngZone };
     }
+    AppComponent.prototype.getServerMessageColor = function (type) {
+        //if(type == Ser)
+        //ServerMessage.
+        if (type == app_service_1.ServerMessageType.Error)
+            return "red";
+        else if (type == app_service_1.ServerMessageType.Warning)
+            return "yellow";
+        else if (type == app_service_1.ServerMessageType.Notification)
+            return "blue";
+    };
     AppComponent.prototype.getAppsStoreApps = function () {
-        //this._appservice.getApps().then(apps => { this.apps = apps; this.selectedApp = apps[0]; });
-        //this._appservice.getManifests().then(apps => { this.apps = apps; this.selectedApp = apps[0]; });
-        //this.apps = this._appservice.getManifests();
-        /*
-        this._appservice.getManifests().subscribe(
-            data => {
-            this.apps = data;
-                console.log(data);
-            },
-            err => { this.apps_error = true }
-        );
-
-        */
         this.apps = this._appservice.getAppsStoreApps();
     };
     AppComponent.prototype.getInstalledApps = function () {
-        //this._appservice.getInstalledApps().then(apps => { this.apps = apps; this.selectedApp = apps[0]; });
-        //this.apps = this._appservice.getManifests();
         this.apps = this._appservice.getInstalledApps();
     };
-    AppComponent.prototype.installApp = function (selectedApp) {
-        console.log(selectedApp);
-        this._appservice.installApp(selectedApp.uniquename);
-    };
-    AppComponent.prototype.uninstallApp = function (selectedApp) {
-        console.log(selectedApp);
-        this._appservice.uninstallApp(selectedApp.uniquename);
+    AppComponent.prototype.commandApp = function (selectedApp, command) {
+        if (selectedApp)
+            this._appservice.commandApp(command, selectedApp.uniquename);
     };
     AppComponent.prototype.ngOnInit = function () {
-        //this.getApps();
-        //this.getAppsStoreApps()
-        //this.selectedMode = "Install";
-        //this.selectedApp = this.apps[0];
-        //DOM.dispatchEvent(elementRef.nativeElement, new CustomEvent('angular-ready'));
     };
     AppComponent.prototype.ngOnDestroy = function () {
         //window.angularComponent = null;
     };
-    AppComponent.prototype.onSelect = function (app) { this.selectedApp = app; };
+    AppComponent.prototype.onSelect = function (app) {
+        this.selectedApp = app;
+        this._appservice.clearLogMessages();
+    };
     AppComponent.prototype.setMode = function (mode) {
         this.selectedMode = mode;
         if (mode == "Install")

@@ -30,9 +30,10 @@
 
 <div id="applist">Applist</div>
 <li *ngFor="let app of apps" (click)="onSelect(app)">
-      <p>{{app.name}} </p>
+      
       <!--<<img src="app/icon.jpg" alt="" height="80"/> -->
       <img src="http://{{app.icon}}" alt="" height="80" onError="this.src='./app/icon.jpg';"/>
+      <p>{{app.name}} </p>
 </li>
 
 
@@ -47,14 +48,14 @@
 
 <div [ngSwitch]="selectedMode">
 	<div class="menu_container" id="install_container" *ngSwitchWhen="'Install'">
-    <input type="button" value="Install" (click)="installApp(selectedApp)">
+    <input type="button" value="Install" (click)="commandApp(selectedApp, 'install')">
   </div>
 
 	<div class="menu_container" id="manage_container" *ngSwitchWhen="'Manage'">
-    <input type="button" value="Start">
-    <input type="button" value="Stop">
-    <input type="button" value="Restart">
-    <input type="button" value="Uninstall" (click)="uninstallApp(selectedApp)">
+    <input type="button" value="Start" (click)="commandApp(selectedApp, 'start')">
+    <input type="button" value="Stop" (click)="commandApp(selectedApp, 'stop')"> 
+    <input type="button" value="Restart" (click)="commandApp(selectedApp, 'restart')">
+    <input type="button" value="Uninstall" (click)="commandApp(selectedApp, 'remove')">
     <input type="button" value="Configure">
 	</div>
 </div>
@@ -76,8 +77,17 @@
 
 <p> {{selectedApp.readme}}</p>
 
+<li *ngFor="let message of _appservice.serverMessages" [style.color]="getServerMessageColor(message.type)">
+    {{message.text}}
+</li>
+
+
+
+<!--
 <iframe width="100%" height="100%" src="http://{{selectedApp.readme}}"></iframe>
 
+
+-->
 
 
 

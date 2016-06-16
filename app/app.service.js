@@ -14,13 +14,19 @@ var http_1 = require('@angular/http');
 require('rxjs/add/operator/map');
 require('rxjs/Rx');
 var appitem_1 = require('./appitem');
-var Rx_1 = require('rxjs/Rx');
+(function (ServerMessageType) {
+    ServerMessageType[ServerMessageType["Message"] = 0] = "Message";
+    ServerMessageType[ServerMessageType["Warning"] = 1] = "Warning";
+    ServerMessageType[ServerMessageType["Notification"] = 2] = "Notification";
+    ServerMessageType[ServerMessageType["Error"] = 3] = "Error";
+})(exports.ServerMessageType || (exports.ServerMessageType = {}));
+var ServerMessageType = exports.ServerMessageType;
 var AppService = (function () {
     function AppService(http) {
-        var _this = this;
         this.http = http;
         this.appStoreApps = [];
         this.installedApps = [];
+        this._serverMessages = [];
         this.config = new SpaceifyConfig();
         this.sam = new SpaceifyApplicationManager();
         var order = { "name": "ASC" };
@@ -37,39 +43,50 @@ var AppService = (function () {
             }, "page": 1,
             "pageSize": 20, "order": { "name": "ASC", "username": "ASC" }
         };
+        var self = this;
         this.sam.appStoreGetPackages({ "where": where, "order": order, "page": page, "pageSize": pageSize }, function (err, result) {
+            if (result == null) {
+                console.log("appStoreGetPackages returned null");
+                return;
+            }
             for (var _i = 0, _a = result.spacelet; _i < _a.length; _i++) {
                 var app = _a[_i];
-                _this.appStoreApps.push(new appitem_1.AppItem(app.name, app.unique_name, app.readme, app.icon));
+                self.appStoreApps.push(new appitem_1.AppItem(app.name, app.unique_name, app.readme, app.icon));
             }
             for (var _b = 0, _c = result.sandboxed; _b < _c.length; _b++) {
                 var app = _c[_b];
-                _this.appStoreApps.push(new appitem_1.AppItem(app.name, app.unique_name, app.readme, app.icon));
+                self.appStoreApps.push(new appitem_1.AppItem(app.name, app.unique_name, app.readme, app.icon));
             }
         });
         this.updateInstalledApplicationsList();
-        //this.sam.appStoreGetPackages(search, this.results);
     }
-    AppService.prototype.getManifests = function () {
-        // return an observable
-        return this.http.get('app/mock-data.json')
-            .map(this.extractData)
-            .map(this.mapData)
-            .catch(this.handleError);
+    Object.defineProperty(AppService.prototype, "serverMessages", {
+        get: function () {
+            return this._serverMessages;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    AppService.prototype.clearLogMessages = function () {
+        this._serverMessages = [];
     };
     AppService.prototype.updateInstalledApplicationsList = function () {
-        var _this = this;
         this.installedApps = [];
+        var self = this;
         var types = [this.config.SPACELET, this.config.SANDBOXED /*, config.NATIVE*/];
-        this.sam.getApplications(types, this, function (apps) {
+        this.sam.getApplications(types, self, function (apps) {
             console.log(apps);
+            if (apps == null) {
+                console.log("getApplications returned null");
+                return;
+            }
             for (var _i = 0, _a = apps.spacelet; _i < _a.length; _i++) {
                 var app = _a[_i];
-                _this.installedApps.push(new appitem_1.AppItem(app.name, app.unique_name, app.readme, app.icon));
+                self.installedApps.push(new appitem_1.AppItem(app.name, app.unique_name, app.readme, app.icon));
             }
             for (var _b = 0, _c = apps.sandboxed; _b < _c.length; _b++) {
                 var app = _c[_b];
-                _this.installedApps.push(new appitem_1.AppItem(app.name, app.unique_name, app.readme, app.icon));
+                self.installedApps.push(new appitem_1.AppItem(app.name, app.unique_name, app.readme, app.icon));
             }
         });
     };
@@ -79,25 +96,30 @@ var AppService = (function () {
     AppService.prototype.getInstalledApps = function () {
         return this.installedApps;
     };
-    AppService.prototype.installApp = function (unique_name) {
-        var _this = this;
-        this.sam.installApplication(unique_name, "", "", this, function () { _this.updateInstalledApplicationsList(); });
+    AppService.prototype.commandApp = function (operation, unique_name) {
+        //this._serverMessages.push(operation);
+        var self = this;
+        if (operation == "logOut")
+            self.sam.logOut(self, self.printStatus);
+        else if (operation == "stop")
+            self.sam.stopApplication(unique_name, self, self.printStatus);
+        else if (operation == "start")
+            self.sam.startApplication(unique_name, self, self.printStatus);
+        else if (operation == "restart")
+            self.sam.restartApplication(unique_name, self, self.printStatus);
+        else if (operation == "remove")
+            self.sam.removeApplication(unique_name, self, function (result) {
+                console.log(result);
+                self.updateInstalledApplicationsList();
+            });
+        else if (operation == "install")
+            self.sam.installApplication(unique_name, "", "", self, function (result) {
+                console.log(result);
+                self.updateInstalledApplicationsList();
+            });
     };
-    AppService.prototype.uninstallApp = function (unique_name) {
-        var _this = this;
-        this.sam.removeApplication(unique_name, this, function () { _this.updateInstalledApplicationsList(); });
-    };
-    /*
-        applicationStopped() =
-        applicationStarted() =
-        applicationRestarted() =*/
-    AppService.prototype.applicationRemoved = function (result) {
+    AppService.prototype.printStatus = function (result) {
         console.log(result);
-        this.updateInstalledApplicationsList();
-    };
-    AppService.prototype.applicationInstalled = function (result) {
-        console.log(result);
-        this.updateInstalledApplicationsList();
     };
     AppService.prototype.failed = function () {
         console.log("Application manager: connection failed");
@@ -115,23 +137,36 @@ var AppService = (function () {
         */
         for (var _i = 0, errors_1 = errors; _i < errors_1.length; _i++) {
             var err = errors_1[_i];
-            for (var _a = 0, _b = err.message; _a < _b.length; _a++) {
-                var message = _b[_a];
-                console.log(message);
+            /*
+            for (var i = 0; i < err.messages.length; i++){
+                console.log(err.codes[i] + err.messages[i]);
             }
+            */
+            var serverMessage = { text: err.code + " " + err.message, type: ServerMessageType.Error };
+            console.log(err.code + " " + err.message);
+            //this._serverMessages.push(err.code + ": " + err.message);
+            this._serverMessages.push(serverMessage);
         }
     };
     AppService.prototype.warning = function (message, code) {
-        console.log(message);
+        console.log(code + " " + message);
+        //this._serverMessages.push(code + ": " + message);
+        var serverMessage = { text: code + " " + message, type: ServerMessageType.Warning };
+        this._serverMessages.push(serverMessage);
     };
     AppService.prototype.notify = function (message, code) {
         //$("#adminContainerRight").append($("<div style='color: #32af32;'><br>" + message + "<br></div>"));
-        console.log(message);
+        console.log(code + " " + message);
+        //this._serverMessages.push(code + ": " + message);
+        var serverMessage = { text: code + " " + message, type: ServerMessageType.Notification };
+        this._serverMessages.push(serverMessage);
     };
     AppService.prototype.message = function (message) {
         //<!--General messages from the Application manager -- >
         //	$("#adminContainerRight").append($("<div>" + (message != "" ? message : "<br>") + "</div>"));
         console.log(message);
+        var serverMessage = { text: message, type: ServerMessageType.Message };
+        this._serverMessages.push(serverMessage);
     };
     AppService.prototype.question = function (question, choices, origin, answerId) {
         //<!--Questions from the Application manager -- >
@@ -144,32 +179,7 @@ var AppService = (function () {
     };
     AppService.prototype.questionTimedOut = function (message, origin, answerId) {
         //<!--Application manager does't wait forever answers to questions -->
-        console.log("<div>" + message + "</div>");
-    };
-    AppService.prototype.extractData = function (res) {
-        if (res.status < 200 || res.status >= 300) {
-            throw new Error('Bad response status: ' + res.status);
-        }
-        var body = res.json();
-        console.log(body);
-        //var app =
-        return body || {};
-    };
-    AppService.prototype.mapData = function (apps) {
-        var result = [];
-        console.log(apps);
-        if (apps) {
-            apps.forEach(function (app) {
-                result.push(new appitem_1.AppItem(app.name, app.readme, app.icon));
-            });
-        }
-        return result;
-    };
-    AppService.prototype.handleError = function (error) {
-        // In a real world app we might send the error to remote logging infrastructure
-        var errMsg = error.message || 'Server error';
-        console.error(errMsg);
-        return Rx_1.Observable.throw(errMsg);
+        console.log(message);
     };
     AppService = __decorate([
         core_1.Injectable(), 

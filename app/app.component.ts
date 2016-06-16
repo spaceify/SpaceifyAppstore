@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy, NgZone} from '@angular/core';
 import {HTTP_PROVIDERS } from '@angular/http';
-import {AppService} from './app.service';
+import {AppService, ServerMessageType} from './app.service';
 import {AppItem} from './appitem';
 import { AppFilterPipe } from './app.pipe';
 
@@ -18,86 +18,50 @@ export class AppComponent implements OnInit, OnDestroy {
 	selectedMode:string = "Install";
 	query:string = "";
 
-	public apps_error: Boolean = false;
+	//public apps_error: Boolean = false;
 
-	//appService: AppService;
-
-	
+	//servermessages: string[];
 
 	//ngzone not needed
 	constructor(private _appservice: AppService, private _ngZone: NgZone) { 
 
-		/*
-		this._appservice.getManifests().subscribe(
-			data => {
-				this.apps = data;
-				console.log(data);
-			},
-			err => { this.apps_error = true }
-		);
+		
+	}
 
-		*/
+	getServerMessageColor(type : ServerMessageType){
+		//if(type == Ser)
+		//ServerMessage.
+		if (type == ServerMessageType.Error)
+			return "red";
+		else if(type == ServerMessageType.Warning)
+			return "yellow";
+		else if (type == ServerMessageType.Notification)
+			return "blue";
 
-		//this.appService = _appservice;
-
-		//window.angularComponentRef = { component: this, zone: _ngZone };
-
+		
 	}
 
 
 	getAppsStoreApps() {
-		//this._appservice.getApps().then(apps => { this.apps = apps; this.selectedApp = apps[0]; });
-
-		//this._appservice.getManifests().then(apps => { this.apps = apps; this.selectedApp = apps[0]; });
-
-		//this.apps = this._appservice.getManifests();
-
-		/*
-		this._appservice.getManifests().subscribe(
-			data => {
-			this.apps = data;
-				console.log(data);
-			},
-			err => { this.apps_error = true }
-		);
-
-		*/
-
+		
 		this.apps = this._appservice.getAppsStoreApps();
-
 
 	}
 
 	getInstalledApps() {
-		//this._appservice.getInstalledApps().then(apps => { this.apps = apps; this.selectedApp = apps[0]; });
-
-		//this.apps = this._appservice.getManifests();
+		
 		this.apps = this._appservice.getInstalledApps();
 	}
 
-	installApp(selectedApp){
-
-		console.log(selectedApp);
-
-		this._appservice.installApp(selectedApp.uniquename);
+	commandApp(selectedApp, command) {
+		if (selectedApp)
+			this._appservice.commandApp(command, selectedApp.uniquename);
 	}
 
-	uninstallApp(selectedApp) {
-		console.log(selectedApp);
 
-		this._appservice.uninstallApp(selectedApp.uniquename);
-	}
 
 	ngOnInit() {
-		//this.getApps();
-
-		//this.getAppsStoreApps()
 		
-
-		//this.selectedMode = "Install";
-		//this.selectedApp = this.apps[0];
-
-		//DOM.dispatchEvent(elementRef.nativeElement, new CustomEvent('angular-ready'));
 	}
 
 	ngOnDestroy() {
@@ -106,7 +70,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
 
 
-	onSelect(app: AppItem) { this.selectedApp = app; }
+	onSelect(app: AppItem) { 
+		this.selectedApp = app; 
+		this._appservice.clearLogMessages();
+	}
 
 	setMode(mode: string) {
 		this.selectedMode = mode;
