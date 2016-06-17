@@ -9,22 +9,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
+var common_1 = require("@angular/common");
+//import {HTTP_PROVIDERS } from '@angular/http';
 var app_service_1 = require('./app.service');
 var app_pipe_1 = require('./app.pipe');
+require('rxjs/add/operator/map');
+require('rxjs/add/operator/debounceTime');
+require('rxjs/add/operator/distinctUntilChanged');
+require('rxjs/add/operator/switchMap');
+//depracated
+//import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
 var AppComponent = (function () {
-    //public apps_error: Boolean = false;
-    //servermessages: string[];
-    //ngzone not needed
-    function AppComponent(_appservice, _ngZone) {
+    //term = new Control();
+    function AppComponent(_appservice) {
         this._appservice = _appservice;
-        this._ngZone = _ngZone;
         this.selectedMode = "Install";
-        this.query = "";
+        this.query = new common_1.Control();
+        this.query.valueChanges
+            .debounceTime(400)
+            .distinctUntilChanged()
+            .subscribe(function (value) {
+            console.log('changed to:', value);
+            _appservice.searchAppStore(value);
+        });
+        //.switchMap(term => this.wikipediaService.search(term));
     }
     AppComponent.prototype.getServerMessageColor = function (type) {
-        //if(type == Ser)
-        //ServerMessage.
         if (type == app_service_1.ServerMessageType.Error)
             return "red";
         else if (type == app_service_1.ServerMessageType.Warning)
@@ -40,12 +50,13 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.commandApp = function (selectedApp, command) {
         if (selectedApp)
-            this._appservice.commandApp(command, selectedApp.uniquename);
+            this._appservice.commandApp(command, selectedApp.unique_name);
     };
     AppComponent.prototype.ngOnInit = function () {
+        //console.log("ngOnInit");
+        this.getAppsStoreApps();
     };
     AppComponent.prototype.ngOnDestroy = function () {
-        //window.angularComponent = null;
     };
     AppComponent.prototype.onSelect = function (app) {
         this.selectedApp = app;
@@ -63,9 +74,9 @@ var AppComponent = (function () {
             selector: 'my-app',
             pipes: [app_pipe_1.AppFilterPipe],
             templateUrl: 'app/app.component.html',
-            providers: [http_1.HTTP_PROVIDERS, app_service_1.AppService]
+            providers: [app_service_1.AppService]
         }), 
-        __metadata('design:paramtypes', [app_service_1.AppService, core_1.NgZone])
+        __metadata('design:paramtypes', [app_service_1.AppService])
     ], AppComponent);
     return AppComponent;
 }());

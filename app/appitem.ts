@@ -1,14 +1,19 @@
 export class AppItem {
   name: string;
-  uniquename: string;
+  unique_name: string;
   readme: string;
   icon: string;
+  short_description: string;
 
-  constructor(name: string, uniquename:string, readme: string, icon: string) {
-	  this.name = name;
-	  this.uniquename = uniquename;
-	  this.readme = readme;
-	  this.icon = icon
+  constructor(manifest : any) {
+	  this.name = manifest.name;
+	  this.unique_name = manifest.unique_name;
+	  this.readme = manifest.readme;
+	  this.icon = manifest.icon;
+	  this.short_description = manifest.short_description;
   }
   
 }
+
+
+//export interface

@@ -1,14 +1,24 @@
-import {Component, OnInit, OnDestroy, NgZone} from '@angular/core';
-import {HTTP_PROVIDERS } from '@angular/http';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Control} from "@angular/common";
+//import {HTTP_PROVIDERS } from '@angular/http';
 import {AppService, ServerMessageType} from './app.service';
 import {AppItem} from './appitem';
 import { AppFilterPipe } from './app.pipe';
+
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
+
+//depracated
+//import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
 
 @Component({
     selector: 'my-app',
     pipes: [AppFilterPipe],
     templateUrl: 'app/app.component.html',
-    providers: [HTTP_PROVIDERS, AppService]
+    providers: [AppService]
 })
 
 export class AppComponent implements OnInit, OnDestroy { 
@@ -16,21 +26,28 @@ export class AppComponent implements OnInit, OnDestroy {
 	apps: AppItem[];
 	selectedApp: AppItem;
 	selectedMode:string = "Install";
-	query:string = "";
+	query = new Control();
 
-	//public apps_error: Boolean = false;
+	//term = new Control();
 
-	//servermessages: string[];
+	
+	constructor(private _appservice: AppService) { 
+		this.query.valueChanges
+			.debounceTime(400)
+			.distinctUntilChanged()
+			.subscribe(
+				(value: string) => {
+				console.log('changed to:', value);
+					_appservice.searchAppStore(value);
+				}
+			);
 
-	//ngzone not needed
-	constructor(private _appservice: AppService, private _ngZone: NgZone) { 
-
-		
+			
+			//.switchMap(term => this.wikipediaService.search(term));
 	}
 
 	getServerMessageColor(type : ServerMessageType){
-		//if(type == Ser)
-		//ServerMessage.
+		
 		if (type == ServerMessageType.Error)
 			return "red";
 		else if(type == ServerMessageType.Warning)
@@ -38,7 +55,7 @@ export class AppComponent implements OnInit, OnDestroy {
 		else if (type == ServerMessageType.Notification)
 			return "blue";
 
-		
+
 	}
 
 
@@ -55,20 +72,19 @@ export class AppComponent implements OnInit, OnDestroy {
 
 	commandApp(selectedApp, command) {
 		if (selectedApp)
-			this._appservice.commandApp(command, selectedApp.uniquename);
+			this._appservice.commandApp(command, selectedApp.unique_name);
 	}
 
 
 
 	ngOnInit() {
-		
+		//console.log("ngOnInit");
+		this.getAppsStoreApps();
 	}
 
 	ngOnDestroy() {
-		//window.angularComponent = null;
+		
 	}
-
-
 
 	onSelect(app: AppItem) { 
 		this.selectedApp = app; 

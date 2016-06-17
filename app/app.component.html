@@ -24,7 +24,7 @@
 </div>
 <div class="menu_container" id="search_bar">
   <label for="search">Search:</label>
-  <input type="search" name="search" id="search" [(ngModel)]="query">
+  <input type="search" name="search" id="search" [ngFormControl]="query">
 </div>
 
 
@@ -74,8 +74,11 @@
 <p>1 + 2 = {{ 1 + 2 }}</p>
 
 -->
+<p> {{selectedApp.short_description}}</p>
 
 <p> {{selectedApp.readme}}</p>
+
+
 
 <li *ngFor="let message of _appservice.serverMessages" [style.color]="getServerMessageColor(message.type)">
     {{message.text}}

@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 //import {APPS, INSTALLEDAPPS} from './mock-apps';
 var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
+//import {Http, Headers, Response} from '@angular/http';
 require('rxjs/add/operator/map');
 require('rxjs/Rx');
 var appitem_1 = require('./appitem');
@@ -22,18 +22,37 @@ var appitem_1 = require('./appitem');
 })(exports.ServerMessageType || (exports.ServerMessageType = {}));
 var ServerMessageType = exports.ServerMessageType;
 var AppService = (function () {
-    function AppService(http) {
-        this.http = http;
+    function AppService() {
         this.appStoreApps = [];
         this.installedApps = [];
         this._serverMessages = [];
         this.config = new SpaceifyConfig();
         this.sam = new SpaceifyApplicationManager();
+        this.initService();
+    }
+    AppService.prototype.initService = function () {
+        this.searchAppStore();
+        this.updateInstalledApplicationsList();
+    };
+    Object.defineProperty(AppService.prototype, "serverMessages", {
+        get: function () {
+            return this._serverMessages;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    AppService.prototype.clearLogMessages = function () {
+        this._serverMessages = [];
+    };
+    AppService.prototype.searchAppStore = function (name) {
+        this.appStoreApps.length = 0;
         var order = { "name": "ASC" };
         var pageSize = 10;
         var page = 1;
         var where = {};
-        //where.name = { "value": "pictureviewer", "operator": "LIKE" };
+        //console.log(name);
+        if (name)
+            where.name = { "value": name, "operator": "LIKE" };
         //where.type = { "value": this.config.SPACELET };
         //where.username = { "value": "*", "operator": "LIKE" };
         var search = {
@@ -50,30 +69,20 @@ var AppService = (function () {
                 return;
             }
             for (var _i = 0, _a = result.spacelet; _i < _a.length; _i++) {
-                var app = _a[_i];
-                self.appStoreApps.push(new appitem_1.AppItem(app.name, app.unique_name, app.readme, app.icon));
+                var manifest = _a[_i];
+                self.appStoreApps.push(new appitem_1.AppItem(manifest));
             }
             for (var _b = 0, _c = result.sandboxed; _b < _c.length; _b++) {
-                var app = _c[_b];
-                self.appStoreApps.push(new appitem_1.AppItem(app.name, app.unique_name, app.readme, app.icon));
+                var manifest = _c[_b];
+                self.appStoreApps.push(new appitem_1.AppItem(manifest));
             }
         });
-        this.updateInstalledApplicationsList();
-    }
-    Object.defineProperty(AppService.prototype, "serverMessages", {
-        get: function () {
-            return this._serverMessages;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    AppService.prototype.clearLogMessages = function () {
-        this._serverMessages = [];
     };
     AppService.prototype.updateInstalledApplicationsList = function () {
-        this.installedApps = [];
+        this.installedApps.length;
         var self = this;
         var types = [this.config.SPACELET, this.config.SANDBOXED /*, config.NATIVE*/];
+        //console.log(this.config.SPACELET);
         this.sam.getApplications(types, self, function (apps) {
             console.log(apps);
             if (apps == null) {
@@ -81,12 +90,12 @@ var AppService = (function () {
                 return;
             }
             for (var _i = 0, _a = apps.spacelet; _i < _a.length; _i++) {
-                var app = _a[_i];
-                self.installedApps.push(new appitem_1.AppItem(app.name, app.unique_name, app.readme, app.icon));
+                var manifest = _a[_i];
+                self.installedApps.push(new appitem_1.AppItem(manifest));
             }
             for (var _b = 0, _c = apps.sandboxed; _b < _c.length; _b++) {
-                var app = _c[_b];
-                self.installedApps.push(new appitem_1.AppItem(app.name, app.unique_name, app.readme, app.icon));
+                var manifest = _c[_b];
+                self.installedApps.push(new appitem_1.AppItem(manifest));
             }
         });
     };
@@ -183,7 +192,7 @@ var AppService = (function () {
     };
     AppService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [])
     ], AppService);
     return AppService;
 }());
