@@ -11,6 +11,8 @@ export class AppItem {
 	  this.readme = manifest.readme;
 	  this.icon = manifest.icon;
 	  this.short_description = manifest.short_description;
+
+	  console.log("");
   }
   
 }

@@ -18,7 +18,13 @@ import 'rxjs/add/operator/switchMap';
     selector: 'my-app',
     pipes: [AppFilterPipe],
     templateUrl: 'app/app.component.html',
-    providers: [AppService]
+    providers: [AppService],
+    styles: [`
+  		.selected {
+    		background-color: #CFD8DC !important;
+    		color: white;
+  		}
+  	`]
 })
 
 export class AppComponent implements OnInit, OnDestroy { 
@@ -89,6 +95,10 @@ export class AppComponent implements OnInit, OnDestroy {
 	onSelect(app: AppItem) { 
 		this.selectedApp = app; 
 		this._appservice.clearLogMessages();
+
+		if (this.selectedMode != "Install"){
+			this._appservice.isAppRunning(app.unique_name);
+		}
 	}
 
 	setMode(mode: string) {

@@ -43,12 +43,18 @@ declare class SpaceifyApplicationManager{
 
 }
 
+declare class SpaceifyCore {
+	public isApplicationRunning(unique_name: string, callback: Function) : void;
+
+}
+
 @Injectable()
 export class AppService {
 
 
 	private config: SpaceifyConfig;
 	private sam: SpaceifyApplicationManager;
+	private core: SpaceifyCore;
 
 	private appStoreApps: AppItem[] = [];
 	private installedApps: AppItem[] = [];
@@ -61,6 +67,9 @@ export class AppService {
 
 		this.config = new SpaceifyConfig();
 		this.sam = new SpaceifyApplicationManager();
+
+		this.core = new SpaceifyCore();
+			//this.core.isApplicationRunning(<paketin nimi>, <callback>);
 
 		this.initService();
 	 }
@@ -133,32 +142,46 @@ export class AppService {
 
   	updateInstalledApplicationsList(){
 
-		this.installedApps.length;
+		this.installedApps.length = 0;
 		var self = this;
 
 		var types = [this.config.SPACELET, this.config.SANDBOXED/*, config.NATIVE*/];
 		//console.log(this.config.SPACELET);
 		
+		//this.sam.getApplications(types, self, null);
+		
 		this.sam.getApplications(types, self,
-			(apps : any) => {
+			(apps: any) => {
 				console.log(apps);
 				if (apps == null) {
 					console.log("getApplications returned null");
 					return;
 				}
-				
+
 				for (var manifest of apps.spacelet) {
 					self.installedApps.push(new AppItem(manifest));
 				}
 				for (var manifest of apps.sandboxed) {
 					self.installedApps.push(new AppItem(manifest));
 				}
-				
+
 
 			}
 		);
+		
+	 
 
 		
+  	}
+
+  	isAppRunning(unique_name : string ) {
+		this.core.isApplicationRunning(unique_name, 
+			(err, result) => 
+				{
+				console.log(err);
+				console.log(result);
+				
+				});
   	}
 
 	getAppsStoreApps(): Array<AppItem> {

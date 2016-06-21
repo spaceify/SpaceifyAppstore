@@ -61,6 +61,9 @@ var AppComponent = (function () {
     AppComponent.prototype.onSelect = function (app) {
         this.selectedApp = app;
         this._appservice.clearLogMessages();
+        if (this.selectedMode != "Install") {
+            this._appservice.isAppRunning(app.unique_name);
+        }
     };
     AppComponent.prototype.setMode = function (mode) {
         this.selectedMode = mode;
@@ -74,7 +77,8 @@ var AppComponent = (function () {
             selector: 'my-app',
             pipes: [app_pipe_1.AppFilterPipe],
             templateUrl: 'app/app.component.html',
-            providers: [app_service_1.AppService]
+            providers: [app_service_1.AppService],
+            styles: ["\n  \t\t.selected {\n    \t\tbackground-color: #CFD8DC !important;\n    \t\tcolor: white;\n  \t\t}\n  \t"]
         }), 
         __metadata('design:paramtypes', [app_service_1.AppService])
     ], AppComponent);

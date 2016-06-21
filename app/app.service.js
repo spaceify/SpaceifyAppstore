@@ -28,6 +28,8 @@ var AppService = (function () {
         this._serverMessages = [];
         this.config = new SpaceifyConfig();
         this.sam = new SpaceifyApplicationManager();
+        this.core = new SpaceifyCore();
+        //this.core.isApplicationRunning(<paketin nimi>, <callback>);
         this.initService();
     }
     AppService.prototype.initService = function () {
@@ -79,10 +81,11 @@ var AppService = (function () {
         });
     };
     AppService.prototype.updateInstalledApplicationsList = function () {
-        this.installedApps.length;
+        this.installedApps.length = 0;
         var self = this;
         var types = [this.config.SPACELET, this.config.SANDBOXED /*, config.NATIVE*/];
         //console.log(this.config.SPACELET);
+        //this.sam.getApplications(types, self, null);
         this.sam.getApplications(types, self, function (apps) {
             console.log(apps);
             if (apps == null) {
@@ -97,6 +100,12 @@ var AppService = (function () {
                 var manifest = _c[_b];
                 self.installedApps.push(new appitem_1.AppItem(manifest));
             }
+        });
+    };
+    AppService.prototype.isAppRunning = function (unique_name) {
+        this.core.isApplicationRunning(unique_name, function (err, result) {
+            console.log(err);
+            console.log(result);
         });
     };
     AppService.prototype.getAppsStoreApps = function () {
