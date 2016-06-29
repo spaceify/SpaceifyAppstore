@@ -10,10 +10,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 //import {APPS, INSTALLEDAPPS} from './mock-apps';
 var core_1 = require('@angular/core');
-//import {Http, Headers, Response} from '@angular/http';
+var http_1 = require('@angular/http');
 require('rxjs/add/operator/map');
 require('rxjs/Rx');
 var appitem_1 = require('./appitem');
+var Rx_1 = require('rxjs/Rx');
 (function (ServerMessageType) {
     ServerMessageType[ServerMessageType["Message"] = 0] = "Message";
     ServerMessageType[ServerMessageType["Warning"] = 1] = "Warning";
@@ -206,4 +207,73 @@ var AppService = (function () {
     return AppService;
 }());
 exports.AppService = AppService;
+var MockService = (function () {
+    function MockService(http) {
+        var _this = this;
+        this.http = http;
+        this.mockApps = [];
+        this.mockMessages = [];
+        this.http.get('app/mock-data.json')
+            .map(this.extractData)
+            .map(this.mapData)
+            .catch(this.handleError)
+            .subscribe(function (data) {
+            _this.mockApps = data;
+            console.log(data);
+        }, function (err) {
+            //this.apps_error = true 
+        });
+    }
+    MockService.prototype.searchAppStore = function (name) {
+    };
+    Object.defineProperty(MockService.prototype, "serverMessages", {
+        get: function () {
+            return this.mockMessages;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MockService.prototype.isAppRunning = function (unique_name) {
+    };
+    MockService.prototype.getAppsStoreApps = function () {
+        return this.mockApps;
+    };
+    MockService.prototype.getInstalledApps = function () {
+        return this.mockApps;
+    };
+    MockService.prototype.commandApp = function (operation, unique_name) {
+    };
+    MockService.prototype.clearLogMessages = function () { };
+    MockService.prototype.extractData = function (res) {
+        if (res.status < 200 || res.status >= 300) {
+            throw new Error('Bad response status: ' + res.status);
+        }
+        var body = res.json();
+        console.log(body);
+        //var app =
+        return body || {};
+    };
+    MockService.prototype.mapData = function (apps) {
+        var result = [];
+        console.log(apps);
+        if (apps) {
+            apps.forEach(function (app) {
+                result.push(new appitem_1.AppItem(app));
+            });
+        }
+        return result;
+    };
+    MockService.prototype.handleError = function (error) {
+        // In a real world app we might send the error to remote logging infrastructure
+        var errMsg = error.message || 'Server error';
+        console.error(errMsg);
+        return Rx_1.Observable.throw(errMsg);
+    };
+    MockService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [http_1.Http])
+    ], MockService);
+    return MockService;
+}());
+exports.MockService = MockService;
 //# sourceMappingURL=app.service.js.map

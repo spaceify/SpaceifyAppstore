@@ -1,6 +1,9 @@
 //import {APPS, INSTALLEDAPPS} from './mock-apps';
-import {Injectable, OnInit} from '@angular/core';
-//import {Http, Headers, Response} from '@angular/http';
+import {Injectable} from '@angular/core';
+
+import {Http, Headers, Response, HTTP_PROVIDERS} from '@angular/http';
+
+
 import 'rxjs/add/operator/map'
 import 'rxjs/Rx';
 
@@ -48,6 +51,8 @@ declare class SpaceifyCore {
 
 }
 
+declare var SPACEIFY_AVAILABLE: any;
+
 @Injectable()
 export class AppService {
 
@@ -65,10 +70,13 @@ export class AppService {
 
 	constructor() {
 
+		
 		this.config = new SpaceifyConfig();
 		this.sam = new SpaceifyApplicationManager();
-
 		this.core = new SpaceifyCore();
+		
+
+		
 			//this.core.isApplicationRunning(<paketin nimi>, <callback>);
 
 		this.initService();
@@ -298,7 +306,61 @@ export class AppService {
 		console.log(message);
 	}
 
-	/*
+	
+
+}
+
+@Injectable()
+export class MockService {
+
+	private mockApps: AppItem[] = [];
+
+	private mockMessages: ServerMessage[] = [];
+
+	constructor(private http : Http) {
+
+		this.http.get('app/mock-data.json')
+			.map(this.extractData)
+			.map(this.mapData)
+			.catch(this.handleError)
+			.subscribe(
+				data => {
+					this.mockApps = data;
+						console.log(data);
+					},
+ 				err => { 
+ 						//this.apps_error = true 
+
+ 						}
+			); 
+		
+	}
+
+	searchAppStore(name?: string) {
+
+	}
+
+	get serverMessages(): ServerMessage[] {
+		return this.mockMessages;
+	}
+
+	isAppRunning(unique_name: string) {
+		
+	}
+
+	getAppsStoreApps(): Array<AppItem> {
+		return this.mockApps;
+	}
+
+	getInstalledApps(): Array<AppItem> {
+		return this.mockApps;
+	}
+
+	commandApp(operation, unique_name) {
+
+	}
+
+	clearLogMessages() {}
 
 	private extractData(res: Response) {
 		if (res.status < 200 || res.status >= 300) {
@@ -318,7 +380,7 @@ export class AppService {
 		if (apps) {
 			apps.forEach((app) => {
 				result.push(
-					new AppItem(app.name, app.readme, app.icon));
+					new AppItem(app));
 			});
 		}
 		return result;
@@ -330,8 +392,7 @@ export class AppService {
 		console.error(errMsg);
 		return Observable.throw(errMsg);
 	}
-
-	*/
- 
+	
+	
 
 }

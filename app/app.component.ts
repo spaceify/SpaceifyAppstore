@@ -1,7 +1,12 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Control} from "@angular/common";
+
+
 //import {HTTP_PROVIDERS } from '@angular/http';
-import {AppService, ServerMessageType} from './app.service';
+
+
+import {AppService, MockService, ServerMessageType} from './app.service';
+
 import {AppItem} from './appitem';
 import { AppFilterPipe } from './app.pipe';
 
@@ -18,7 +23,7 @@ import 'rxjs/add/operator/switchMap';
     selector: 'my-app',
     pipes: [AppFilterPipe],
     templateUrl: 'app/app.component.html',
-    providers: [AppService],
+    providers: [{provide : AppService, useClass: MockService }],
     styles: [`
   		.selected {
     		background-color: #CFD8DC !important;

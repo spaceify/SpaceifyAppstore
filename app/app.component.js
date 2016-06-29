@@ -77,7 +77,7 @@ var AppComponent = (function () {
             selector: 'my-app',
             pipes: [app_pipe_1.AppFilterPipe],
             templateUrl: 'app/app.component.html',
-            providers: [app_service_1.AppService],
+            providers: [{ provide: app_service_1.AppService, useClass: app_service_1.MockService }],
             styles: ["\n  \t\t.selected {\n    \t\tbackground-color: #CFD8DC !important;\n    \t\tcolor: white;\n  \t\t}\n  \t"]
         }), 
         __metadata('design:paramtypes', [app_service_1.AppService])
