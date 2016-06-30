@@ -35,13 +35,13 @@ declare class SpaceifyConfig {
 }
 declare class SpaceifyApplicationManager{
 	public appStoreGetPackages(o: Object, f: Function): void;
-	public logOut(a: AppService, f: Function): void;
-	public stopApplication(unique_name: string, a: AppService, callback:Function): void;
-	public startApplication(unique_name: string, a: AppService, callback: Function): void;
-	public restartApplication(unique_name: string, a: AppService, callback:Function): void;
-	public removeApplication(unique_name: string, a: AppService, callback: Function): void;
-	public installApplication(unique_name: string, user : string, password : string, a: AppService, callback: Function): void;
-	public getApplications(types: string[], a: AppService, callback: Function): void;
+	public logOut(a: AppManagerService, f: Function): void;
+	public stopApplication(unique_name: string, a: AppManagerService, callback: Function): void;
+	public startApplication(unique_name: string, a: AppManagerService, callback: Function): void;
+	public restartApplication(unique_name: string, a: AppManagerService, callback: Function): void;
+	public removeApplication(unique_name: string, a: AppManagerService, callback: Function): void;
+	public installApplication(unique_name: string, user: string, password: string, a: AppManagerService, callback: Function): void;
+	public getApplications(types: string[], a: AppManagerService, callback: Function): void;
 
 
 }
@@ -54,7 +54,7 @@ declare class SpaceifyCore {
 declare var SPACEIFY_AVAILABLE: any;
 
 @Injectable()
-export class AppService {
+export class AppManagerService {
 
 
 	private config: SpaceifyConfig;
@@ -82,7 +82,7 @@ export class AppService {
 		this.initService();
 	 }
 
-	initService(){
+	private initService(){
 		
 
 		
@@ -148,7 +148,7 @@ export class AppService {
 		);
   	}
 
-  	updateInstalledApplicationsList(){
+  	private updateInstalledApplicationsList(){
 
 		this.installedApps.length = 0;
 		var self = this;
@@ -223,16 +223,16 @@ export class AppService {
 			});
 	}
 
-	printStatus(result){
+	private printStatus(result){
 		console.log(result);
 	}
 
-	failed() {
+	private failed() {
 		console.log("Application manager: connection failed");
 			//$("#adminContainerRight").append($("<div>Setting up the messaging connection failed. There will be no messages or questions from the Application Manager.</div>"));
 	}
 
-	error(errors) {
+	private error(errors) {
 		
 		//$("#adminContainerRight").append($("<div><h3>There were " + errors.length + " error(s) during the operation:</h3></div><br>"));
 		/*
@@ -260,7 +260,7 @@ export class AppService {
 
 	}
 
-	warning(message, code) {
+	private warning(message, code) {
 
 		console.log(code +" "+message);
 
@@ -272,7 +272,7 @@ export class AppService {
 			
 	}
 
-	notify(message, code) {
+	private notify(message, code) {
 			//$("#adminContainerRight").append($("<div style='color: #32af32;'><br>" + message + "<br></div>"));
 		console.log(code +" "+message);
 		//this._serverMessages.push(code + ": " + message);
@@ -281,7 +281,7 @@ export class AppService {
 		this._serverMessages.push(serverMessage);
 	}
 
-	message(message) {
+	private message(message) {
 		//<!--General messages from the Application manager -- >
 		//	$("#adminContainerRight").append($("<div>" + (message != "" ? message : "<br>") + "</div>"));
 		console.log(message);
@@ -290,7 +290,7 @@ export class AppService {
 		this._serverMessages.push(serverMessage);
 	}
 
-	question(question, choices, origin, answerId) {
+	private question(question, choices, origin, answerId) {
 		//<!--Questions from the Application manager -- >
 		//	$("#adminContainerRight").append($("<div>" + question + "<br>" + "</div>"));
 		console.log(question);
@@ -301,7 +301,7 @@ export class AppService {
 		}
 	}
 
-	questionTimedOut(message, origin, answerId) {
+	private questionTimedOut(message, origin, answerId) {
 		//<!--Application manager does't wait forever answers to questions -->
 		console.log(message);
 	}

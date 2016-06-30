@@ -1,11 +1,14 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
+import { AfterViewInit, ViewChild } from '@angular/core';
 import {Control} from "@angular/common";
 
 
 //import {HTTP_PROVIDERS } from '@angular/http';
 
 
-import {AppService, MockService, ServerMessageType} from './app.service';
+import {AppManagerService, MockService, ServerMessageType} from './appmanager.service';
+
+import {ApplistComponent} from './applist.component';
 
 import {AppItem} from './appitem';
 import { AppFilterPipe } from './app.pipe';
@@ -23,26 +26,30 @@ import 'rxjs/add/operator/switchMap';
     selector: 'my-app',
     pipes: [AppFilterPipe],
     templateUrl: 'app/app.component.html',
-    providers: [{provide : AppService, useClass: MockService }],
+    providers: [{provide : AppManagerService, useClass: MockService }],
     styles: [`
   		.selected {
     		background-color: #CFD8DC !important;
     		color: white;
   		}
-  	`]
+  	`],
+  	directives: [ApplistComponent]
 })
 
 export class AppComponent implements OnInit, OnDestroy { 
 
 	apps: AppItem[];
-	selectedApp: AppItem;
+	//selectedApp: AppItem;
 	selectedMode:string = "Install";
 	query = new Control();
+
+	@ViewChild(ApplistComponent)
+	private applistComponent: ApplistComponent;
 
 	//term = new Control();
 
 	
-	constructor(private _appservice: AppService) { 
+	constructor(private _appservice: AppManagerService) { 
 		this.query.valueChanges
 			.debounceTime(400)
 			.distinctUntilChanged()
@@ -97,14 +104,27 @@ export class AppComponent implements OnInit, OnDestroy {
 		
 	}
 
+	get selectedApp() : AppItem{
+		if (this.applistComponent)
+			return this.applistComponent.getSelectedApp();
+	}
+
+	
+	/*
 	onSelect(app: AppItem) { 
+
+		//console.log(app);
 		this.selectedApp = app; 
 		this._appservice.clearLogMessages();
+
 
 		if (this.selectedMode != "Install"){
 			this._appservice.isAppRunning(app.unique_name);
 		}
 	}
+
+	*/
+	
 
 	setMode(mode: string) {
 		this.selectedMode = mode;

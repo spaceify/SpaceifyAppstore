@@ -9,9 +9,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var core_2 = require('@angular/core');
 var common_1 = require("@angular/common");
 //import {HTTP_PROVIDERS } from '@angular/http';
-var app_service_1 = require('./app.service');
+var appmanager_service_1 = require('./appmanager.service');
+var applist_component_1 = require('./applist.component');
 var app_pipe_1 = require('./app.pipe');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/debounceTime');
@@ -23,6 +25,7 @@ var AppComponent = (function () {
     //term = new Control();
     function AppComponent(_appservice) {
         this._appservice = _appservice;
+        //selectedApp: AppItem;
         this.selectedMode = "Install";
         this.query = new common_1.Control();
         this.query.valueChanges
@@ -35,11 +38,11 @@ var AppComponent = (function () {
         //.switchMap(term => this.wikipediaService.search(term));
     }
     AppComponent.prototype.getServerMessageColor = function (type) {
-        if (type == app_service_1.ServerMessageType.Error)
+        if (type == appmanager_service_1.ServerMessageType.Error)
             return "red";
-        else if (type == app_service_1.ServerMessageType.Warning)
+        else if (type == appmanager_service_1.ServerMessageType.Warning)
             return "yellow";
-        else if (type == app_service_1.ServerMessageType.Notification)
+        else if (type == appmanager_service_1.ServerMessageType.Notification)
             return "blue";
     };
     AppComponent.prototype.getAppsStoreApps = function () {
@@ -58,13 +61,28 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.ngOnDestroy = function () {
     };
-    AppComponent.prototype.onSelect = function (app) {
+    Object.defineProperty(AppComponent.prototype, "selectedApp", {
+        get: function () {
+            if (this.applistComponent)
+                return this.applistComponent.getSelectedApp();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /*
+    onSelect(app: AppItem) {
+
+        //console.log(app);
         this.selectedApp = app;
         this._appservice.clearLogMessages();
-        if (this.selectedMode != "Install") {
+
+
+        if (this.selectedMode != "Install"){
             this._appservice.isAppRunning(app.unique_name);
         }
-    };
+    }
+
+    */
     AppComponent.prototype.setMode = function (mode) {
         this.selectedMode = mode;
         if (mode == "Install")
@@ -72,15 +90,20 @@ var AppComponent = (function () {
         else
             this.getInstalledApps();
     };
+    __decorate([
+        core_2.ViewChild(applist_component_1.ApplistComponent), 
+        __metadata('design:type', applist_component_1.ApplistComponent)
+    ], AppComponent.prototype, "applistComponent", void 0);
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
             pipes: [app_pipe_1.AppFilterPipe],
             templateUrl: 'app/app.component.html',
-            providers: [{ provide: app_service_1.AppService, useClass: app_service_1.MockService }],
-            styles: ["\n  \t\t.selected {\n    \t\tbackground-color: #CFD8DC !important;\n    \t\tcolor: white;\n  \t\t}\n  \t"]
+            providers: [{ provide: appmanager_service_1.AppManagerService, useClass: appmanager_service_1.MockService }],
+            styles: ["\n  \t\t.selected {\n    \t\tbackground-color: #CFD8DC !important;\n    \t\tcolor: white;\n  \t\t}\n  \t"],
+            directives: [applist_component_1.ApplistComponent]
         }), 
-        __metadata('design:paramtypes', [app_service_1.AppService])
+        __metadata('design:paramtypes', [appmanager_service_1.AppManagerService])
     ], AppComponent);
     return AppComponent;
 }());

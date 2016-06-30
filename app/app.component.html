@@ -1,3 +1,6 @@
+
+
+
 <!doctype html>
 <html lang="en" ng-app="spaceifyWebStore">
 <head>
@@ -28,16 +31,26 @@
 </div>
 
 
-<div id="applist">Applist
-  <li *ngFor="let app of apps" 
-      [class.selected]="app === selectedApp" 
-      (click)="onSelect(app)">
-        
-        <!--<<img src="app/icon.jpg" alt="" height="80"/> -->
-        <img src="http://{{app.icon}}" alt="" width="80" onError="this.src='./app/icon.jpg';"/>
-        <p>{{app.name}} </p>
-  </li>
-</div>
+  <!--  <applist [apps]="apps" (selected)="onSelect($event.value)"></applist> -->
+
+   <applist [apps]="apps"></applist>
+
+  <!-- 
+
+  <div id="applist">Applist
+    <li *ngFor="let app of apps" 
+        [class.selected]="app === selectedApp" 
+        (click)="onSelect(app)">
+          
+          
+          <img src="http://{{app.icon}}" alt="" width="80" onError="this.src='./app/icon.jpg';"/>
+          <p>{{app.name}} </p>
+    </li>
+  </div>
+
+   -->
+
+
 
 </div>
 

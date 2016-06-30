@@ -1,0 +1,9 @@
+<div id="applist">Applist
+  <li *ngFor="let app of apps" 
+      [class.selected]="app === selectedApp" 
+      (click)="onSelect(app)">
+      
+        <img src="http://{{app.icon}}" alt="" width="80" onError="this.src='./app/icon.jpg';"/>
+        <p>{{app.name}} </p>
+  </li>
+</div>
