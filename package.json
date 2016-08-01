@@ -5,9 +5,9 @@
     "start": "npm run tsc:w",
     "lite": "lite-server",
     "postinstall": "typings install",
-    "tsc": "tsc",
-    "tsc:w": "tsc -w",
-    "typings": "typings"
+    "tsc": "node_modules/typescript/bin/tsc",
+    "tsc:w": "node_modules/typescript/bin/tsc -w",
+    "typings": "node_modules/typings/dist/bin.js"
   },
   "license": "ISC",
   "dependencies": {
