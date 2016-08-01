@@ -2,7 +2,7 @@ SpaceifyAppstore
 
 
 install
-npm install
+npm install -d
 
 development, compile typescript files
 npm start
