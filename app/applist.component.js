@@ -31,6 +31,7 @@ var ApplistComponent = (function () {
             selector: 'applist',
             templateUrl: 'app/applist.component.html',
             providers: [{ provide: appmanager_service_1.AppManagerService, useClass: appmanager_service_1.MockService }],
+            //providers: [AppManagerService],
             styles: ["\n  \t\t.selected {\n    \t\tbackground-color: #CFD8DC !important;\n    \t\tcolor: white;\n  \t\t}\n\n      li.selected:hover {\n      background-color: #BBD8DC !important;\n      color: white;\n      }\n\n      li:hover {\n        color: #607D8B;\n        background-color: #DDD;\n        left: .1em;\n      }\n\n  \n  \t"]
         }), 
         __metadata('design:paramtypes', [appmanager_service_1.AppManagerService])

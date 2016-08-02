@@ -27,6 +27,7 @@ import 'rxjs/add/operator/switchMap';
     pipes: [AppFilterPipe],
     templateUrl: 'app/app.component.html',
     providers: [{provide : AppManagerService, useClass: MockService }],
+    //providers: [AppManagerService],
     styles: [`
   		.selected {
     		background-color: #CFD8DC !important;

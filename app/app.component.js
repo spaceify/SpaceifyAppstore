@@ -100,6 +100,7 @@ var AppComponent = (function () {
             pipes: [app_pipe_1.AppFilterPipe],
             templateUrl: 'app/app.component.html',
             providers: [{ provide: appmanager_service_1.AppManagerService, useClass: appmanager_service_1.MockService }],
+            //providers: [AppManagerService],
             styles: ["\n  \t\t.selected {\n    \t\tbackground-color: #CFD8DC !important;\n    \t\tcolor: white;\n  \t\t}\n  \t"],
             directives: [applist_component_1.ApplistComponent]
         }), 

@@ -6,6 +6,7 @@ import {AppItem} from './appitem';
     selector: 'applist',
     templateUrl: 'app/applist.component.html',
     providers: [{ provide: AppManagerService, useClass: MockService }],
+    //providers: [AppManagerService],
     styles: [`
   		.selected {
     		background-color: #CFD8DC !important;
