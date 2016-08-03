@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>SpaceifyAppStore</title>
-<link href="style.css" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -16,7 +15,7 @@
 <div id="left_container">
 
 <div class="top_bar" id="logodiv">
-  <img src="app/icon.jpg" alt="" height="120"/> </div>
+  <img src="assets/icon.jpg" alt="" height="120"/> </div>
 
 
 <div class="menu_container" id="mode_buttons">
@@ -43,7 +42,7 @@
         (click)="onSelect(app)">
           
           
-          <img src="http://{{app.icon}}" alt="" width="80" onError="this.src='./app/icon.jpg';"/>
+          <img src="http://{{app.icon}}" alt="" width="80" onError="this.src='./assets/icon.jpg';"/>
           <p>{{app.name}} </p>
     </li>
   </div>

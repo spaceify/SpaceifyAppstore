@@ -28,12 +28,7 @@ import 'rxjs/add/operator/switchMap';
     templateUrl: 'app/app.component.html',
     //providers: [{provide : AppManagerService, useClass: MockService }],
     //providers: [AppManagerService],
-    styles: [`
-  		.selected {
-    		background-color: #CFD8DC !important;
-    		color: white;
-  		}
-  	`],
+    styleUrls: [ 'app/app.component.css' ],
   	directives: [ApplistComponent]
 })
 
