@@ -5,7 +5,7 @@ import {AppItem} from './appitem';
 @Component({
     selector: 'applist',
     templateUrl: 'app/applist.component.html',
-    providers: [{ provide: AppManagerService, useClass: MockService }],
+    //providers: [{ provide: AppManagerService, useClass: MockService }],
     //providers: [AppManagerService],
     styles: [`
   		.selected {

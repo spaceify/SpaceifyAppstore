@@ -30,6 +30,7 @@ declare class SpaceifyConfig {
 	
 	SPACELET : string;
 	SANDBOXED : string;
+	NATIVE: string;
 
 
 }
@@ -40,8 +41,20 @@ declare class SpaceifyApplicationManager{
 	public startApplication(unique_name: string, a: AppManagerService, callback: Function): void;
 	public restartApplication(unique_name: string, a: AppManagerService, callback: Function): void;
 	public removeApplication(unique_name: string, a: AppManagerService, callback: Function): void;
-	public installApplication(unique_name: string, user: string, password: string, a: AppManagerService, callback: Function): void;
+	public installApplication(unique_name: string, user: string, password: string, force: boolean, a: AppManagerService, callback: Function): void;
 	public getApplications(types: string[], a: AppManagerService, callback: Function): void;
+
+	public logIn(password: string, origin: AppManagerService, handler: Function); 
+
+	
+
+	public isAdminLoggedIn(origin: AppManagerService, handler: Function) : void;
+
+	public getSettings(origin: AppManagerService, handler: Function): void;
+
+	public saveSettings(settings, origin: AppManagerService, handler: Function): void; 
+
+	public getServiceRuntimeStates(origin, handler): void; 
 
 
 }
@@ -51,7 +64,7 @@ declare class SpaceifyCore {
 
 }
 
-declare var SPACEIFY_AVAILABLE: any;
+//declare var SPACEIFY_AVAILABLE: any;
 
 @Injectable()
 export class AppManagerService {
@@ -80,6 +93,7 @@ export class AppManagerService {
 			//this.core.isApplicationRunning(<paketin nimi>, <callback>);
 
 		this.initService();
+		//console.log("kerran");
 	 }
 
 	private initService(){
@@ -88,6 +102,10 @@ export class AppManagerService {
 		
 		this.searchAppStore();
 		this.updateInstalledApplicationsList();
+
+		//console.log("testesetste");
+		this.sam.isAdminLoggedIn(this, this.printStatus);
+
 	}
 
   	get serverMessages() : ServerMessage[]{
@@ -100,63 +118,72 @@ export class AppManagerService {
 
   	}
 
-	searchAppStore(name?:  string){
+	searchAppStore(name?: string) {
 
 		this.appStoreApps.length = 0;
 
 		var order = { "name": "ASC" };
 		var pageSize = 10;
 		var page = 1;
-		var where : {name? : any} = {};
+		//var where : {name? : any} = {};
+		//var where = { "name": {} };
+		var where = {};
 
 		//console.log(name);
-		if(name)
-			where.name = { "value": name, "operator": "LIKE" };
-		//where.type = { "value": this.config.SPACELET };
+		if (name)
+			where = { "name" : { "value": name, "operator": "LIKE" }};
+	//where.type = { "value": this.config.SPACELET };
 
-		//where.username = { "value": "*", "operator": "LIKE" };
-
-
-		var search = {
-			"where": {
-				"name": { "value": "bigscreen", "operator": "LIKE" },
-				"username": { "value": "jouni", "operator": "=" }
-			}, "page": 1,
-			"pageSize": 20, "order": { "name": "ASC", "username": "ASC" }
-		};
-
-		var self = this;
+	//where.username = { "value": "*", "operator": "LIKE" };
 
 
-		this.sam.appStoreGetPackages({ "where": where, "order": order, "page": page, "pageSize": pageSize },
-			(err: any, result: any) => {
+	var search = {
+		"where": {
+			"name": { "value": "bigscreen", "operator": "LIKE" },
+			"username": { "value": "jouni", "operator": "=" }
+		}, "page": 1,
+		"pageSize": 20, "order": { "name": "ASC", "username": "ASC" }
+	};
 
-				if (result == null) {
-					console.log("appStoreGetPackages returned null");
-					return;
-				}
+	var self = this;
 
-				for (var manifest of result.spacelet) {
-					self.appStoreApps.push(new AppItem(manifest));
-				}
+	var searchObject = { "where": where, "order": order, "page": page, "pageSize": pageSize };
 
-				for (var manifest of result.sandboxed) {
-					self.appStoreApps.push(new AppItem(manifest));
-				}
+	console.log(searchObject);
+	this.sam.appStoreGetPackages(searchObject,
+		(err: any, result: any) => {
 
+			//console.log(err+" "+result);
+
+			if (result == null) {
+				console.log("appStoreGetPackages returned null");
+				return;
 			}
-		);
+
+			for (var manifest of result.spacelet) {
+				self.appStoreApps.push(new AppItem(manifest));
+			}
+
+			for (var manifest of result.sandboxed) {
+				self.appStoreApps.push(new AppItem(manifest));
+			}
+
+		}
+	);
   	}
 
-  	private updateInstalledApplicationsList(){
+	private updateInstalledApplicationsList() {
 
 		this.installedApps.length = 0;
 		var self = this;
 
-		var types = [this.config.SPACELET, this.config.SANDBOXED/*, config.NATIVE*/];
+		var types = [this.config.SPACELET, this.config.SANDBOXED];//, this.config.NATIVE];
 		//console.log(this.config.SPACELET);
 		
 		//this.sam.getApplications(types, self, null);
+		
+		//this.sam.getApplications(types, self, this.printStatus);
+
 		
 		this.sam.getApplications(types, self,
 			(apps: any) => {
@@ -176,6 +203,10 @@ export class AppManagerService {
 
 			}
 		);
+
+		
+
+
 		
 	 
 
@@ -216,11 +247,16 @@ export class AppManagerService {
 				console.log(result);
 				self.updateInstalledApplicationsList()
 			});
-		else if (operation == "install")
-			self.sam.installApplication(unique_name, "", "", self, (result) => {
+		else if (operation == "install"){
+			console.log(unique_name);
+			self.sam.installApplication(unique_name, "", "", true, self, (result) => {
 				console.log(result);
-				self.updateInstalledApplicationsList()
+				self.updateInstalledApplicationsList();
 			});
+
+			//installApplication(applicationPackage, username, password, force, origin, handler) 
+
+		}
 	}
 
 	private printStatus(result){
@@ -256,6 +292,7 @@ export class AppManagerService {
 			console.log(err.code+ " " +err.message);
 			//this._serverMessages.push(err.code + ": " + err.message);
 			this._serverMessages.push(serverMessage);
+
 		}
 
 	}

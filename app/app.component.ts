@@ -26,7 +26,7 @@ import 'rxjs/add/operator/switchMap';
     selector: 'my-app',
     pipes: [AppFilterPipe],
     templateUrl: 'app/app.component.html',
-    providers: [{provide : AppManagerService, useClass: MockService }],
+    //providers: [{provide : AppManagerService, useClass: MockService }],
     //providers: [AppManagerService],
     styles: [`
   		.selected {

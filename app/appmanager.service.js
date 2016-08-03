@@ -22,6 +22,7 @@ var Rx_1 = require('rxjs/Rx');
     ServerMessageType[ServerMessageType["Error"] = 3] = "Error";
 })(exports.ServerMessageType || (exports.ServerMessageType = {}));
 var ServerMessageType = exports.ServerMessageType;
+//declare var SPACEIFY_AVAILABLE: any;
 var AppManagerService = (function () {
     function AppManagerService() {
         this.appStoreApps = [];
@@ -32,10 +33,13 @@ var AppManagerService = (function () {
         this.core = new SpaceifyCore();
         //this.core.isApplicationRunning(<paketin nimi>, <callback>);
         this.initService();
+        //console.log("kerran");
     }
     AppManagerService.prototype.initService = function () {
         this.searchAppStore();
         this.updateInstalledApplicationsList();
+        //console.log("testesetste");
+        this.sam.isAdminLoggedIn(this, this.printStatus);
     };
     Object.defineProperty(AppManagerService.prototype, "serverMessages", {
         get: function () {
@@ -52,10 +56,12 @@ var AppManagerService = (function () {
         var order = { "name": "ASC" };
         var pageSize = 10;
         var page = 1;
+        //var where : {name? : any} = {};
+        //var where = { "name": {} };
         var where = {};
         //console.log(name);
         if (name)
-            where.name = { "value": name, "operator": "LIKE" };
+            where = { "name": { "value": name, "operator": "LIKE" } };
         //where.type = { "value": this.config.SPACELET };
         //where.username = { "value": "*", "operator": "LIKE" };
         var search = {
@@ -66,7 +72,10 @@ var AppManagerService = (function () {
             "pageSize": 20, "order": { "name": "ASC", "username": "ASC" }
         };
         var self = this;
-        this.sam.appStoreGetPackages({ "where": where, "order": order, "page": page, "pageSize": pageSize }, function (err, result) {
+        var searchObject = { "where": where, "order": order, "page": page, "pageSize": pageSize };
+        console.log(searchObject);
+        this.sam.appStoreGetPackages(searchObject, function (err, result) {
+            //console.log(err+" "+result);
             if (result == null) {
                 console.log("appStoreGetPackages returned null");
                 return;
@@ -84,9 +93,10 @@ var AppManagerService = (function () {
     AppManagerService.prototype.updateInstalledApplicationsList = function () {
         this.installedApps.length = 0;
         var self = this;
-        var types = [this.config.SPACELET, this.config.SANDBOXED /*, config.NATIVE*/];
+        var types = [this.config.SPACELET, this.config.SANDBOXED]; //, this.config.NATIVE];
         //console.log(this.config.SPACELET);
         //this.sam.getApplications(types, self, null);
+        //this.sam.getApplications(types, self, this.printStatus);
         this.sam.getApplications(types, self, function (apps) {
             console.log(apps);
             if (apps == null) {
@@ -131,11 +141,13 @@ var AppManagerService = (function () {
                 console.log(result);
                 self.updateInstalledApplicationsList();
             });
-        else if (operation == "install")
-            self.sam.installApplication(unique_name, "", "", self, function (result) {
+        else if (operation == "install") {
+            console.log(unique_name);
+            self.sam.installApplication(unique_name, "", "", true, self, function (result) {
                 console.log(result);
                 self.updateInstalledApplicationsList();
             });
+        }
     };
     AppManagerService.prototype.printStatus = function (result) {
         console.log(result);
