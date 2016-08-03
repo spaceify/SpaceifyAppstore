@@ -34,27 +34,34 @@ declare class SpaceifyConfig {
 
 
 }
+
+interface SpaceifyHandlers {
+
+	failed();
+	error(errors) 
+	warning(message, code) 
+	notify(message, code) 
+	message(message) 
+	question(question, choices, origin, answerId)
+	questionTimedOut(message, origin, answerId) 
+
+
+}
+
 declare class SpaceifyApplicationManager{
 	public appStoreGetPackages(o: Object, f: Function): void;
-	public logOut(a: AppManagerService, f: Function): void;
-	public stopApplication(unique_name: string, a: AppManagerService, callback: Function): void;
-	public startApplication(unique_name: string, a: AppManagerService, callback: Function): void;
-	public restartApplication(unique_name: string, a: AppManagerService, callback: Function): void;
-	public removeApplication(unique_name: string, a: AppManagerService, callback: Function): void;
-	public installApplication(unique_name: string, user: string, password: string, force: boolean, a: AppManagerService, callback: Function): void;
-	public getApplications(types: string[], a: AppManagerService, callback: Function): void;
-
-	public logIn(password: string, origin: AppManagerService, handler: Function); 
-
-	
-
-	public isAdminLoggedIn(origin: AppManagerService, handler: Function) : void;
-
-	public getSettings(origin: AppManagerService, handler: Function): void;
-
-	public saveSettings(settings, origin: AppManagerService, handler: Function): void; 
-
-	public getServiceRuntimeStates(origin, handler): void; 
+	public logOut(origin: SpaceifyHandlers, f: Function): void;
+	public stopApplication(unique_name: string, origin: SpaceifyHandlers, callback: Function): void;
+	public startApplication(unique_name: string, origin: SpaceifyHandlers, callback: Function): void;
+	public restartApplication(unique_name: string, origin: SpaceifyHandlers, callback: Function): void;
+	public removeApplication(unique_name: string, origin: SpaceifyHandlers, callback: Function): void;
+	public installApplication(unique_name: string, user: string, password: string, force: boolean, origin: SpaceifyHandlers, callback: Function): void;
+	public getApplications(types: string[], origin: SpaceifyHandlers, callback: Function): void;
+	public logIn(password: string, origin: SpaceifyHandlers, handler: Function); 
+	public isAdminLoggedIn(origin: SpaceifyHandlers, handler: Function): void;
+	public getSettings(origin: SpaceifyHandlers, handler: Function): void;
+	public saveSettings(settings, origin: SpaceifyHandlers, handler: Function): void; 
+	public getServiceRuntimeStates(origin: SpaceifyHandlers, handler): void; 
 
 
 }
@@ -64,10 +71,8 @@ declare class SpaceifyCore {
 
 }
 
-//declare var SPACEIFY_AVAILABLE: any;
-
 @Injectable()
-export class AppManagerService {
+export class AppManagerService implements SpaceifyHandlers{
 
 
 	private config: SpaceifyConfig;
@@ -88,7 +93,7 @@ export class AppManagerService {
 		this.sam = new SpaceifyApplicationManager();
 		this.core = new SpaceifyCore();
 		
-
+		//console.log(this.sam);
 		
 			//this.core.isApplicationRunning(<paketin nimi>, <callback>);
 
@@ -104,8 +109,12 @@ export class AppManagerService {
 		this.updateInstalledApplicationsList();
 
 		//console.log("testesetste");
-		this.sam.isAdminLoggedIn(this, this.printStatus);
+		var self = this;
 
+		//this.sam.logIn("spaceify123", self, self.printStatus);
+		this.sam.isAdminLoggedIn(self, self.printStatus);
+
+		
 	}
 
   	get serverMessages() : ServerMessage[]{
@@ -118,6 +127,16 @@ export class AppManagerService {
 
   	}
 
+  	testClick(name){
+			var self = this;
+			this.sam.isAdminLoggedIn(self, self.printStatus);
+			//this.isAppRunning(name);
+			//self.sam.restartApplication(name, self, self.printStatus);
+
+			//self.sam.removeApplication(name, self, self.printStatus);
+
+  	}
+
 	searchAppStore(name?: string) {
 
 		this.appStoreApps.length = 0;
@@ -127,11 +146,14 @@ export class AppManagerService {
 		var page = 1;
 		//var where : {name? : any} = {};
 		//var where = { "name": {} };
-		var where = {};
+		var where = { };
+		//{ "where": { }, "page": jotain, "pageSize": jotain } 
 
 		//console.log(name);
 		if (name)
 			where = { "name" : { "value": name, "operator": "LIKE" }};
+
+
 	//where.type = { "value": this.config.SPACELET };
 
 	//where.username = { "value": "*", "operator": "LIKE" };
@@ -147,9 +169,9 @@ export class AppManagerService {
 
 	var self = this;
 
-	var searchObject = { "where": where, "order": order, "page": page, "pageSize": pageSize };
+	var searchObject = { "where": where, "page": page, "pageSize": pageSize };
 
-	console.log(searchObject);
+	//console.log(searchObject);
 	this.sam.appStoreGetPackages(searchObject,
 		(err: any, result: any) => {
 
@@ -172,7 +194,7 @@ export class AppManagerService {
 	);
   	}
 
-	private updateInstalledApplicationsList() {
+	updateInstalledApplicationsList() {
 
 		this.installedApps.length = 0;
 		var self = this;
@@ -204,13 +226,6 @@ export class AppManagerService {
 			}
 		);
 
-		
-
-
-		
-	 
-
-		
   	}
 
   	isAppRunning(unique_name : string ) {
@@ -263,12 +278,14 @@ export class AppManagerService {
 		console.log(result);
 	}
 
-	private failed() {
+	//HANDLERS
+
+	failed() {
 		console.log("Application manager: connection failed");
 			//$("#adminContainerRight").append($("<div>Setting up the messaging connection failed. There will be no messages or questions from the Application Manager.</div>"));
 	}
 
-	private error(errors) {
+	error(errors) {
 		
 		//$("#adminContainerRight").append($("<div><h3>There were " + errors.length + " error(s) during the operation:</h3></div><br>"));
 		/*
@@ -297,7 +314,7 @@ export class AppManagerService {
 
 	}
 
-	private warning(message, code) {
+	warning(message, code) {
 
 		console.log(code +" "+message);
 
@@ -309,7 +326,7 @@ export class AppManagerService {
 			
 	}
 
-	private notify(message, code) {
+	notify(message, code) {
 			//$("#adminContainerRight").append($("<div style='color: #32af32;'><br>" + message + "<br></div>"));
 		console.log(code +" "+message);
 		//this._serverMessages.push(code + ": " + message);
@@ -318,7 +335,7 @@ export class AppManagerService {
 		this._serverMessages.push(serverMessage);
 	}
 
-	private message(message) {
+	message(message) {
 		//<!--General messages from the Application manager -- >
 		//	$("#adminContainerRight").append($("<div>" + (message != "" ? message : "<br>") + "</div>"));
 		console.log(message);
@@ -327,7 +344,7 @@ export class AppManagerService {
 		this._serverMessages.push(serverMessage);
 	}
 
-	private question(question, choices, origin, answerId) {
+	question(question, choices, origin, answerId) {
 		//<!--Questions from the Application manager -- >
 		//	$("#adminContainerRight").append($("<div>" + question + "<br>" + "</div>"));
 		console.log(question);
@@ -338,7 +355,7 @@ export class AppManagerService {
 		}
 	}
 
-	private questionTimedOut(message, origin, answerId) {
+	questionTimedOut(message, origin, answerId) {
 		//<!--Application manager does't wait forever answers to questions -->
 		console.log(message);
 	}
