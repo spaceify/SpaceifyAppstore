@@ -42,7 +42,15 @@ footer {
 
 #manage_container{
 	
-}#managemode {
 }
+
+#managemode {
+}
+
 #installmode {
+}
+
+.selected {
+  background-color: #CFD8DC !important;
+  color: white;
 }
