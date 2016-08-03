@@ -4,6 +4,7 @@ export class AppItem {
   readme: string;
   icon: string;
   short_description: string;
+  isRunning: boolean;
 
   constructor(manifest : any) {
 	  this.name = manifest.name;
@@ -11,6 +12,7 @@ export class AppItem {
 	  this.readme = manifest.readme;
 	  this.icon = manifest.icon;
 	  this.short_description = manifest.short_description;
+    this.isRunning = manifest.isRunning;
 
 	  console.log("");
   }

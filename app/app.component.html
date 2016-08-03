@@ -92,6 +92,8 @@
 
 <p> {{selectedApp.readme}}</p>
 
+<p> App is running: {{selectedApp.isRunning}}</p>
+
 
 
 <li *ngFor="let message of _appservice.serverMessages" [style.color]="getServerMessageColor(message.type)">

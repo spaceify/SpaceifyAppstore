@@ -154,6 +154,7 @@ export class AppManagerService implements SpaceifyHandlers{
 			where = { "name" : { "value": name, "operator": "LIKE" }};
 
 
+		console.log(where);
 	//where.type = { "value": this.config.SPACELET };
 
 	//where.username = { "value": "*", "operator": "LIKE" };
@@ -195,6 +196,8 @@ export class AppManagerService implements SpaceifyHandlers{
   	}
 
 	updateInstalledApplicationsList() {
+
+		
 
 		this.installedApps.length = 0;
 		var self = this;
@@ -238,6 +241,12 @@ export class AppManagerService implements SpaceifyHandlers{
 				});
   	}
 
+  	/*
+  	checkAppStatus(message : string){
+
+  	}
+  	*/
+
 	getAppsStoreApps(): Array<AppItem> {
 		return this.appStoreApps;
   	}
@@ -246,27 +255,54 @@ export class AppManagerService implements SpaceifyHandlers{
 		return this.installedApps;
 	}
 
-	commandApp(operation, unique_name) {
+	commandApp(operation : string, app : AppItem) {
 		//this._serverMessages.push(operation);
 		var self = this;
 		if (operation == "logOut")
 			self.sam.logOut(self, self.printStatus);
 		else if (operation == "stop")
-			self.sam.stopApplication(unique_name, self, self.printStatus);
+			self.sam.stopApplication(app.unique_name, self, (message)=>{
+				console.log(message);
+				self.core.isApplicationRunning(app.unique_name,
+					(err, result) => {
+						console.log(result);
+						app.isRunning = result;
+
+					});
+
+			});
 		else if (operation == "start")
-			self.sam.startApplication(unique_name, self, self.printStatus);
+			self.sam.startApplication(app.unique_name, self, (message) => {
+				console.log(message);
+				self.core.isApplicationRunning(app.unique_name,
+					(err, result) => {
+						console.log(result);
+						app.isRunning = result;
+
+					});
+
+			});
 		else if (operation == "restart")
-			self.sam.restartApplication(unique_name, self, self.printStatus);
+			self.sam.restartApplication(app.unique_name, self, (message) => {
+				console.log(message);
+				self.core.isApplicationRunning(app.unique_name,
+					(err, result) => {
+						console.log(result);
+						app.isRunning = result;
+
+					});
+
+			});
 		else if (operation == "remove")
-			self.sam.removeApplication(unique_name, self, (result) => {
-				console.log(result);
-				self.updateInstalledApplicationsList()
+			self.sam.removeApplication(app.unique_name, self, (message) => {
+				self.updateInstalledApplicationsList();
+				console.log(message);
 			});
 		else if (operation == "install"){
-			console.log(unique_name);
-			self.sam.installApplication(unique_name, "", "", true, self, (result) => {
-				console.log(result);
+			//console.log(unique_name);
+			self.sam.installApplication(app.unique_name, "", "", true, self, (message) => {
 				self.updateInstalledApplicationsList();
+				console.log(message);
 			});
 
 			//installApplication(applicationPackage, username, password, force, origin, handler) 
@@ -277,6 +313,8 @@ export class AppManagerService implements SpaceifyHandlers{
 	private printStatus(result){
 		console.log(result);
 	}
+
+
 
 	//HANDLERS
 

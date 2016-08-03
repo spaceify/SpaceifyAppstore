@@ -82,11 +82,12 @@ export class AppComponent implements OnInit, OnDestroy {
 	getInstalledApps() {
 		
 		this.apps = this._appservice.getInstalledApps();
+		this._appservice.updateInstalledApplicationsList();
 	}
 
 	commandApp(selectedApp, command) {
 		if (selectedApp)
-			this._appservice.commandApp(command, selectedApp.unique_name);
+			this._appservice.commandApp(command, selectedApp);
 	}
 
 
