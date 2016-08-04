@@ -42,6 +42,8 @@ export class MockService{
 
 	}
 
+
+
 	updateInstalledApplicationsList() {}
 
 	get serverMessages(): ServerMessage[] {
@@ -50,6 +52,10 @@ export class MockService{
 
 	isAppRunning(unique_name: string) {
 		
+	}
+
+	isAppInstalled(app : AppItem){
+		return false;
 	}
 
 	getAppsStoreApps(): Array<AppItem> {

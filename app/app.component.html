@@ -63,6 +63,7 @@
 <div [ngSwitch]="selectedMode">
 	<div class="menu_container" id="install_container" *ngSwitchWhen="'Install'">
     <input type="button" value="Install" (click)="commandApp(selectedApp, 'install')">
+    <b *ngIf="_appservice.isAppInstalled(selectedApp)">Application is already installed</b>
   </div>
 
 	<div class="menu_container" id="manage_container" *ngSwitchWhen="'Manage'">

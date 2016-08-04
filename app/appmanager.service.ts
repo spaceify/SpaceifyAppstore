@@ -382,6 +382,29 @@ export class AppManagerService extends SpaceifyHandler{
 
   	}
 
+  	isAppInstalled(app : AppItem) : boolean{
+  		//this.installedApps.
+
+  		if(app){
+
+
+	  		for(var installedApp of this.installedApps){
+	  			if(installedApp.unique_name == app.unique_name )
+	  				return true;
+
+	  		}
+  		}
+  		return false;
+  		/*
+
+  		if (this.installedApps.indexOf(app) > -1) {
+    		return true;
+		}
+		return false;
+
+		*/
+
+  	}
   	/*
   	checkAppStatus(message : string){
 
