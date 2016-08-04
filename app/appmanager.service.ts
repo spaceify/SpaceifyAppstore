@@ -150,11 +150,17 @@ export class AppManagerService implements SpaceifyHandlers{
 		//{ "where": { }, "page": jotain, "pageSize": jotain } 
 
 		//console.log(name);
-		if (name)
+		if (name){
 			where = { "name" : { "value": name, "operator": "LIKE" }};
 
+			//console.log(name);
 
+		}
 		console.log(where);
+
+		//{ "where": {}, "page": jotain, "pageSize": jotain } hakee kaikki
+
+		//console.log(where);
 	//where.type = { "value": this.config.SPACELET };
 
 	//where.username = { "value": "*", "operator": "LIKE" };
@@ -171,6 +177,7 @@ export class AppManagerService implements SpaceifyHandlers{
 	var self = this;
 
 	var searchObject = { "where": where, "page": page, "pageSize": pageSize };
+	//var searchObject = { "where": {}, "page": 1, "pageSize": 10 };
 
 	//console.log(searchObject);
 	this.sam.appStoreGetPackages(searchObject,
@@ -241,6 +248,55 @@ export class AppManagerService implements SpaceifyHandlers{
 				});
   	}
 
+  	checkAppChanges(app : AppItem){
+  		
+
+  		var self = this;
+  		this.core.isApplicationRunning(app.unique_name,
+					(err, result) => {
+						console.log(result);
+						app.isRunning = result;
+
+					});
+
+
+  		var where = { "unique_name" : app.unique_name};
+  		var searchObject = { "where": where, "page": 1, "pageSize": 10 };
+		
+
+		this.sam.appStoreGetPackages(searchObject,
+			(err: any, result: any) => {
+
+				//console.log(err+" "+result);
+
+				if (result == null) {
+				console.log("appStoreGetPackages returned null");
+				return;
+				}
+
+				var appStoreManifest;
+
+				for (var manifest of result.spacelet) {
+					appStoreManifest = manifest;
+				}
+
+				for (var manifest of result.sandboxed) {
+					appStoreManifest = manifest;
+				}
+
+				console.log(appStoreManifest);
+
+				if(app.version_canonical < appStoreManifest.version_canonical)
+					app.updateAvailable = true;
+
+
+			}
+		);
+
+
+
+  	}
+
   	/*
   	checkAppStatus(message : string){
 
@@ -306,6 +362,9 @@ export class AppManagerService implements SpaceifyHandlers{
 			});
 
 			//installApplication(applicationPackage, username, password, force, origin, handler) 
+
+		}
+		else if(operation == "update"){
 
 		}
 	}
@@ -453,6 +512,8 @@ export class MockService {
 	}
 
 	clearLogMessages() {}
+
+	checkAppChanges(app : AppItem){}
 
 	private extractData(res: Response) {
 		if (res.status < 200 || res.status >= 300) {

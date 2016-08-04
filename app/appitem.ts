@@ -5,6 +5,8 @@ export class AppItem {
   icon: string;
   short_description: string;
   isRunning: boolean;
+  version_canonical: string;
+  updateAvailable: boolean;
 
   constructor(manifest : any) {
 	  this.name = manifest.name;
@@ -13,6 +15,8 @@ export class AppItem {
 	  this.icon = manifest.icon;
 	  this.short_description = manifest.short_description;
     this.isRunning = manifest.isRunning;
+    this.version_canonical = manifest.version_canonical;
+    this.updateAvailable = false;
 
 	  console.log("");
   }

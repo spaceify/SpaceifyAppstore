@@ -71,6 +71,7 @@
     <input type="button" value="Restart" (click)="commandApp(selectedApp, 'restart')">
     <input type="button" value="Uninstall" (click)="commandApp(selectedApp, 'remove')">
     <input type="button" value="Configure">
+    <input type="button" value="Update">
 	</div>
 </div>
 
@@ -92,7 +93,10 @@
 
 <p> {{selectedApp.readme}}</p>
 
-<p> App is running: {{selectedApp.isRunning}}</p>
+
+<p *ngIf="selectedMode=='Manage'"> App is running: {{selectedApp.isRunning}}</p>
+
+<p *ngIf="selectedMode=='Manage'"> Update available: {{selectedApp.updateAvailable}}</p>
 
 
 

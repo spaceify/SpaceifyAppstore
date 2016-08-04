@@ -50,6 +50,8 @@ export class ApplistComponent {
   onSelect(app: AppItem) {
     this.selectedApp = app;
     this._appservice.clearLogMessages();
+
+    this._appservice.checkAppChanges(app);
     
     //this.selected.next({ value: app });
 
