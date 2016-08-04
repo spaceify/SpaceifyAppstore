@@ -1,15 +1,10 @@
 //import {APPS, INSTALLEDAPPS} from './mock-apps';
 import {Injectable} from '@angular/core';
 
-import {Http, Headers, Response, HTTP_PROVIDERS} from '@angular/http';
-
-
 import 'rxjs/add/operator/map'
 import 'rxjs/Rx';
 
-
 import {AppItem} from './appitem';
-
 
 import {Observable} from 'rxjs/Rx';
 
@@ -35,7 +30,8 @@ declare class SpaceifyConfig {
 
 }
 
-interface SpaceifyHandlers {
+
+interface ISpaceifyHandler {
 
 	failed();
 	error(errors) 
@@ -48,20 +44,109 @@ interface SpaceifyHandlers {
 
 }
 
+
+
+export class SpaceifyHandler implements ISpaceifyHandler {
+
+	protected _serverMessages: ServerMessage[] = [];
+
+	failed() {
+		console.log("Application manager: connection failed");
+			//$("#adminContainerRight").append($("<div>Setting up the messaging connection failed. There will be no messages or questions from the Application Manager.</div>"));
+	}
+
+	error(errors) {
+		
+		//$("#adminContainerRight").append($("<div><h3>There were " + errors.length + " error(s) during the operation:</h3></div><br>"));
+		/*
+		for (var i = 0; i < errors.length; i++) {
+			for (var j = 0; j < errors[i].messages.length; j++){
+				//$("#adminContainerRight").append($("<div style='color: #f00; font-weight: bold;'><i>" + errors[i].codes[j] + "</i> <b>" + errors[i].messages[j] + "</b></div><br>"));
+				console.log(errors[i].codes[j]+" "+errors[i].messages[j]);
+			}
+		}
+		*/
+
+		for(let err of errors){
+			/*
+			for (var i = 0; i < err.messages.length; i++){
+				console.log(err.codes[i] + err.messages[i]);
+			}
+			*/
+
+			var serverMessage = { text: err.code + " " + err.message, type: ServerMessageType.Error };
+
+			console.log(err.code+ " " +err.message);
+			//this._serverMessages.push(err.code + ": " + err.message);
+			this._serverMessages.push(serverMessage);
+
+		}
+
+	}
+
+	warning(message, code) {
+
+		console.log(code +" "+message);
+
+
+		//this._serverMessages.push(code + ": " + message);
+
+		var serverMessage = { text: code + " " + message, type: ServerMessageType.Warning };
+		this._serverMessages.push(serverMessage);
+			
+	}
+
+	notify(message, code) {
+			//$("#adminContainerRight").append($("<div style='color: #32af32;'><br>" + message + "<br></div>"));
+		console.log(code +" "+message);
+		//this._serverMessages.push(code + ": " + message);
+
+		var serverMessage = { text: code + " " + message, type: ServerMessageType.Notification };
+		this._serverMessages.push(serverMessage);
+	}
+
+	message(message) {
+		//<!--General messages from the Application manager -- >
+		//	$("#adminContainerRight").append($("<div>" + (message != "" ? message : "<br>") + "</div>"));
+		console.log(message);
+
+		var serverMessage = { text: message, type: ServerMessageType.Message };
+		this._serverMessages.push(serverMessage);
+	}
+
+	question(question, choices, origin, answerId) {
+		//<!--Questions from the Application manager -- >
+		//	$("#adminContainerRight").append($("<div>" + question + "<br>" + "</div>"));
+		console.log(question);
+		for (var i = 0; i < choices.length; i++){
+			//$("#adminContainerRight").append($("<div><button onclick=\"sam.answer('" + choices[i].short + "', '" + answerId + "');\">" + choices[i].screen + "</button></div>"));
+			console.log("<div><button onclick=\"sam.answer('" + choices[i].short + "', '" + answerId + "');\">" + choices[i].screen + "</button></div>");
+
+		}
+	}
+
+	questionTimedOut(message, origin, answerId) {
+		//<!--Application manager does't wait forever answers to questions -->
+		console.log(message);
+	}
+
+
+}
+
 declare class SpaceifyApplicationManager{
 	public appStoreGetPackages(o: Object, f: Function): void;
-	public logOut(origin: SpaceifyHandlers, f: Function): void;
-	public stopApplication(unique_name: string, origin: SpaceifyHandlers, callback: Function): void;
-	public startApplication(unique_name: string, origin: SpaceifyHandlers, callback: Function): void;
-	public restartApplication(unique_name: string, origin: SpaceifyHandlers, callback: Function): void;
-	public removeApplication(unique_name: string, origin: SpaceifyHandlers, callback: Function): void;
-	public installApplication(unique_name: string, user: string, password: string, force: boolean, origin: SpaceifyHandlers, callback: Function): void;
-	public getApplications(types: string[], origin: SpaceifyHandlers, callback: Function): void;
-	public logIn(password: string, origin: SpaceifyHandlers, handler: Function); 
-	public isAdminLoggedIn(origin: SpaceifyHandlers, handler: Function): void;
-	public getSettings(origin: SpaceifyHandlers, handler: Function): void;
-	public saveSettings(settings, origin: SpaceifyHandlers, handler: Function): void; 
-	public getServiceRuntimeStates(origin: SpaceifyHandlers, handler): void; 
+	public logOut(origin: SpaceifyHandler, f: Function): void;
+	public stopApplication(unique_name: string, origin: SpaceifyHandler, callback: Function): void;
+	public startApplication(unique_name: string, origin: SpaceifyHandler, callback: Function): void;
+	public restartApplication(unique_name: string, origin: SpaceifyHandler, callback: Function): void;
+	public removeApplication(unique_name: string, origin: SpaceifyHandler, callback: Function): void;
+	public installApplication(unique_name: string, user: string, password: string, force: boolean, origin: SpaceifyHandler, callback: Function): void;
+	public getApplications(types: string[], origin: SpaceifyHandler, callback: Function): void;
+	public logIn(password: string, origin: SpaceifyHandler, handler: Function); 
+	public isAdminLoggedIn(origin: SpaceifyHandler, handler: Function): void;
+	public getSettings(origin: SpaceifyHandler, handler: Function): void;
+	public saveSettings(settings, origin: SpaceifyHandler, handler: Function): void; 
+	public getServiceRuntimeStates(origin: SpaceifyHandler, handler): void; 
 
 
 }
@@ -72,7 +157,7 @@ declare class SpaceifyCore {
 }
 
 @Injectable()
-export class AppManagerService implements SpaceifyHandlers{
+export class AppManagerService extends SpaceifyHandler{
 
 
 	private config: SpaceifyConfig;
@@ -82,13 +167,13 @@ export class AppManagerService implements SpaceifyHandlers{
 	private appStoreApps: AppItem[] = [];
 	private installedApps: AppItem[] = [];
 
-	private _serverMessages: ServerMessage[] = [];
+	//private _serverMessages: ServerMessage[] = [];
 
 
 
 	constructor() {
 
-		
+		super();
 		this.config = new SpaceifyConfig();
 		this.sam = new SpaceifyApplicationManager();
 		this.core = new SpaceifyCore();
@@ -161,45 +246,45 @@ export class AppManagerService implements SpaceifyHandlers{
 		//{ "where": {}, "page": jotain, "pageSize": jotain } hakee kaikki
 
 		//console.log(where);
-	//where.type = { "value": this.config.SPACELET };
+		//where.type = { "value": this.config.SPACELET };
 
-	//where.username = { "value": "*", "operator": "LIKE" };
+		//where.username = { "value": "*", "operator": "LIKE" };
 
 
-	var search = {
-		"where": {
-			"name": { "value": "bigscreen", "operator": "LIKE" },
-			"username": { "value": "jouni", "operator": "=" }
-		}, "page": 1,
-		"pageSize": 20, "order": { "name": "ASC", "username": "ASC" }
-	};
+		var search = {
+			"where": {
+				"name": { "value": "bigscreen", "operator": "LIKE" },
+				"username": { "value": "jouni", "operator": "=" }
+			}, "page": 1,
+			"pageSize": 20, "order": { "name": "ASC", "username": "ASC" }
+		};
 
-	var self = this;
+		var self = this;
 
-	var searchObject = { "where": where, "page": page, "pageSize": pageSize };
-	//var searchObject = { "where": {}, "page": 1, "pageSize": 10 };
+		var searchObject = { "where": where, "page": page, "pageSize": pageSize };
+		//var searchObject = { "where": {}, "page": 1, "pageSize": 10 };
 
-	//console.log(searchObject);
-	this.sam.appStoreGetPackages(searchObject,
-		(err: any, result: any) => {
+		//console.log(searchObject);
+		this.sam.appStoreGetPackages(searchObject,
+			(err: any, result: any) => {
 
-			//console.log(err+" "+result);
+				//console.log(err+" "+result);
 
-			if (result == null) {
-				console.log("appStoreGetPackages returned null");
-				return;
+				if (result == null) {
+					console.log("appStoreGetPackages returned null");
+					return;
+				}
+
+				for (var manifest of result.spacelet) {
+					self.appStoreApps.push(new AppItem(manifest));
+				}
+
+				for (var manifest of result.sandboxed) {
+					self.appStoreApps.push(new AppItem(manifest));
+				}
+
 			}
-
-			for (var manifest of result.spacelet) {
-				self.appStoreApps.push(new AppItem(manifest));
-			}
-
-			for (var manifest of result.sandboxed) {
-				self.appStoreApps.push(new AppItem(manifest));
-			}
-
-		}
-	);
+		);
   	}
 
 	updateInstalledApplicationsList() {
@@ -373,179 +458,6 @@ export class AppManagerService implements SpaceifyHandlers{
 		console.log(result);
 	}
 
-
-
-	//HANDLERS
-
-	failed() {
-		console.log("Application manager: connection failed");
-			//$("#adminContainerRight").append($("<div>Setting up the messaging connection failed. There will be no messages or questions from the Application Manager.</div>"));
-	}
-
-	error(errors) {
-		
-		//$("#adminContainerRight").append($("<div><h3>There were " + errors.length + " error(s) during the operation:</h3></div><br>"));
-		/*
-		for (var i = 0; i < errors.length; i++) {
-			for (var j = 0; j < errors[i].messages.length; j++){
-				//$("#adminContainerRight").append($("<div style='color: #f00; font-weight: bold;'><i>" + errors[i].codes[j] + "</i> <b>" + errors[i].messages[j] + "</b></div><br>"));
-				console.log(errors[i].codes[j]+" "+errors[i].messages[j]);
-			}
-		}
-		*/
-
-		for(let err of errors){
-			/*
-			for (var i = 0; i < err.messages.length; i++){
-				console.log(err.codes[i] + err.messages[i]);
-			}
-			*/
-
-			var serverMessage = { text: err.code + " " + err.message, type: ServerMessageType.Error };
-
-			console.log(err.code+ " " +err.message);
-			//this._serverMessages.push(err.code + ": " + err.message);
-			this._serverMessages.push(serverMessage);
-
-		}
-
-	}
-
-	warning(message, code) {
-
-		console.log(code +" "+message);
-
-
-		//this._serverMessages.push(code + ": " + message);
-
-		var serverMessage = { text: code + " " + message, type: ServerMessageType.Warning };
-		this._serverMessages.push(serverMessage);
-			
-	}
-
-	notify(message, code) {
-			//$("#adminContainerRight").append($("<div style='color: #32af32;'><br>" + message + "<br></div>"));
-		console.log(code +" "+message);
-		//this._serverMessages.push(code + ": " + message);
-
-		var serverMessage = { text: code + " " + message, type: ServerMessageType.Notification };
-		this._serverMessages.push(serverMessage);
-	}
-
-	message(message) {
-		//<!--General messages from the Application manager -- >
-		//	$("#adminContainerRight").append($("<div>" + (message != "" ? message : "<br>") + "</div>"));
-		console.log(message);
-
-		var serverMessage = { text: message, type: ServerMessageType.Message };
-		this._serverMessages.push(serverMessage);
-	}
-
-	question(question, choices, origin, answerId) {
-		//<!--Questions from the Application manager -- >
-		//	$("#adminContainerRight").append($("<div>" + question + "<br>" + "</div>"));
-		console.log(question);
-		for (var i = 0; i < choices.length; i++){
-			//$("#adminContainerRight").append($("<div><button onclick=\"sam.answer('" + choices[i].short + "', '" + answerId + "');\">" + choices[i].screen + "</button></div>"));
-			console.log("<div><button onclick=\"sam.answer('" + choices[i].short + "', '" + answerId + "');\">" + choices[i].screen + "</button></div>");
-
-		}
-	}
-
-	questionTimedOut(message, origin, answerId) {
-		//<!--Application manager does't wait forever answers to questions -->
-		console.log(message);
-	}
-
-	
-
 }
 
-@Injectable()
-export class MockService {
 
-	private mockApps: AppItem[] = [];
-
-	private mockMessages: ServerMessage[] = [];
-
-	constructor(private http : Http) {
-
-		this.http.get('app/mock-data.json')
-			.map(this.extractData)
-			.map(this.mapData)
-			.catch(this.handleError)
-			.subscribe(
-				data => {
-					this.mockApps = data;
-						console.log(data);
-					},
- 				err => { 
- 						//this.apps_error = true 
-
- 						}
-			); 
-		
-	}
-
-	searchAppStore(name?: string) {
-
-	}
-
-	get serverMessages(): ServerMessage[] {
-		return this.mockMessages;
-	}
-
-	isAppRunning(unique_name: string) {
-		
-	}
-
-	getAppsStoreApps(): Array<AppItem> {
-		return this.mockApps;
-	}
-
-	getInstalledApps(): Array<AppItem> {
-		return this.mockApps;
-	}
-
-	commandApp(operation, unique_name) {
-
-	}
-
-	clearLogMessages() {}
-
-	checkAppChanges(app : AppItem){}
-
-	private extractData(res: Response) {
-		if (res.status < 200 || res.status >= 300) {
-			throw new Error('Bad response status: ' + res.status);
-		}
-		let body = res.json();
-		console.log(body);
-
-		//var app =
-
-		return body || {};
-	}
-
-	private mapData(apps: Array<any>) {
-		let result: Array<AppItem> = [];
-		console.log(apps);
-		if (apps) {
-			apps.forEach((app) => {
-				result.push(
-					new AppItem(app));
-			});
-		}
-		return result;
-	}
-
-	private handleError(error: any) {
-		// In a real world app we might send the error to remote logging infrastructure
-		let errMsg = error.message || 'Server error';
-		console.error(errMsg);
-		return Observable.throw(errMsg);
-	}
-	
-	
-
-}

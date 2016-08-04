@@ -6,7 +6,7 @@ import {Control} from "@angular/common";
 //import {HTTP_PROVIDERS } from '@angular/http';
 
 
-import {AppManagerService, MockService, ServerMessageType} from './appmanager.service';
+import {AppManagerService, ServerMessageType} from './appmanager.service';
 
 import {ApplistComponent} from './applist.component';
 

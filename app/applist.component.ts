@@ -1,5 +1,6 @@
 import {Component, Input, Output, EventEmitter, OnInit, OnDestroy} from '@angular/core';
-import {AppManagerService, MockService, ServerMessageType} from './appmanager.service';
+import {AppManagerService, ServerMessageType} from './appmanager.service';
+
 import {AppItem} from './appitem';
 
 @Component({
