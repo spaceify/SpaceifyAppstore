@@ -241,7 +241,7 @@ export class AppManagerService extends SpaceifyHandler{
 			//console.log(name);
 
 		}
-		console.log(where);
+		//console.log(where);
 
 		//{ "where": {}, "page": jotain, "pageSize": jotain } hakee kaikki
 
@@ -291,7 +291,6 @@ export class AppManagerService extends SpaceifyHandler{
 
 		
 
-		this.installedApps.length = 0;
 		var self = this;
 
 		var types = [this.config.SPACELET, this.config.SANDBOXED];//, this.config.NATIVE];
@@ -301,10 +300,15 @@ export class AppManagerService extends SpaceifyHandler{
 		
 		//this.sam.getApplications(types, self, this.printStatus);
 
+		console.log("updateInstalledApplicationsList");
+
 		
 		this.sam.getApplications(types, self,
 			(apps: any) => {
 				console.log(apps);
+
+				this.installedApps.length = 0;
+
 				if (apps == null) {
 					console.log("getApplications returned null");
 					return;
