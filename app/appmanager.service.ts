@@ -78,7 +78,7 @@ export class AppManagerService {
 		var self = this;
 
 		
-		this.searchAppStore();
+		//this.searchAppStore();
 
 
 		//setTimeout( ()=>self.updateInstalledApplicationsList(), 200);
@@ -86,7 +86,7 @@ export class AppManagerService {
 
 		//console.log("testesetste");
 
-		self.updateInstalledApplicationsList();
+		//self.updateInstalledApplicationsList();
 		
 
 		//this.sam.logIn("spaceify123", self, self.printStatus);
