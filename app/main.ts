@@ -10,8 +10,8 @@ import {MockService} from './appmanager.mockservice';
 
 
 
-bootstrap(AppComponent, [{ provide: AppManagerService, useClass: MockService }, HTTP_PROVIDERS]);
-//bootstrap(AppComponent, [AppManagerService, HTTP_PROVIDERS]);
+//bootstrap(AppComponent, [{ provide: AppManagerService, useClass: MockService }, HTTP_PROVIDERS]);
+bootstrap(AppComponent, [AppManagerService, HTTP_PROVIDERS]);
     
 
 
