@@ -1,12 +1,11 @@
 import {Component, Input, Output, EventEmitter, OnInit, OnDestroy} from '@angular/core';
-import {AppManagerService, MockService, ServerMessageType} from './appmanager.service';
+import {AppManagerService} from './appmanager.service';
+//import {ServerMessageType} from './spaceifyhandler';
 import {AppItem} from './appitem';
 
 @Component({
     selector: 'applist',
     templateUrl: 'app/applist.component.html',
-    //providers: [{ provide: AppManagerService, useClass: MockService }],
-    //providers: [AppManagerService],
     styles: [`
   		.selected {
     		background-color: #CFD8DC !important;
