@@ -2,11 +2,9 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import { AfterViewInit, ViewChild } from '@angular/core';
 import {Control} from "@angular/common";
 
+import {AppManagerService} from './appmanager.service';
+import {ServerMessageType} from './spaceifyhandler';
 
-//import {HTTP_PROVIDERS } from '@angular/http';
-
-
-import {AppManagerService, ServerMessageType} from './appmanager.service';
 
 import {ApplistComponent} from './applist.component';
 
@@ -19,15 +17,10 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 
-//depracated
-//import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
-
 @Component({
     selector: 'my-app',
     pipes: [AppFilterPipe],
     templateUrl: 'app/app.component.html',
-    //providers: [{provide : AppManagerService, useClass: MockService }],
-    //providers: [AppManagerService],
     styleUrls: [ 'app/app.component.css' ],
   	directives: [ApplistComponent]
 })
@@ -35,29 +28,23 @@ import 'rxjs/add/operator/switchMap';
 export class AppComponent implements OnInit, OnDestroy { 
 
 	apps: AppItem[];
-	//selectedApp: AppItem;
 	selectedMode:string = "Install";
 	query = new Control();
 
 	@ViewChild(ApplistComponent)
 	private applistComponent: ApplistComponent;
 
-	//term = new Control();
-
-	
 	constructor(private _appservice: AppManagerService) { 
 		this.query.valueChanges
 			.debounceTime(400)
 			.distinctUntilChanged()
 			.subscribe(
 				(value: string) => {
-				console.log('changed to:', value);
+					console.log('changed to:', value);
 					_appservice.searchAppStore(value);
 				}
 			);
 
-			
-			//.switchMap(term => this.wikipediaService.search(term));
 	}
 
 	getServerMessageColor(type : ServerMessageType){
@@ -68,10 +55,7 @@ export class AppComponent implements OnInit, OnDestroy {
 			return "yellow";
 		else if (type == ServerMessageType.Notification)
 			return "blue";
-
-
 	}
-
 
 	getAppsStoreApps() {
 		
@@ -105,23 +89,6 @@ export class AppComponent implements OnInit, OnDestroy {
 		if (this.applistComponent)
 			return this.applistComponent.getSelectedApp();
 	}
-
-	
-	/*
-	onSelect(app: AppItem) { 
-
-		//console.log(app);
-		this.selectedApp = app; 
-		this._appservice.clearLogMessages();
-
-
-		if (this.selectedMode != "Install"){
-			this._appservice.isAppRunning(app.unique_name);
-		}
-	}
-
-	*/
-	
 
 	setMode(mode: string) {
 		this.selectedMode = mode;

@@ -10,7 +10,7 @@ import {AppItem} from './appitem';
 
 import {Observable} from 'rxjs/Rx';
 
-import {ServerMessage} from './appmanager.service';
+import {ServerMessage} from './spaceifyhandler';
 
 @Injectable()
 export class MockService{
