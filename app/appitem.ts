@@ -18,7 +18,7 @@ export class AppItem {
     this.version_canonical = manifest.version_canonical;
     this.updateAvailable = false;
 
-	  console.log("");
+	  //console.log("");
   }
   
 }

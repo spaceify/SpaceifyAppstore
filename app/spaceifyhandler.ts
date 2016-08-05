@@ -12,7 +12,7 @@ export interface ServerMessage{
 }
 
 
-interface ISpaceifyHandler {
+export interface ISpaceifyHandler {
 
 	failed();
 	error(errors) 
@@ -27,7 +27,17 @@ interface ISpaceifyHandler {
 
 export class SpaceifyHandler implements ISpaceifyHandler {
 
-	protected _serverMessages: ServerMessage[] = [];
+	private _serverMessages: ServerMessage[] = [];
+
+	get serverMessages() : ServerMessage[]{
+		return this._serverMessages;
+  	}
+
+  	clearMessages(){
+
+		this._serverMessages = [];
+
+  	}
 
 	failed() {
 		console.log("Application manager: connection failed");

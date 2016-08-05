@@ -42,7 +42,7 @@ declare class SpaceifyCore {
 }
 
 @Injectable()
-export class AppManagerService extends SpaceifyHandler{
+export class AppManagerService {
 
 
 	private config: SpaceifyConfig;
@@ -52,16 +52,19 @@ export class AppManagerService extends SpaceifyHandler{
 	private appStoreApps: AppItem[] = [];
 	private installedApps: AppItem[] = [];
 
+	private messageHandler : SpaceifyHandler;
+
 	//private _serverMessages: ServerMessage[] = [];
 
 
 
 	constructor() {
 
-		super();
+		//super();
 		this.config = new SpaceifyConfig();
 		this.sam = new SpaceifyApplicationManager();
 		this.core = new SpaceifyCore();
+		this.messageHandler = new SpaceifyHandler();
 		
 		//console.log(this.sam);
 		
@@ -72,34 +75,39 @@ export class AppManagerService extends SpaceifyHandler{
 	 }
 
 	private initService(){
-		
-
-		
-		this.searchAppStore();
-		this.updateInstalledApplicationsList();
-
-		//console.log("testesetste");
 		var self = this;
 
+		
+		//this.searchAppStore();
+
+
+		//setTimeout( ()=>self.updateInstalledApplicationsList(), 200);
+		//self.updateInstalledApplicationsList();
+
+		//console.log("testesetste");
+
+		//self.updateInstalledApplicationsList();
+		
+
 		//this.sam.logIn("spaceify123", self, self.printStatus);
-		this.sam.isAdminLoggedIn(self, self.printStatus);
+		this.sam.isAdminLoggedIn(self.messageHandler, self.printStatus);
 
 		
 	}
 
   	get serverMessages() : ServerMessage[]{
-		return this._serverMessages;
+		return this.messageHandler.serverMessages;
   	}
 
   	clearLogMessages(){
 
-		this._serverMessages = [];
+		this.messageHandler.clearMessages();
 
   	}
 
   	testClick(name){
 			var self = this;
-			this.sam.isAdminLoggedIn(self, self.printStatus);
+			this.sam.isAdminLoggedIn(self.messageHandler, self.printStatus);
 			//this.isAppRunning(name);
 			//self.sam.restartApplication(name, self, self.printStatus);
 
@@ -185,10 +193,10 @@ export class AppManagerService extends SpaceifyHandler{
 		
 		//this.sam.getApplications(types, self, this.printStatus);
 
-		console.log("updateInstalledApplicationsList");
+		
 
 		
-		this.sam.getApplications(types, self,
+		this.sam.getApplications(types, self.messageHandler,
 			(apps: any) => {
 				console.log(apps);
 
@@ -197,6 +205,9 @@ export class AppManagerService extends SpaceifyHandler{
 				if (apps == null) {
 					console.log("getApplications returned null");
 					return;
+				}
+				else{
+					console.log("Updated InstalledApplicationsList");
 				}
 
 				for (var manifest of apps.spacelet) {
@@ -258,7 +269,7 @@ export class AppManagerService extends SpaceifyHandler{
 					appStoreManifest = manifest;
 				}
 
-				console.log(appStoreManifest);
+				//console.log(appStoreManifest);
 
 				if(app.version_canonical < appStoreManifest.version_canonical)
 					app.updateAvailable = true;
@@ -312,9 +323,9 @@ export class AppManagerService extends SpaceifyHandler{
 		//this._serverMessages.push(operation);
 		var self = this;
 		if (operation == "logOut")
-			self.sam.logOut(self, self.printStatus);
+			self.sam.logOut(self.messageHandler, self.printStatus);
 		else if (operation == "stop")
-			self.sam.stopApplication(app.unique_name, self, (message)=>{
+			self.sam.stopApplication(app.unique_name, self.messageHandler, (message)=>{
 				console.log(message);
 				self.core.isApplicationRunning(app.unique_name,
 					(err, result) => {
@@ -325,7 +336,7 @@ export class AppManagerService extends SpaceifyHandler{
 
 			});
 		else if (operation == "start")
-			self.sam.startApplication(app.unique_name, self, (message) => {
+			self.sam.startApplication(app.unique_name, self.messageHandler, (message) => {
 				console.log(message);
 				self.core.isApplicationRunning(app.unique_name,
 					(err, result) => {
@@ -336,7 +347,7 @@ export class AppManagerService extends SpaceifyHandler{
 
 			});
 		else if (operation == "restart")
-			self.sam.restartApplication(app.unique_name, self, (message) => {
+			self.sam.restartApplication(app.unique_name, self.messageHandler, (message) => {
 				console.log(message);
 				self.core.isApplicationRunning(app.unique_name,
 					(err, result) => {
@@ -347,13 +358,13 @@ export class AppManagerService extends SpaceifyHandler{
 
 			});
 		else if (operation == "remove")
-			self.sam.removeApplication(app.unique_name, self, (message) => {
+			self.sam.removeApplication(app.unique_name, self.messageHandler, (message) => {
 				self.updateInstalledApplicationsList();
 				console.log(message);
 			});
 		else if (operation == "install"){
 			//console.log(unique_name);
-			self.sam.installApplication(app.unique_name, "", "", true, self, (message) => {
+			self.sam.installApplication(app.unique_name, "", "", true, self.messageHandler, (message) => {
 				self.updateInstalledApplicationsList();
 				console.log(message);
 			});
