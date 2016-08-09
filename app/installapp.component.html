@@ -1,0 +1,42 @@
+<div class="menu_container" id="mode_text">Install Applications
+  
+</div>
+
+<div class="menu_container" id="install_container">
+    <input type="button" value="Install" (click)="commandApp(selectedApp, 'install')">
+    <b *ngIf="_appservice.isAppInstalled(selectedApp)">Application is already installed</b>
+</div>
+
+	
+<div *ngIf="selectedApp" id="main_content">
+
+<h1>{{selectedApp.name}} </h1>
+
+<!--
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin convallis tristique dolor nec tincidunt. Quisque nec urna vel diam dictum condimentum. Vivamus et lectus maximus, gravida metus vehicula, elementum ipsum. Pellentesque et nisl maximus, pretium quam sit amet, facilisis magna. Morbi vehicula eros eget mauris efficitur, et faucibus elit laoreet. Donec vel dapibus mauris, at scelerisque elit. Aenean nec orci laoreet, rutrum sem id, vulputate eros. Praesent sit amet tincidunt odio. Maecenas porttitor, orci posuere tristique venenatis, nisl quam finibus nisl, sit amet dapibus massa nibh vitae tellus. In consectetur dui magna, sit amet tristique leo blandit commodo. </p>
+
+<p>Praesent imperdiet, erat a lobortis lacinia, nibh neque sollicitudin ante, non hendrerit ante mauris vel dui. Vestibulum consequat dui tellus, sit amet elementum ante iaculis id. Integer purus ex, pretium viverra nulla non, rutrum vulputate sem. Maecenas convallis est laoreet tellus volutpat, vel ultrices mi suscipit. Sed varius tempus urna, id ultricies ligula fermentum eget. Nunc finibus scelerisque nisl in vehicula. Donec in rutrum odio. Praesent eget erat sit amet odio ultricies ultrices at ut nisi. Nulla nibh magna, aliquam sed aliquet eu, condimentum ac ante. Ut sit amet enim vitae justo pharetra volutpat ut vitae turpis.</p>
+
+<p>1 + 2 = {{ 1 + 2 }}</p>
+
+-->
+<p> {{selectedApp.short_description}}</p>
+
+<p> {{selectedApp.readme}}</p>
+
+
+<li *ngFor="let message of _appservice.serverMessages" [style.color]="getServerMessageColor(message.type)">
+    {{message.text}}
+</li>
+
+
+
+<!--
+<iframe width="100%" height="100%" src="http://{{selectedApp.readme}}"></iframe>
+
+
+-->
+
+
+
+</div>

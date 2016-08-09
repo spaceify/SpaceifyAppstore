@@ -7,11 +7,13 @@ import {AppManagerService} from './appmanager.service';
 
 import {MockService} from './appmanager.mockservice';
 
+import { appRouterProviders } from './app.routes';
 
 
 
-//bootstrap(AppComponent, [{ provide: AppManagerService, useClass: MockService }, HTTP_PROVIDERS]);
-bootstrap(AppComponent, [AppManagerService, HTTP_PROVIDERS]);
+
+bootstrap(AppComponent, [appRouterProviders, { provide: AppManagerService, useClass: MockService }, HTTP_PROVIDERS]);
+//bootstrap(AppComponent, [appRouterProviders, AppManagerService, HTTP_PROVIDERS]);
     
 
 

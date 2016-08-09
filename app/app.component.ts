@@ -1,6 +1,8 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import { AfterViewInit, ViewChild } from '@angular/core';
 import {Control} from "@angular/common";
+import { ROUTER_DIRECTIVES } from '@angular/router';
+import { Router } from '@angular/router';
 
 import {AppManagerService} from './appmanager.service';
 import {ServerMessageType} from './spaceifyhandler';
@@ -17,12 +19,13 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 
+
 @Component({
     selector: 'my-app',
     pipes: [AppFilterPipe],
     templateUrl: 'app/app.component.html',
     styleUrls: [ 'app/app.component.css' ],
-  	directives: [ApplistComponent]
+  	directives: [ApplistComponent, ROUTER_DIRECTIVES]
 })
 
 export class AppComponent implements OnInit, OnDestroy { 
@@ -34,7 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
 	@ViewChild(ApplistComponent)
 	private applistComponent: ApplistComponent;
 
-	constructor(private _appservice: AppManagerService) { 
+	constructor(private _appservice: AppManagerService, private router : Router) { 
 		this.query.valueChanges
 			.debounceTime(400)
 			.distinctUntilChanged()
@@ -96,10 +99,17 @@ export class AppComponent implements OnInit, OnDestroy {
 	setMode(mode: string) {
 		this.selectedMode = mode;
 
-		if (mode == "Install")
+		if (mode == "Install"){
 			this.getAppsStoreApps();
-		else
+
+			//this.router.navigate(link);
+			this.router.navigate(['/install']);
+		}
+		else{
 			this.getInstalledApps();
+			this.router.navigate(['/manage']);
+
+		}
 	
 	}
 
