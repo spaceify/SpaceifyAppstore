@@ -373,7 +373,10 @@ export class AppManagerService {
 
 		}
 		else if(operation == "update"){
-
+			self.sam.installApplication(app.unique_name, "", "", true, self.messageHandler, (message) => {
+				self.updateInstalledApplicationsList();
+				console.log(message);
+			});
 		}
 	}
 
