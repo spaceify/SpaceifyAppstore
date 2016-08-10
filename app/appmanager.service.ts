@@ -98,6 +98,16 @@ export class AppManagerService {
 		return this.messageHandler.serverMessages;
   	}
 
+  	getServerMessageColor(type : ServerMessageType){
+		
+		if (type == ServerMessageType.Error)
+			return "red";
+		else if(type == ServerMessageType.Warning)
+			return "yellow";
+		else if (type == ServerMessageType.Notification)
+			return "blue";
+	}
+
   	clearLogMessages(){
 
 		this.messageHandler.clearMessages();
@@ -338,6 +348,8 @@ export class AppManagerService {
 
 	commandApp(operation : string, app : AppItem) {
 		//this._serverMessages.push(operation);
+
+		console.log(operation);
 		var self = this;
 		if (operation == "logOut")
 			self.sam.logOut(self.messageHandler, self.printStatus);

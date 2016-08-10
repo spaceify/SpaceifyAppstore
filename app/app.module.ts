@@ -21,8 +21,8 @@ import { routing} from './app.routes';
   imports:      [ BrowserModule, FormsModule, HttpModule, routing ],
   declarations: [ AppComponent, ManageAppComponent, InstallAppComponent, IntroComponent, AppNotFoundComponent ],
   providers: [
-    //AppManagerService
-    { provide: AppManagerService, useClass: MockService }
+    AppManagerService
+    //{ provide: AppManagerService, useClass: MockService }
   ],
   bootstrap:    [ AppComponent ]
 })

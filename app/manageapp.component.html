@@ -3,12 +3,12 @@
 </div>
 
 <div class="menu_container" id="manage_container">
-    <input type="button" value="Start" (click)="commandApp(selectedApp, 'start')">
-    <input type="button" value="Stop" (click)="commandApp(selectedApp, 'stop')"> 
-    <input type="button" value="Restart" (click)="commandApp(selectedApp, 'restart')">
-    <input type="button" value="Uninstall" (click)="commandApp(selectedApp, 'remove')">
+    <input type="button" value="Start" (click)="_appservice.commandApp('start', selectedApp)">
+    <input type="button" value="Stop" (click)="_appservice.commandApp('stop', selectedApp)"> 
+    <input type="button" value="Restart" (click)="_appservice.commandApp('restart', selectedApp)">
+    <input type="button" value="Uninstall" (click)="_appservice.commandApp('remove', selectedApp)">
     <input type="button" value="Configure">
-    <input type="button" value="Update" (click)="commandApp(selectedApp, 'update')">
+    <input type="button" value="Update" (click)="_appservice.commandApp('update', selectedApp)">
 </div>
 
 <div *ngIf="selectedApp" id="main_content">
@@ -36,7 +36,7 @@
 
 
 
-<li *ngFor="let message of _appservice.serverMessages" [style.color]="getServerMessageColor(message.type)">
+<li *ngFor="let message of _appservice.serverMessages" [style.color]="_appservice.getServerMessageColor(message.type)">
     {{message.text}}
 </li>
 

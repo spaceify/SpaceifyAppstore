@@ -51,6 +51,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
 	}
 
+/*
 	getServerMessageColor(type : ServerMessageType){
 		
 		if (type == ServerMessageType.Error)
@@ -60,6 +61,7 @@ export class AppComponent implements OnInit, OnDestroy {
 		else if (type == ServerMessageType.Notification)
 			return "blue";
 	}
+	*/
 
 	getAppsStoreApps() {
 		
@@ -73,10 +75,14 @@ export class AppComponent implements OnInit, OnDestroy {
 		this._appservice.updateInstalledApplicationsList();
 	}
 
+
+/*
 	commandApp(selectedApp, command) {
 		if (selectedApp)
 			this._appservice.commandApp(command, selectedApp);
 	}
+
+	*/
 
 
 

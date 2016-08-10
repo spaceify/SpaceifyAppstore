@@ -3,7 +3,7 @@
 </div>
 
 <div class="menu_container" id="install_container">
-    <input type="button" value="Install" (click)="commandApp(selectedApp, 'install')">
+    <input type="button" value="Install" (click)="_appservice.commandApp('install', selectedApp)">
     <b *ngIf="_appservice.isAppInstalled(selectedApp)">Application is already installed</b>
 </div>
 
@@ -25,7 +25,7 @@
 <p> {{selectedApp.readme}}</p>
 
 
-<li *ngFor="let message of _appservice.serverMessages" [style.color]="getServerMessageColor(message.type)">
+<li *ngFor="let message of _appservice.serverMessages" [style.color]="_appservice.getServerMessageColor(message.type)">
     {{message.text}}
 </li>
 
