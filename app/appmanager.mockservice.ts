@@ -42,6 +42,25 @@ export class MockService{
 
 	}
 
+	getAppstoreApp(unique_name: string) :AppItem {
+		for(var appStoreApp of this.mockApps){
+	  			if(appStoreApp.unique_name == unique_name )
+	  				return appStoreApp;
+
+		}
+		return null;
+	}
+
+	getInstalledApp(unique_name: string) :AppItem {
+		for(var InstalledApp of this.mockApps){
+	  			if(InstalledApp.unique_name == unique_name )
+	  				return InstalledApp;
+
+		}
+		return null;
+	}
+
+
 
 
 	updateInstalledApplicationsList() {}

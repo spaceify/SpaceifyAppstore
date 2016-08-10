@@ -1,8 +1,8 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import { AfterViewInit, ViewChild } from '@angular/core';
+//import { AfterViewInit, ViewChild } from '@angular/core';
 import {Control} from "@angular/common";
 import { ROUTER_DIRECTIVES } from '@angular/router';
-import { Router } from '@angular/router';
+//import { Router } from '@angular/router';
 
 import {AppManagerService} from './appmanager.service';
 import {ServerMessageType} from './spaceifyhandler';
@@ -31,13 +31,15 @@ import 'rxjs/add/operator/switchMap';
 export class AppComponent implements OnInit, OnDestroy { 
 
 	apps: AppItem[];
-	selectedMode:string = "Install";
+	selectedMode:string = "install";
 	query = new Control();
 
+/*
 	@ViewChild(ApplistComponent)
 	private applistComponent: ApplistComponent;
+	*/
 
-	constructor(private _appservice: AppManagerService, private router : Router) { 
+	constructor(private _appservice: AppManagerService) { 
 		this.query.valueChanges
 			.debounceTime(400)
 			.distinctUntilChanged()
@@ -91,23 +93,27 @@ export class AppComponent implements OnInit, OnDestroy {
 		
 	}
 
+	/*
 	get selectedApp() : AppItem{
 		if (this.applistComponent)
 			return this.applistComponent.getSelectedApp();
 	}
+	*/
 
 	setMode(mode: string) {
 		this.selectedMode = mode;
 
-		if (mode == "Install"){
+		//this.router.navigate(['/'+mode]);
+
+		if (mode == "install"){
 			this.getAppsStoreApps();
 
 			//this.router.navigate(link);
-			this.router.navigate(['/install']);
+			
 		}
 		else{
 			this.getInstalledApps();
-			this.router.navigate(['/manage']);
+			//this.router.navigate(['/manage']);
 
 		}
 	

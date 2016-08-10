@@ -8,8 +8,8 @@
 
 <div class="menu_container" id="mode_buttons">
 
-<input type="button" id="installmode" value="Install" (click)="setMode('Install')">
-<input type="button" id="managemode" value="Manage" (click)="setMode('Manage')">
+<input type="button" id="installmode" value="Install" (click)="setMode('install')">
+<input type="button" id="managemode" value="Manage" (click)="setMode('manage')">
   
 </div>
 <div class="menu_container" id="search_bar">
@@ -17,7 +17,7 @@
   <input type="search" name="search" id="search" [ngFormControl]="query">
 </div>
 
-   <applist [apps]="apps"></applist>
+   <applist [apps]="apps" [selectedMode]="selectedMode"></applist>
 
 </div>
 

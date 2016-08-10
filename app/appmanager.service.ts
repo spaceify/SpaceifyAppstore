@@ -180,6 +180,15 @@ export class AppManagerService {
 		);
   	}
 
+	getAppstoreApp(unique_name: string) :AppItem {
+		for(var appStoreApp of this.appStoreApps){
+	  			if(appStoreApp.unique_name == unique_name )
+	  				return appStoreApp;
+
+		}
+		return null;
+	}
+
 	updateInstalledApplicationsList() {
 
 		
@@ -222,6 +231,15 @@ export class AppManagerService {
 		);
 
   	}
+
+	getInstalledApp(unique_name: string) :AppItem {
+		for(var InstalledApp of this.installedApps){
+	  			if(InstalledApp.unique_name == unique_name )
+	  				return InstalledApp;
+
+		}
+		return null;
+	}
 
   	isAppRunning(unique_name : string ) {
 		this.core.isApplicationRunning(unique_name, 

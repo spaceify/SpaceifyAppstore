@@ -1,6 +1,10 @@
 import {Component, Input, Output, EventEmitter, OnInit, OnDestroy} from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
+
+import { ActivatedRoute } from '@angular/router';
+
 import {AppManagerService} from './appmanager.service';
+import {AppItem} from './appitem';
 
 @Component({
     selector: 'manageapp',
@@ -9,21 +13,29 @@ import {AppManagerService} from './appmanager.service';
 
 export class ManageAppComponent implements OnInit, OnDestroy { 
 
-    constructor(private _appservice: AppManagerService){
+    selectedApp: AppItem;
+  	sub: any;
+
+
+    constructor(private _appservice: AppManagerService, private route: ActivatedRoute){
         
     }
 
     ngOnInit() {
-		
-		//get selected app by unique_name from service
+		//console.log("ngOnInit");
+		//this.getAppsStoreApps();
+		//this._appservice.updateInstalledApplicationsList();
+		//this._appservice.searchAppStore();
 
-		//this._appservice.getContacts(this.route.snapshot.params.id).subscribe(contact => this.contact = contact);
+		this.sub = this.route.params.subscribe(params => {
+			let un = decodeURIComponent(params['unique_name']);
+			this.selectedApp = this._appservice.getInstalledApp(un);
 
-
+		});
 	}
 
 	ngOnDestroy() {
-		
+		this.sub.unsubscribe();
 	}
 
 
