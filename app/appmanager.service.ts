@@ -1,4 +1,3 @@
-//import {APPS, INSTALLEDAPPS} from './mock-apps';
 import {Injectable} from '@angular/core';
 
 import 'rxjs/add/operator/map'

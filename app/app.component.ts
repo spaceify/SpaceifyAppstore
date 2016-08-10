@@ -1,12 +1,11 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-//import { AfterViewInit, ViewChild } from '@angular/core';
+
 import {Control} from "@angular/common";
 import { ROUTER_DIRECTIVES } from '@angular/router';
-//import { Router } from '@angular/router';
+
 
 import {AppManagerService} from './appmanager.service';
 import {ServerMessageType} from './spaceifyhandler';
-
 
 import {ApplistComponent} from './applist.component';
 

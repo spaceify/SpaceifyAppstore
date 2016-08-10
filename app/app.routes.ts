@@ -1,12 +1,12 @@
-import { provideRouter, RouterConfig }  from '@angular/router';
-//import { AppComponent } from './app.component';
+import { Routes, RouterModule } from '@angular/router';
+
 import { ManageAppComponent } from './manageapp.component';
 import { InstallAppComponent } from './installapp.component';
 import { IntroComponent } from './intro';
 import { AppNotFoundComponent } from './404';
 
 
-const routes: RouterConfig = [
+const routes: Routes = [
   {
     path: 'manage/:unique_name',
     component: ManageAppComponent
@@ -27,6 +27,4 @@ const routes: RouterConfig = [
   { path: '**', component: AppNotFoundComponent },
 ];
 
-export const appRouterProviders = [
-  provideRouter(routes)
-];
+export const routing = RouterModule.forRoot(routes);
