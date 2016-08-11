@@ -14,7 +14,7 @@
 </div>
 <div class="menu_container" id="search_bar">
   <label for="search">Search:</label>
-  <input type="search" name="search" id="search">
+  <input type="search" id="search" #search (keyup.enter)="_appservice.searchAppStore(box.value)">
 </div>
 
    <applist [apps]="apps" [selectedMode]="selectedMode"></applist>

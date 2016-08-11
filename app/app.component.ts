@@ -39,6 +39,8 @@ export class AppComponent implements OnInit, OnDestroy {
 	*/
 
 	constructor(private _appservice: AppManagerService) { 
+
+		/*
 		this.query.valueChanges
 			.debounceTime(400)
 			.distinctUntilChanged()
@@ -48,6 +50,9 @@ export class AppComponent implements OnInit, OnDestroy {
 					_appservice.searchAppStore(value);
 				}
 			);
+
+			*/
+
 
 	}
 

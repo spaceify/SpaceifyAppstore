@@ -9,6 +9,7 @@ import {AppItem} from './appitem';
 @Component({
     selector: 'manageapp',
     templateUrl: 'app/manageapp.component.html',
+	styleUrls: [ 'app/app.component.css' ],
 })
 
 export class ManageAppComponent implements OnInit, OnDestroy { 

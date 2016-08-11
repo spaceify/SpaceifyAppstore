@@ -4,18 +4,18 @@ import {Http, Headers, Response, HTTP_PROVIDERS} from '@angular/http';
 import 'rxjs/add/operator/map'
 import 'rxjs/Rx';
 
-
 import {AppItem} from './appitem';
-
 
 import {Observable} from 'rxjs/Rx';
 
-import {ServerMessage} from './spaceifyhandler';
+import {SpaceifyHandler, ServerMessage, ServerMessageType} from './spaceifyhandler';
 
 @Injectable()
 export class MockService{
 
-	private mockApps: AppItem[] = [];
+	private appstoreApps: AppItem[] = [];
+
+	private installedApps: AppItem[] = [];
 
 	private mockMessages: ServerMessage[] = [];
 
@@ -27,7 +27,22 @@ export class MockService{
 			.catch(this.handleError)
 			.subscribe(
 				data => {
-					this.mockApps = data;
+					this.appstoreApps = data;
+						console.log(data);
+					},
+ 				err => { 
+ 						//this.apps_error = true 
+
+ 						}
+			); 
+
+			this.http.get('app/mock-data_2.json')
+			.map(this.extractData)
+			.map(this.mapData)
+			.catch(this.handleError)
+			.subscribe(
+				data => {
+					this.installedApps = data;
 						console.log(data);
 					},
  				err => { 
@@ -39,11 +54,11 @@ export class MockService{
 	}
 
 	searchAppStore(name?: string) {
-
+		console.log("Searched: "+name);
 	}
 
 	getAppstoreApp(unique_name: string) :AppItem {
-		for(var appStoreApp of this.mockApps){
+		for(var appStoreApp of this.appstoreApps){
 	  			if(appStoreApp.unique_name == unique_name )
 	  				return appStoreApp;
 
@@ -52,16 +67,13 @@ export class MockService{
 	}
 
 	getInstalledApp(unique_name: string) :AppItem {
-		for(var InstalledApp of this.mockApps){
+		for(var InstalledApp of this.installedApps){
 	  			if(InstalledApp.unique_name == unique_name )
 	  				return InstalledApp;
 
 		}
 		return null;
 	}
-
-
-
 
 	updateInstalledApplicationsList() {}
 
@@ -73,25 +85,122 @@ export class MockService{
 		
 	}
 
-	isAppInstalled(app : AppItem){
-		return false;
-	}
+	isAppInstalled(app : AppItem) : boolean{
+  		
+
+  		if(app){
+
+
+	  		for(var installedApp of this.installedApps){
+	  			if(installedApp.unique_name == app.unique_name )
+	  				return true;
+
+	  		}
+  		}
+  		return false;
+  		
+
+  	}
 
 	getAppsStoreApps(): Array<AppItem> {
-		return this.mockApps;
+		return this.appstoreApps;
 	}
 
 	getInstalledApps(): Array<AppItem> {
-		return this.mockApps;
+		return this.installedApps;
 	}
 
-	commandApp(operation, unique_name) {
+	commandApp(operation : string, app : AppItem) {
+
+
+		//var id = setInterval(frame, 10);
+
+		//clearInterval(id);
+		var serverMessage = { text: "Message: "+operation + " " + app.unique_name, type: ServerMessageType.Message };
+		this.mockMessages.push(serverMessage);
+
+		var self = this;
+		setTimeout(function(){ 
+			serverMessage = { text: "Notification: "+operation + " " + app.unique_name, type: ServerMessageType.Notification };
+			self.mockMessages.push(serverMessage);
+
+			setTimeout(function(){ 
+				serverMessage = { text: "Warning: "+operation + " " + app.unique_name, type: ServerMessageType.Warning };
+				self.mockMessages.push(serverMessage);
+			}, 300);
+
+				setTimeout(function(){ 
+					serverMessage = { text: "Error: "+operation + " " + app.unique_name, type: ServerMessageType.Error };
+					self.mockMessages.push(serverMessage);
+			}, 300);
+
+
+		}, 300);
+
+		if (operation == "logOut"){}
+			
+		else if (operation == "stop"){
+			app.isRunning = false;
+		}
+			
+		else if (operation == "start"){
+			app.isRunning = true;
+		}
+			
+		else if (operation == "restart"){
+			app.isRunning = false;
+			setTimeout(function(){ 
+				app.isRunning = true;
+			}, 1000);
+		}
+			
+		else if (operation == "remove"){
+			
+
+			for(var installedApp of this.installedApps){
+				if(installedApp.unique_name == app.unique_name){
+					var i = this.installedApps.indexOf(installedApp);
+					if(i != -1) {
+						this.installedApps.splice(i, 1);
+					}
+					break;
+				}
+			}
+
+		}	
+		else if (operation == "install"){
+			var found = false;
+			for(var installedApp of this.installedApps){
+				if(installedApp.unique_name == app.unique_name){
+					found = true;
+				}
+			}
+			if(!found)
+				this.installedApps.push(app);
+		}
+		else if(operation == "update"){
+			
+		}
 
 	}
 
-	clearLogMessages() {}
+	getServerMessageColor(type : ServerMessageType){
+		
+		if (type == ServerMessageType.Error)
+			return "red";
+		else if(type == ServerMessageType.Warning)
+			return "yellow";
+		else if (type == ServerMessageType.Notification)
+			return "blue";
+	}
 
-	checkAppChanges(app : AppItem){}
+	clearLogMessages() {
+		this.mockMessages.length = 0;
+	}
+
+	checkAppChanges(app : AppItem){
+
+	}
 
 	private extractData(res: Response) {
 		if (res.status < 200 || res.status >= 300) {

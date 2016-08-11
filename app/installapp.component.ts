@@ -8,6 +8,7 @@ import {AppItem} from './appitem';
 @Component({
     selector: 'installapp',
     templateUrl: 'app/installapp.component.html',
+	styleUrls: [ 'app/app.component.css' ],
 })
 
 export class InstallAppComponent implements OnInit, OnDestroy { 
