@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ManageAppComponent } from './manageapp.component';
 import { InstallAppComponent } from './installapp.component';
 import { IntroComponent } from './intro';
-import { AppNotFoundComponent } from './404';
+import { PageNotFoundComponent } from './404';
 
 
 const routes: Routes = [
@@ -24,7 +24,7 @@ const routes: Routes = [
     redirectTo: '/intro',
     pathMatch: 'full'
   },
-  { path: '**', component: AppNotFoundComponent },
+  { path: '**', component: PageNotFoundComponent },
 ];
 
-export const routing = RouterModule.forRoot(routes);
+export const routing = RouterModule.forRoot(routes, { useHash: true });

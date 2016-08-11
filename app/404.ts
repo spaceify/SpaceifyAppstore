@@ -5,7 +5,7 @@ import {Component} from '@angular/core';
     template: '<h1>Application Page Not Found</h1>',
 })
 
-export class AppNotFoundComponent{ 
+export class PageNotFoundComponent{ 
 
 	
 }
