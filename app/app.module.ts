@@ -9,6 +9,8 @@ import { InstallAppComponent }  from './installapp.component';
 import { IntroComponent }  from './intro';
 import { PageNotFoundComponent }  from './404';
 
+import {SpaceifySourceDirective} from './spaceifysrc.directive';
+
 
 //import {HTTP_PROVIDERS} from '@angular/http';
 
@@ -19,7 +21,12 @@ import { routing} from './app.routes';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpModule, routing ],
-  declarations: [ AppComponent, ManageAppComponent, InstallAppComponent, IntroComponent, PageNotFoundComponent ],
+  declarations: [ AppComponent, 
+                  ManageAppComponent, 
+                  InstallAppComponent, 
+                  IntroComponent, 
+                  PageNotFoundComponent,
+                  SpaceifySourceDirective ],
   providers: [
     //AppManagerService
     { provide: AppManagerService, useClass: MockService }

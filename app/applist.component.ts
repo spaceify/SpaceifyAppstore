@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import {AppManagerService} from './appmanager.service';
 //import {ServerMessageType} from './spaceifyhandler';
 import {AppItem} from './appitem';
+//import {SpaceifySourceDirective} from './spaceifysrc.directive';
+
 
 @Component({
     selector: 'applist',
