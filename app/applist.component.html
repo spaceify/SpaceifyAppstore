@@ -1,4 +1,4 @@
-<div id="applist">Applist
+<div id="applist">Applist {{selectedMode}}
   <li *ngFor="let app of apps" 
       [class.selected]="app === selectedApp" 
       (click)="onSelect(app)">

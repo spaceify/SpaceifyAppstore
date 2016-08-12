@@ -1,4 +1,3 @@
-//import {APPS, INSTALLEDAPPS} from './mock-apps';
 import {Injectable} from '@angular/core';
 
 import 'rxjs/add/operator/map'
@@ -99,6 +98,16 @@ export class AppManagerService {
 		return this.messageHandler.serverMessages;
   	}
 
+  	getServerMessageColor(type : ServerMessageType){
+		
+		if (type == ServerMessageType.Error)
+			return "red";
+		else if(type == ServerMessageType.Warning)
+			return "yellow";
+		else if (type == ServerMessageType.Notification)
+			return "blue";
+	}
+
   	clearLogMessages(){
 
 		this.messageHandler.clearMessages();
@@ -180,6 +189,15 @@ export class AppManagerService {
 		);
   	}
 
+	getAppstoreApp(unique_name: string) :AppItem {
+		for(var appStoreApp of this.appStoreApps){
+	  			if(appStoreApp.unique_name == unique_name )
+	  				return appStoreApp;
+
+		}
+		return null;
+	}
+
 	updateInstalledApplicationsList() {
 
 		
@@ -222,6 +240,15 @@ export class AppManagerService {
 		);
 
   	}
+
+	getInstalledApp(unique_name: string) :AppItem {
+		for(var InstalledApp of this.installedApps){
+	  			if(InstalledApp.unique_name == unique_name )
+	  				return InstalledApp;
+
+		}
+		return null;
+	}
 
   	isAppRunning(unique_name : string ) {
 		this.core.isApplicationRunning(unique_name, 
@@ -321,6 +348,8 @@ export class AppManagerService {
 
 	commandApp(operation : string, app : AppItem) {
 		//this._serverMessages.push(operation);
+
+		console.log(operation);
 		var self = this;
 		if (operation == "logOut")
 			self.sam.logOut(self.messageHandler, self.printStatus);
@@ -373,7 +402,10 @@ export class AppManagerService {
 
 		}
 		else if(operation == "update"){
-
+			self.sam.installApplication(app.unique_name, "", "", true, self.messageHandler, (message) => {
+				self.updateInstalledApplicationsList();
+				console.log(message);
+			});
 		}
 	}
 

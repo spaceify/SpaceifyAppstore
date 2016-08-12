@@ -1,10 +1,11 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import { AfterViewInit, ViewChild } from '@angular/core';
+
 import {Control} from "@angular/common";
+import { ROUTER_DIRECTIVES } from '@angular/router';
+
 
 import {AppManagerService} from './appmanager.service';
 import {ServerMessageType} from './spaceifyhandler';
-
 
 import {ApplistComponent} from './applist.component';
 
@@ -17,24 +18,29 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 
+
 @Component({
     selector: 'my-app',
     pipes: [AppFilterPipe],
     templateUrl: 'app/app.component.html',
     styleUrls: [ 'app/app.component.css' ],
-  	directives: [ApplistComponent]
+  	directives: [ApplistComponent, ROUTER_DIRECTIVES]
 })
 
 export class AppComponent implements OnInit, OnDestroy { 
 
 	apps: AppItem[];
-	selectedMode:string = "Install";
+	selectedMode:string = "install";
 	query = new Control();
 
+/*
 	@ViewChild(ApplistComponent)
 	private applistComponent: ApplistComponent;
+	*/
 
 	constructor(private _appservice: AppManagerService) { 
+
+		/*
 		this.query.valueChanges
 			.debounceTime(400)
 			.distinctUntilChanged()
@@ -45,8 +51,12 @@ export class AppComponent implements OnInit, OnDestroy {
 				}
 			);
 
+			*/
+
+
 	}
 
+/*
 	getServerMessageColor(type : ServerMessageType){
 		
 		if (type == ServerMessageType.Error)
@@ -56,6 +66,7 @@ export class AppComponent implements OnInit, OnDestroy {
 		else if (type == ServerMessageType.Notification)
 			return "blue";
 	}
+	*/
 
 	getAppsStoreApps() {
 		
@@ -69,10 +80,14 @@ export class AppComponent implements OnInit, OnDestroy {
 		this._appservice.updateInstalledApplicationsList();
 	}
 
+
+/*
 	commandApp(selectedApp, command) {
 		if (selectedApp)
 			this._appservice.commandApp(command, selectedApp);
 	}
+
+	*/
 
 
 
@@ -88,18 +103,29 @@ export class AppComponent implements OnInit, OnDestroy {
 		
 	}
 
+	/*
 	get selectedApp() : AppItem{
 		if (this.applistComponent)
 			return this.applistComponent.getSelectedApp();
 	}
+	*/
 
 	setMode(mode: string) {
 		this.selectedMode = mode;
 
-		if (mode == "Install")
+		//this.router.navigate(['/'+mode]);
+
+		if (mode == "install"){
 			this.getAppsStoreApps();
-		else
+
+			//this.router.navigate(link);
+			
+		}
+		else{
 			this.getInstalledApps();
+			//this.router.navigate(['/manage']);
+
+		}
 	
 	}
 

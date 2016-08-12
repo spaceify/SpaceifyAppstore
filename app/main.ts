@@ -1,17 +1,18 @@
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { AppModule } from './app.module';
 
-
-import {bootstrap}    from '@angular/platform-browser-dynamic';
-import {AppComponent} from './app.component';
-import {HTTP_PROVIDERS} from '@angular/http';
-import {AppManagerService} from './appmanager.service';
-
-import {MockService} from './appmanager.mockservice';
+platformBrowserDynamic().bootstrapModule(AppModule);
 
 
 
+//bootstrap(AppComponent, [appRouterProviders, { provide: AppManagerService, useClass: MockService }, HTTP_PROVIDERS]);
+//bootstrap(AppComponent, [appRouterProviders, AppManagerService, HTTP_PROVIDERS]);
 
-//bootstrap(AppComponent, [{ provide: AppManagerService, useClass: MockService }, HTTP_PROVIDERS]);
-bootstrap(AppComponent, [AppManagerService, HTTP_PROVIDERS]);
+
+
+
+
+
     
 
 
