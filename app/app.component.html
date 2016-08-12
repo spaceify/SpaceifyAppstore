@@ -1,37 +1,34 @@
 
 <div id="main">
-<div id="left_container">
+	<div id="left_container">
 
-<div class="top_bar" id="logodiv">
-  <img src="assets/icon.jpg" alt="" height="120"/> </div>
+		<div class="top_bar" id="logodiv">
+			<img src="assets/icon.jpg" alt="" height="120"/>
+		</div>
 
+		<div class="menu_container" id="mode_buttons">
+			<div class="menu_topic" (click)="setMode('install')">INSTALL</div>
 
-<div class="menu_container" id="mode_buttons">
+			<div class="menu_topic" (click)="setMode('manage')">MANAGE</div>
+		</div>
 
-<input type="button" id="installmode" value="Install" (click)="setMode('install')">
-<input type="button" id="managemode" value="Manage" (click)="setMode('manage')">
-  
-</div>
-<div class="menu_container" id="search_bar">
-  <label for="search">Search:</label>
-  <input type="search" id="search" #search (keyup.enter)="_appservice.searchAppStore(box.value)">
-</div>
+		<div class="menu_container" id="search_bar">
+			<label for="search">Search:</label>
+			<input type="search" id="search" #search (keyup.enter)="_appservice.searchAppStore(box.value)">
+		</div>
 
-   <applist [apps]="apps" [selectedMode]="selectedMode"></applist>
+		<applist [apps]="apps" [selectedMode]="selectedMode"></applist>
 
-</div>
+	</div>
 
 
 <div id="right_container">
-  <div class="top_bar" id="headerdiv">Spaceify Appstore</div>
 
-  <router-outlet></router-outlet>
+	<div class="top_bar" id="headerdiv">Spaceify Appstore</div>
 
-
-</div>
-
-
+	<router-outlet></router-outlet>
 
 </div>
 
 
+</div>
