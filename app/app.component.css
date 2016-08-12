@@ -16,10 +16,15 @@
 }
 
 .menu_container{
+  margin-top: 1em;
 }
 
-.top_bar{
-	height:150px;
+.top_bar {
+}
+
+#headerdiv {
+  padding-top: 37px;
+  padding-bottom: 37px;
 }
 
 footer {
@@ -70,3 +75,10 @@ footer {
   background-image: -o-linear-gradient(top, #d9dddd, #c6c3c3);
   background-image: linear-gradient(to bottom, #d9dddd, #c6c3c3);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#d9dddd, endColorstr=#c6c3c3);
 }
+
+.pagecontent {
+  margin: 2em;
+  margin-top: 0px;
+  padding-top: 0px;
+}
+
