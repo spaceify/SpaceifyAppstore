@@ -54,6 +54,7 @@ footer {
 }
 
 .menu_topic{
+  display: block;
   box-sizing: border-box;
   width: 100%;
   padding: 1em;

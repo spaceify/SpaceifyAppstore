@@ -1,6 +1,8 @@
 import { Routes, RouterModule } from '@angular/router';
 
+import { ManageComponent } from './manage.component';
 import { ManageAppComponent } from './manageapp.component';
+import { InstallComponent } from './install.component';
 import { InstallAppComponent } from './installapp.component';
 import { IntroComponent } from './intro';
 import { PageNotFoundComponent } from './404';
@@ -12,8 +14,16 @@ const routes: Routes = [
     component: ManageAppComponent
   },
   {
+    path: 'manage',
+    component: ManageComponent
+  },
+  {
     path: 'install/:unique_name',
     component: InstallAppComponent
+  },
+  {
+    path: 'install',
+    component: InstallComponent
   },
   {
     path: 'intro',

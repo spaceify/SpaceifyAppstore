@@ -3,14 +3,21 @@
 	<div id="left_container">
 
 		<div class="top_bar" id="logodiv">
-			<img src="assets/icon.jpg" alt="" height="120"/>
+			<a routerLink="/intro"><img src="assets/icon.jpg" alt="" height="120"/></a>
 		</div>
 
-		<div class="menu_container" id="mode_buttons">
+		<nav class="menu_container">
+			<a class="menu_topic" routerLink="/install" routerLinkActive="navActive">INSTALL</a>
+			<a class="menu_topic" routerLink="/manage" routerLinkActive="navActive">MANAGE</a>
+
+		</nav>
+
+		<br />OLD:
+		<nav class="menu_container">
 			<div class="menu_topic" (click)="setMode('install')">INSTALL</div>
 
 			<div class="menu_topic" (click)="setMode('manage')">MANAGE</div>
-		</div>
+		</nav>
 
 		<div class="menu_container" id="search_bar">
 			<label for="search">Search:</label>
