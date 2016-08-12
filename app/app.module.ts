@@ -4,7 +4,9 @@ import { FormsModule }   from '@angular/forms';
 import { HttpModule }     from '@angular/http';
 
 import { AppComponent }  from './app.component';
+import { ManageComponent }  from './manage.component';
 import { ManageAppComponent }  from './manageapp.component';
+import { InstallComponent }  from './install.component';
 import { InstallAppComponent }  from './installapp.component';
 import { IntroComponent }  from './intro';
 import { PageNotFoundComponent }  from './404';
