@@ -7,7 +7,6 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 import {AppManagerService} from './appmanager.service';
 import {ServerMessageType} from './spaceifyhandler';
 
-import {ApplistComponent} from './applist.component';
 
 import {AppItem} from './appitem';
 import { AppFilterPipe } from './app.pipe';
@@ -24,7 +23,7 @@ import 'rxjs/add/operator/switchMap';
     pipes: [AppFilterPipe],
     templateUrl: 'app/app.component.html',
     styleUrls: [ 'app/app.component.css' ],
-  	directives: [ApplistComponent, ROUTER_DIRECTIVES]
+  	directives: [ROUTER_DIRECTIVES]
 })
 
 export class AppComponent implements OnInit, OnDestroy { 

@@ -12,20 +12,6 @@
 
 		</nav>
 
-		<br />OLD:
-		<nav class="menu_container">
-			<div class="menu_topic" (click)="setMode('install')">INSTALL</div>
-
-			<div class="menu_topic" (click)="setMode('manage')">MANAGE</div>
-		</nav>
-
-		<div class="menu_container" id="search_bar">
-			<label for="search">Search:</label>
-			<input type="search" id="search" #search (keyup.enter)="_appservice.searchAppStore(box.value)">
-		</div>
-
-		<applist [apps]="apps" [selectedMode]="selectedMode"></applist>
-
 	</div>
 
 
