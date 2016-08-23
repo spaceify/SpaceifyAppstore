@@ -11,12 +11,20 @@ import {ApplistComponent} from './applist.component';
   	directives: [ApplistComponent]
 })
 
-export class ManageComponent{ 
-	apps: AppItem[];
+export class ManageComponent{
+	appsAll: AppItem[] = [];
+	apps: AppItem[] = [];
 	selectedMode:string = "manage";
+	searchString:string = "";
 
 	constructor(private _appservice: AppManagerService) { 
 	}
+
+	doSearch(str : string) {
+		this.searchString = str;
+		this.getInstalledApps();
+	}
+
 
 	getAppsStoreApps() {
 		
@@ -25,8 +33,14 @@ export class ManageComponent{
 	}
 
 	getInstalledApps() {
-		
-		this.apps = this._appservice.getInstalledApps();
+		this.appsAll = this._appservice.getInstalledApps();
+		if (this.searchString == "") {
+			this.apps = this.appsAll;
+		}
+		else {
+			this.apps = this.appsAll.filter(app => app.name.toLowerCase().indexOf(this.searchString.toLowerCase()) != -1);
+				//app.name.indexOf(this.searchString) >= 0);
+		}
 		this._appservice.updateInstalledApplicationsList();
 	}
 

@@ -6,6 +6,9 @@
 Curabitur eu massa nec magna cursus feugiat. Pellentesque ullamcorper nisi varius, maximus ipsum sit amet, egestas dolor. Etiam sit amet risus ac quam finibus viverra. Integer pretium in tortor et bibendum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam posuere nulla quis placerat scelerisque. Maecenas cursus ultricies accumsan. Proin ac interdum libero. Cras egestas rutrum nulla, et rutrum nisl maximus eu.
 </p>
 
-<searchbar></searchbar>
+<div class="menu_container" id="search_bar">
+	<label for="search">Search:</label>
+	<input type="search" id="search" #search (keyup.enter)="doSearch(search.value)">
+</div>
 
 <applist [apps]="apps" [selectedMode]="selectedMode"></applist>

@@ -35,4 +35,80 @@
         "versions": [
             "1.1.0"
         ]
+    },
+    {
+        "provides_services": [
+            {
+                "service_name": "spaceify.org/services/bigscreen",
+                "service_type": "open"
+            }
+        ],
+        "name": "Foobar",
+        "unique_name": "spaceify/bigscreen",
+        "version": "1.1.0",
+        "type": "sandboxed",
+        "category": "multimedia",
+        "start_command": "node bigscreen",
+        "developer": {
+            "name": "Spaceify Inc.",
+            "url": "http://spaceify.net",
+            "email": "admin@spaceify.net"
+        },
+        "short_description": "Big screen hub.",
+        "license": "MIT",
+        "creation_date": "2015-01-28 10:07:00",
+        "implements": [
+            "WEB_SERVER"
+        ],
+        "images": [
+            {
+                "file": "icon.png"
+            }
+        ],
+        "unique_directory": "spaceify/bigscreen/",
+        "icon": "spaceify.org/users/jouni/packages/spaceify/bigscreen/1.1.0/media/www/images/icon.png",
+        "version_canonical": "00001.00001.00000",
+        "publish_date": "2016-03-04 14:02:09",
+        "readme": "spaceify.org/users/jouni/packages/spaceify/bigscreen/1.1.0/media/readme.html",
+        "versions": [
+            "1.1.0"
+        ]
+    },
+    {
+        "provides_services": [
+            {
+                "service_name": "spaceify.org/services/bigscreen",
+                "service_type": "open"
+            }
+        ],
+        "name": "Foo",
+        "unique_name": "spaceify/bigscreen",
+        "version": "1.1.0",
+        "type": "sandboxed",
+        "category": "multimedia",
+        "start_command": "node bigscreen",
+        "developer": {
+            "name": "Spaceify Inc.",
+            "url": "http://spaceify.net",
+            "email": "admin@spaceify.net"
+        },
+        "short_description": "Big screen hub.",
+        "license": "MIT",
+        "creation_date": "2015-01-28 10:07:00",
+        "implements": [
+            "WEB_SERVER"
+        ],
+        "images": [
+            {
+                "file": "icon.png"
+            }
+        ],
+        "unique_directory": "spaceify/bigscreen/",
+        "icon": "spaceify.org/users/jouni/packages/spaceify/bigscreen/1.1.0/media/www/images/icon.png",
+        "version_canonical": "00001.00001.00000",
+        "publish_date": "2016-03-04 14:02:09",
+        "readme": "spaceify.org/users/jouni/packages/spaceify/bigscreen/1.1.0/media/readme.html",
+        "versions": [
+            "1.1.0"
+        ]
     }]

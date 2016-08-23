@@ -10,7 +10,6 @@ import { InstallComponent }  from './install.component';
 import { InstallAppComponent }  from './installapp.component';
 import { IntroComponent }  from './intro';
 import { PageNotFoundComponent }  from './404';
-import { SearchBarComponent }  from './searchbar.component';
 
 import {SpaceifySourceDirective} from './spaceifysrc.directive';
 
@@ -31,7 +30,6 @@ import { routing} from './app.routes';
                   InstallAppComponent, 
                   IntroComponent, 
                   PageNotFoundComponent,
-                  SearchBarComponent,
                   SpaceifySourceDirective ],
   providers: [
     //AppManagerService

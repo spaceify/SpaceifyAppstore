@@ -18,10 +18,12 @@ export class InstallComponent{
 	constructor(private _appservice: AppManagerService) { 
 	}
 
-	getAppsStoreApps() {
-		
-		this.apps = this._appservice.getAppsStoreApps();
+	doSearch(str : string) {
+		this._appservice.searchAppStore(str);
+	}
 
+	getAppsStoreApps() {
+		this.apps = this._appservice.getAppsStoreApps();
 	}
 
 	getInstalledApps() {

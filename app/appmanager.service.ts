@@ -124,6 +124,14 @@ export class AppManagerService {
 
   	}
 
+
+	searchInstalledApps(name?: string) {
+		//this.installedApps;
+		//this.apps = this._appservice.getInstalledApps(); => this.installedApps;
+		//this._appservice.updateInstalledApplicationsList();
+	}
+
+
 	searchAppStore(name?: string) {
 
 		this.appStoreApps.length = 0;
@@ -345,6 +353,7 @@ export class AppManagerService {
 	getInstalledApps(): Array<AppItem> {
 		return this.installedApps;
 	}
+
 
 	commandApp(operation : string, app : AppItem) {
 		//this._serverMessages.push(operation);
