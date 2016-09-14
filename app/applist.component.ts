@@ -9,25 +9,7 @@ import {AppItem} from './appitem';
 @Component({
     selector: 'applist',
     templateUrl: 'app/applist.component.html',
-    styles: [`
-  		.selected {
-    		background-color: #CFD8DC !important;
-    		color: white;
-  		}
-
-      li.selected:hover {
-      background-color: #BBD8DC !important;
-      color: white;
-      }
-
-      li:hover {
-        color: #607D8B;
-        background-color: #DDD;
-        left: .1em;
-      }
-
-  
-  	`]
+    styleUrls: [ 'app/applist.component.css' ]
 })
 
 export class ApplistComponent { 

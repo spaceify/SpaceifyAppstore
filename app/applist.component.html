@@ -1,10 +1,18 @@
-<div id="applist">Applist {{selectedMode}}
-  <li *ngFor="let app of apps" 
-      [class.selected]="app === selectedApp" 
-      (click)="onSelect(app)">
-      
-      <img [sp_src]="app.icon" alt="" width="80" onError="this.src='./assets/icon.jpg';">
-       
-        <p>{{app.name}} </p>
-  </li>
+<div id="applist">
+	<ul>
+		<li *ngFor="let app of apps" 
+			[class.selected]="app === selectedApp"
+			(click)="onSelect(app)">
+
+			<div class="iconcontainer">
+				<img class="icon" [sp_src]="app.icon" alt="" onError="this.src='./assets/icon-80p.jpg';" />
+			</div>
+
+			<div class="text">
+				<div class="name">{{app.name}}</div>
+				<div class="description">{{app.short_description}}</div>
+			</div>
+			<div class="clear">&nbsp;</div>
+		</li>
+	</ul>
 </div>
