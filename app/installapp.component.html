@@ -7,7 +7,87 @@
     <b *ngIf="_appservice.isAppInstalled(selectedApp)">Application is already installed</b>
 </div>
 
-	
+<!--
+<button md-button>FLAT</button>
+
+<button md-raised-button color="primary">PRIMARY</button>
+<button md-raised-button color="accent">ACCENT</button>
+<button md-raised-button color="warn">WARN</button>
+
+<button md-raised-button md-tooltip="This is a tooltip!">RAISED</button>
+
+<button md-raised-button color="primary">PRIMARY RAISED</button>
+
+<button md-raised-button color="accent"><md-icon>search</md-icon> ACCENT RAISED</button>
+
+<md-icon>search</md-icon>
+<i class="material-icons">search</i>
+
+<hr />
+
+<button md-icon-button>
+   <md-icon class="md-24">favorite</md-icon>
+</button>
+
+<hr />
+
+<button md-icon-button>
+   <md-icon class="md-24">favorite</md-icon> Install
+</button>
+
+<hr />
+
+<button md-icon-button color="primary"><md-icon>add_box</md-icon> Install</button>
+
+<md-button class="md-icon-button" aria-label="Custom Icon Button">
+  <md-icon>add_box</md-icon> Install
+</md-button>
+
+<hr />
+
+<button md-raised-button color="primary" [disableRipple]="true"><md-icon>add_box</md-icon> aInstall</button>
+<button md-raised-button color="primary"><md-icon>indeterminate_check_box</md-icon> Uninstall</button>
+
+<button md-raised-button color="primary"><md-icon>play_arrow</md-icon> Start</button>
+<button md-raised-button color="primary"><md-icon>stop</md-icon> Start</button>
+
+<button md-raised-button color="primary"><md-icon>settings_applications</md-icon> Configure</button>
+
+<hr />
+
+<button md-raised-button color="primary"><md-icon>add_circle_outline</md-icon> Install</button>
+<button md-raised-button color="primary"><md-icon>remove_circle_outline</md-icon> Uninstall</button>
+
+<button md-raised-button color="primary"><md-icon>play_circle_outline</md-icon> Start</button>
+<button md-raised-button color="primary"><md-icon>stop_circle_outline</md-icon> Stop</button>
+
+<button md-raised-button color="primary"><md-icon>settings_applications</md-icon> Configure</button>
+
+<hr />
+
+<button md-raised-button color="primary"><md-icon>add_circle</md-icon> Install</button>
+<button md-raised-button color="primary"><md-icon>remove_circle</md-icon> Uninstall</button>
+
+<button md-raised-button color="primary"><md-icon>add</md-icon> Install</button>
+<button md-raised-button color="primary"><md-icon>remove</md-icon> Uninstall</button>
+
+<button md-raised-button color="primary"><md-icon>play_arrow</md-icon> Start</button>
+<button md-raised-button color="primary"><md-icon>stop</md-icon> Start</button>
+
+<hr />
+
+<button md-raised-button color="primary"><md-icon>play_circle_filled</md-icon> Start</button>
+<button md-raised-button color="primary"><md-icon>stop</md-icon> Stop</button>
+
+<hr />
+
+<button md-raised-button color="primary"><md-icon>play_circle_filled</md-icon> Start</button>
+<button md-raised-button color="primary"><md-icon>stop</md-icon> Stop</button>
+
+
+<hr />
+-->
+
 <div *ngIf="selectedApp" id="main_content">
 
 <h1>{{selectedApp.name}} </h1>

@@ -13,6 +13,8 @@ import { PageNotFoundComponent }  from './404';
 
 import {SpaceifySourceDirective} from './spaceifysrc.directive';
 
+import { MdIconModule } from '@angular2-material/icon';
+import { MdButtonModule } from '@angular2-material/button';
 
 //import {HTTP_PROVIDERS} from '@angular/http';
 
@@ -22,7 +24,7 @@ import {MockService} from './appmanager.mockservice';
 import { routing} from './app.routes';
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, HttpModule, routing ],
+  imports:      [ BrowserModule, FormsModule, HttpModule, routing, MdIconModule, MdButtonModule ],
   declarations: [ AppComponent, 
                   ManageComponent,
                   ManageAppComponent, 

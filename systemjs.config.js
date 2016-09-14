@@ -7,6 +7,7 @@
   var map = {
     'app':                        'dist', // 'dist',
     '@angular':                   'node_modules/@angular',
+    '@angular2-material':         'node_modules/@angular2-material',
     'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
     'rxjs':                       'node_modules/rxjs'
   };
@@ -28,6 +29,16 @@
     'router-deprecated',
     'upgrade',
   ];
+  const materialPkgs = [
+    'core',
+    'button',
+    'icon',
+  ];
+
+  materialPkgs.forEach(function(pkg) {
+    packages[`@angular2-material/${pkg}`] = {main: `${pkg}.js`};
+  });
+
   // Individual files (~300 requests):
   function packIndex(pkgName) {
     packages['@angular/'+pkgName] = { main: 'index.js', defaultExtension: 'js' };
