@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 
-import {Control} from "@angular/common";
-import { ROUTER_DIRECTIVES } from '@angular/router';
+//import {Control} from "@angular/common";
+//import { ROUTER_DIRECTIVES } from '@angular/router';
 
 
 import {AppManagerService} from './appmanager.service';
@@ -20,17 +20,17 @@ import 'rxjs/add/operator/switchMap';
 
 @Component({
     selector: 'my-app',
-    pipes: [AppFilterPipe],
+    //pipes: [AppFilterPipe],
     templateUrl: 'app/app.component.html',
     styleUrls: [ 'app/app.component.css' ],
-  	directives: [ROUTER_DIRECTIVES]
+  	//directives: [ROUTER_DIRECTIVES]
 })
 
 export class AppComponent implements OnInit, OnDestroy { 
 
 	apps: AppItem[];
 	selectedMode:string = "install";
-	query = new Control();
+	//query = new Control();
 
 /*
 	@ViewChild(ApplistComponent)

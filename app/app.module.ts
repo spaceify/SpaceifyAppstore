@@ -4,6 +4,8 @@ import { FormsModule }   from '@angular/forms';
 import { HttpModule }     from '@angular/http';
 
 import { AppComponent }  from './app.component';
+import { ApplistComponent }  from './applist.component';
+
 import { ManageComponent }  from './manage.component';
 import { ManageAppComponent }  from './manageapp.component';
 import { InstallComponent }  from './install.component';
@@ -24,8 +26,9 @@ import {MockService} from './appmanager.mockservice';
 import { routing} from './app.routes';
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, HttpModule, routing, MdIconModule, MdButtonModule ],
-  declarations: [ AppComponent, 
+  imports:      [ BrowserModule, FormsModule, HttpModule, routing],  // ,MdIconModule, MdButtonModule ],
+  declarations: [ AppComponent,
+                  ApplistComponent, 
                   ManageComponent,
                   ManageAppComponent, 
                   InstallComponent,

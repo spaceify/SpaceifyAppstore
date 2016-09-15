@@ -1,5 +1,5 @@
 import {Component, Input, Output, EventEmitter, OnInit, OnDestroy} from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
+//import { ROUTER_DIRECTIVES } from '@angular/router';
 
 import { ActivatedRoute } from '@angular/router';
 

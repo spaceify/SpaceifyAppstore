@@ -8,7 +8,7 @@ import {ApplistComponent} from './applist.component';
     selector: 'manage',
     templateUrl: 'app/manage.component.html',
     styleUrls: [ 'app/manage.component.css' ],
-  	directives: [ApplistComponent]
+  	//directives: [ApplistComponent]
 })
 
 export class ManageComponent{

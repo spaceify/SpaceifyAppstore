@@ -10,6 +10,9 @@
     "noImplicitAny": false,
     "outDir": "dist"
   },
+  "types": [
+    "hammerjs"
+  ],
   "exclude": [
     "node_modules",
     "dist",

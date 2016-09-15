@@ -1,3 +1,4 @@
+import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ManageComponent } from './manage.component';
@@ -37,4 +38,4 @@ const routes: Routes = [
   { path: '**', component: PageNotFoundComponent },
 ];
 
-export const routing = RouterModule.forRoot(routes, { useHash: true });
+export const routing : ModuleWithProviders = RouterModule.forRoot(routes, { useHash: true });

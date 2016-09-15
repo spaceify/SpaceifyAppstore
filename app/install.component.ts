@@ -8,7 +8,7 @@ import {ApplistComponent} from './applist.component';
     selector: 'install',
     templateUrl: 'app/install.component.html',
     styleUrls: [ 'app/install.component.css' ],
-  	directives: [ApplistComponent]
+  	//directives: [ApplistComponent]
 })
 
 export class InstallComponent{ 
