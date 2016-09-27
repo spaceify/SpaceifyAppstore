@@ -66,7 +66,7 @@
             }
         ],
         "unique_directory": "spaceify/bigscreen/",
-        "icon": "localhost/SpaceifyAppstore/assets/icon-80p-rot.jpg",
+        "icon": "localhost/SpaceifyAppstore/assets/icon-80p-rot.png",
         "version_canonical": "00001.00001.00000",
         "publish_date": "2016-03-04 14:02:09",
         "readme": "spaceify.org/users/jouni/packages/spaceify/bigscreen/1.1.0/media/readme.html",
@@ -104,7 +104,7 @@
             }
         ],
         "unique_directory": "spaceify/bigscreen/",
-        "icon": "localhost/SpaceifyAppstore/assets/icon-80p.jpg",
+        "icon": "localhost/SpaceifyAppstore/assets/icon-80p.png",
         "version_canonical": "00001.00001.00000",
         "publish_date": "2016-03-04 14:02:09",
         "readme": "spaceify.org/users/jouni/packages/spaceify/bigscreen/1.1.0/media/readme.html",

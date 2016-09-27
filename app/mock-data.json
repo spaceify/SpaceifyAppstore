@@ -84,7 +84,7 @@
             "email": "admin@spaceify.org"
         },
         "unique_directory": "example/sba2/",
-        "icon": "localhost/SpaceifyAppstore/assets/icon-80p-rot.jpg",
+        "icon": "localhost/SpaceifyAppstore/assets/icon-80p-rot.png",
         "version_canonical": "00001.00000.00003",
         "publish_date": "2016-03-01 11:24:56",
         "readme": "spaceify.org/users/jouni/packages/example/sba2/1.0.3/media/readme.html",

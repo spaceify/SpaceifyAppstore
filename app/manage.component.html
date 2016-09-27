@@ -1,10 +1,19 @@
 
+<nav class="menu_container">
+	<a class="menu_topic" routerLink="/install" routerLinkActive="navActive">INSTALL</a>
+	<a class="menu_topic" routerLink="/manage" routerLinkActive="navActive">MANAGE</a>
 
-<h1>Manage installed apps</h1>
+	<div id="search_bar" class="search_bar">
+		<input type="search" id="search" placeholder="Search" #search (keyup.enter)="doSearch(search.value)">
+	</div>
+	<br class="menu_clear" />
+</nav>
 
-<div class="menu_container" id="search_bar">
-	<label for="search">Search:</label>
-	<input type="search" id="search" #search (keyup.enter)="doSearch(search.value)">
+<div id="large_background" class="large_background1">
+	<div>awd awd awd awdawdw daw dwad awd awdawd awd
+	</div>
 </div>
 
-<applist [apps]="apps" [selectedMode]="selectedMode"></applist>
+<div id="page_content" class="page_content">
+	<applist [apps]="apps" [selectedMode]="selectedMode"></applist>
+</div>

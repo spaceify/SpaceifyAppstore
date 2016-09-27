@@ -1,29 +1,18 @@
 
 <div id="main">
-	<div id="left_container">
-
-		<div class="top_bar" id="logodiv">
-			<a routerLink="/intro"><img class="appstorelogo" src="assets/icon-120p.jpg" alt="" /></a>
-		</div>
-
-		<nav class="menu_container">
-			<a class="menu_topic" routerLink="/install" routerLinkActive="navActive">INSTALL</a>
-			<a class="menu_topic" routerLink="/manage" routerLinkActive="navActive">MANAGE</a>
-
-		</nav>
-
+	<div id="top_bar" class="top_bar">
+		<a id="logolink" class="logolink" routerLink="/intro"><img id="appstorelogo" class="appstorelogo" src="assets/icon-80p.png" alt="" /></a>
+		<div id="logoname" class="logoname">Spaceify Appstore</div>
 	</div>
 
-
-<div id="right_container">
-
-	<div class="top_bar" id="headerdiv">Spaceify Appstore</div>
-
-	<div class="pagecontent">
+	<div id="content_container">
 		<router-outlet></router-outlet>
 	</div>
 
-</div>
-
-
+	<div id="footer" class="footer">
+		<div>Spaceify Appstore</div>
+		<div class="smaller">
+			Made with code and love. <img style="width: 16px; height: 16px;" src="./assets/heart_32x32.png" />
+		</div>
+	</div>
 </div>
