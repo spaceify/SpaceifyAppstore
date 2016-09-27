@@ -41,6 +41,7 @@
 
 
 #content_container {
+  font-family: 'Roboto Light', sans-serif;
   background-color: #fff;
   margin: 0px;
   padding: 0px;
@@ -54,13 +55,53 @@
   line-height: 1.7em;
   width: 100%;
   color: #fff;
-  padding: 20px;
-  padding-top: 10px;
+  box-sizing: border-box;
+  padding: 10px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+#footer img {
+  margin-right: 10px;
+}
+
+#footer .section_w30 {
+  width: 30%;
+  float: left;
+  height: 40px;
+  line-height: 40px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+
+#footer .section_w35 {
+  width: 35%;
+  float: left;
+  height: 40px;
+  line-height: 40px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  vertical-align: middle;
 }
 
 #footer .smaller {
   font-size: 1em;
   line-height: 1.6em;
   color: #003b47;
+}
+
+#footer .footerContentLeft {
+  float: left;
+  padding: 0px;
+  padding-left: 20px;
+}
+
+#footer .footerContentRight {
+  float: right;
+  padding: 0px;
+  padding-right: 20px;
 }
 
