@@ -37,8 +37,7 @@ import { routing} from './app.routes';
                   PageNotFoundComponent,
                   SpaceifySourceDirective ],
   providers: [
-    //AppManagerService
-    { provide: AppManagerService, useClass: MockService }
+    { provide: AppManagerService, useClass: AppManagerService } // MockService
   ],
   bootstrap:    [ AppComponent ]
 })
