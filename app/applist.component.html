@@ -1,9 +1,21 @@
 <div id="applist">
+
+	<ul>
+	<li>
 	<ul>
 		<li *ngFor="let app of apps" 
 			[class.selected]="app === selectedApp"
 			(click)="onSelect(app)">
 
+			<a href="#">
+				<div class="appicon">
+					<img [sp_src]="app.icon" alt="" onError="this.src='./assets/icon-80p.png';" />
+				</div>
+				<div class="appname">{{app.name}}</div>
+				<div class="appdescription">{{app.short_description}}</div>
+			</a>
+
+<!--
 			<div class="iconcontainer">
 				<img class="icon" [sp_src]="app.icon" alt="" onError="this.src='./assets/icon-80p.png';" />
 			</div>
@@ -12,7 +24,11 @@
 				<div class="name">{{app.name}}</div>
 				<div class="description">{{app.short_description}}</div>
 			</div>
+
 			<div class="clear">&nbsp;</div>
+-->
 		</li>
+	</ul>
+	</li>
 	</ul>
 </div>
