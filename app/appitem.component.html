@@ -1,0 +1,96 @@
+
+
+<div *ngIf="app" id="main_content">
+	<li *ngFor="let message of _appservice.serverMessages" [style.color]="_appservice.getServerMessageColor(message.type)">
+		{{message.text}}
+	</li>
+
+	<!--
+	  images: ImageItem[];
+	-->
+
+	<div class="appinfoblock">
+		<div class="appiconleft">
+			<img [sp_src]="app.icon" alt="" onError="this.src='./assets/icon-80p.png';" />
+		</div>
+
+		<div class="appinforight">
+			<div id="button_container" class="button_container">
+				<span *ngIf="!_appservice.isAppInstalled(app)">
+				    <input type="button" value="Install" (click)="_appservice.commandApp('install', selectedApp)">
+				</span>
+
+				<span *ngIf="_appservice.isAppInstalled(app)">
+					<input *ngIf="!app.isRunning" type="button" value="Start" (click)="_appservice.commandApp('start', app)">
+					<input *ngIf="app.isRunning" type="button" value="Stop" (click)="_appservice.commandApp('stop', app)"> 
+					<input *ngIf="app.isRunning" type="button" value="Restart" (click)="_appservice.commandApp('restart', app)">
+					<input type="button" value="Uninstall" (click)="_appservice.commandApp('remove', app)">
+					<!-- <input type="button" value="Configure"> -->
+					<input *ngIf="app.updateAvailable" type="button" value="Update" (click)="_appservice.commandApp('update', app)">
+				</span>
+			</div>
+			<div class="appname">{{app.name}}</div>
+			<div class="appdeveloper">{{app.developer.name}}</div>
+		</div>
+
+		<div class="menu_clear">&nbsp;</div>
+	</div>
+
+	<div class="appdescription">{{app.appstore_description}}</div>
+
+	<div class="packageField">
+		<div class="packageFieldTitle">Unique name</div>
+		<div class="packageFieldValue">{{app.unique_name}}</div>
+	</div>
+	<div class="packageField">
+		<div class="packageFieldTitle">Short description</div>
+		<div class="packageFieldValue">{{app.short_description}}</div>
+	</div>
+	<div class="packageField">
+		<div class="packageFieldTitle">Publish date</div>
+		<div class="packageFieldValue">{{app.publish_date}}</div>
+	</div>
+	<div class="packageField">
+		<div class="packageFieldTitle">Version</div>
+		<div class="packageFieldValue">{{app.version}}</div>
+	</div>
+	<div class="packageField">
+		<div class="packageFieldTitle">License</div>
+		<div class="packageFieldValue">{{app.license}}</div>
+	</div>
+	<div class="packageField">
+		<div class="packageFieldTitle">Type</div>
+		<div class="packageFieldValue">{{app.type}}</div>
+	</div>
+	<div class="packageField">
+		<div class="packageFieldTitle">Category</div>
+		<div class="packageFieldValue">{{app.category}}</div>
+	</div>
+	<div class="packageField">
+		<div class="packageFieldTitle">Developer</div>
+		<div class="packageFieldValue"><a href="{{app.developer.url}}">{{app.developer.name}}</a> &lt;{{app.developer.email}}&gt;</div>
+	</div>
+	<div class="packageField">
+		<div class="packageFieldTitle">Provides services ({{app.provides_services.length}})</div>
+		<div class="packageFieldValue">
+			<span *ngFor="let provivedservice of app.provides_services">
+			{{provivedservice.service_name}} (type: {{provivedservice.service_type}})<br />
+			</span>
+		</div>
+	</div>
+	<div class="packageField">
+		<div class="packageFieldTitle">Requires services ({{app.requires_services.length}})</div>
+		<div class="packageFieldValue">
+			<span *ngFor="let requiredservice of app.requires_services">
+			{{requiredservice.service_name}} (suggested application: {{requiredservice.suggested_application}})<br />
+			</span>
+		</div>
+	</div>
+	<div class="packageField">
+		<div class="packageFieldTitle">Readme</div>
+		<div class="packageFieldValue"><a href="http://{{app.readme}}">link</a></div>
+	</div>
+	<div class="menu_clear">&nbsp;</div>
+</div>
+
+<h1 *ngIf="!app"> Application not found</h1>

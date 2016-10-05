@@ -186,13 +186,22 @@ export class AppManagerService {
 				}
 
 				for (var manifest of result.spacelet) {
-					self.appStoreApps.push(new AppItem(manifest));
+					var appItem:AppItem = new AppItem(manifest);
+					appItem.isInstalled = false;
+					self.appStoreApps.push(appItem);
 				}
 
 				for (var manifest of result.sandboxed) {
-					self.appStoreApps.push(new AppItem(manifest));
+					var appItem:AppItem = new AppItem(manifest);
+					appItem.isInstalled = false;
+					self.appStoreApps.push(appItem);
 				}
 
+				for (var manifest of result.native) {
+					var appItem:AppItem = new AppItem(manifest);
+					appItem.isInstalled = false;
+					self.appStoreApps.push(appItem);
+				}
 			}
 		);
   	}
@@ -207,21 +216,14 @@ export class AppManagerService {
 	}
 
 	updateInstalledApplicationsList() {
-
-		
-
 		var self = this;
 
 		var types = [this.config.SPACELET, this.config.SANDBOXED];//, this.config.NATIVE];
 		//console.log(this.config.SPACELET);
-		
+
 		//this.sam.getApplications(types, self, null);
-		
-		//this.sam.getApplications(types, self, this.printStatus);
 
-		
-
-		
+		//this.sam.getApplications(types, self, this.printStatus);		
 		this.sam.getApplications(types, self.messageHandler,
 			(apps: any) => {
 				console.log(apps);
@@ -236,14 +238,28 @@ export class AppManagerService {
 					console.log("Updated InstalledApplicationsList");
 				}
 
-				for (var manifest of apps.spacelet) {
-					self.installedApps.push(new AppItem(manifest));
-				}
 				for (var manifest of apps.sandboxed) {
-					self.installedApps.push(new AppItem(manifest));
+					var appItem:AppItem = new AppItem(manifest);
+					appItem.isInstalled = true;
+					self.installedApps.push(appItem);
 				}
+				for (var manifest of apps.spacelet) {
+					var appItem:AppItem = new AppItem(manifest);
+					appItem.isInstalled = true;
+					self.installedApps.push(appItem);
+				}
+				/*for (var manifest of apps.native) {
+					var appItem:AppItem = new AppItem(manifest);
+					appItem.isInstalled = true;
+					self.installedApps.push(appItem;
+				}*/
 
-
+				// Update appstore apps list also
+				for (var appItem of self.appStoreApps) {
+					if (self.isAppInstalled(appItem)) {
+						appItem.isInstalled = true;
+					}
+				}
 			}
 		);
 
@@ -304,47 +320,36 @@ export class AppManagerService {
 					appStoreManifest = manifest;
 				}
 
+				/*for (var manifest of result.native) {
+					appStoreManifest = manifest;
+				}*/
+
 				//console.log(appStoreManifest);
 
-				if(app.version_canonical < appStoreManifest.version_canonical)
+				if (app.version_canonical < appStoreManifest.version_canonical) {
 					app.updateAvailable = true;
-
-
+				}
 			}
 		);
-
-
-
   	}
 
-  	isAppInstalled(app : AppItem) : boolean{
-  		//this.installedApps.
-
-  		if(app){
-
-
-	  		for(var installedApp of this.installedApps){
-	  			if(installedApp.unique_name == app.unique_name )
-	  				return true;
-
-	  		}
-  		}
-  		return false;
-  		/*
-
-  		if (this.installedApps.indexOf(app) > -1) {
-    		return true;
+	isAppInstalled(app : AppItem) : boolean {
+		if (app){
+			for (var installedApp of this.installedApps){
+				if (installedApp.unique_name == app.unique_name ) {
+					installedApp.isInstalled = true;
+					return true;
+				}
+			}
 		}
+		installedApp.isInstalled = false;
 		return false;
+	}
+	/*
+	checkAppStatus(message : string){
 
-		*/
-
-  	}
-  	/*
-  	checkAppStatus(message : string){
-
-  	}
-  	*/
+	}
+	*/
 
 	getAppsStoreApps(): Array<AppItem> {
 		return this.appStoreApps;

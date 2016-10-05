@@ -105,11 +105,21 @@ var AppManagerService = (function () {
             }
             for (var _i = 0, _a = result.spacelet; _i < _a.length; _i++) {
                 var manifest = _a[_i];
-                self.appStoreApps.push(new appitem_1.AppItem(manifest));
+                var appItem = new appitem_1.AppItem(manifest);
+                appItem.isInstalled = false;
+                self.appStoreApps.push(appItem);
             }
             for (var _b = 0, _c = result.sandboxed; _b < _c.length; _b++) {
                 var manifest = _c[_b];
-                self.appStoreApps.push(new appitem_1.AppItem(manifest));
+                var appItem = new appitem_1.AppItem(manifest);
+                appItem.isInstalled = false;
+                self.appStoreApps.push(appItem);
+            }
+            for (var _d = 0, _e = result.native; _d < _e.length; _d++) {
+                var manifest = _e[_d];
+                var appItem = new appitem_1.AppItem(manifest);
+                appItem.isInstalled = false;
+                self.appStoreApps.push(appItem);
             }
         });
     };
@@ -127,7 +137,7 @@ var AppManagerService = (function () {
         var types = [this.config.SPACELET, this.config.SANDBOXED]; //, this.config.NATIVE];
         //console.log(this.config.SPACELET);
         //this.sam.getApplications(types, self, null);
-        //this.sam.getApplications(types, self, this.printStatus);
+        //this.sam.getApplications(types, self, this.printStatus);		
         this.sam.getApplications(types, self.messageHandler, function (apps) {
             console.log(apps);
             _this.installedApps.length = 0;
@@ -138,13 +148,29 @@ var AppManagerService = (function () {
             else {
                 console.log("Updated InstalledApplicationsList");
             }
-            for (var _i = 0, _a = apps.spacelet; _i < _a.length; _i++) {
+            for (var _i = 0, _a = apps.sandboxed; _i < _a.length; _i++) {
                 var manifest = _a[_i];
-                self.installedApps.push(new appitem_1.AppItem(manifest));
+                var appItem = new appitem_1.AppItem(manifest);
+                appItem.isInstalled = true;
+                self.installedApps.push(appItem);
             }
-            for (var _b = 0, _c = apps.sandboxed; _b < _c.length; _b++) {
+            for (var _b = 0, _c = apps.spacelet; _b < _c.length; _b++) {
                 var manifest = _c[_b];
-                self.installedApps.push(new appitem_1.AppItem(manifest));
+                var appItem = new appitem_1.AppItem(manifest);
+                appItem.isInstalled = true;
+                self.installedApps.push(appItem);
+            }
+            /*for (var manifest of apps.native) {
+                var appItem:AppItem = new AppItem(manifest);
+                appItem.isInstalled = true;
+                self.installedApps.push(appItem;
+            }*/
+            // Update appstore apps list also
+            for (var _d = 0, _e = self.appStoreApps; _d < _e.length; _d++) {
+                var appItem = _e[_d];
+                if (self.isAppInstalled(appItem)) {
+                    appItem.isInstalled = true;
+                }
             }
         });
     };
@@ -185,29 +211,27 @@ var AppManagerService = (function () {
                 var manifest = _c[_b];
                 appStoreManifest = manifest;
             }
+            /*for (var manifest of result.native) {
+                appStoreManifest = manifest;
+            }*/
             //console.log(appStoreManifest);
-            if (app.version_canonical < appStoreManifest.version_canonical)
+            if (app.version_canonical < appStoreManifest.version_canonical) {
                 app.updateAvailable = true;
+            }
         });
     };
     AppManagerService.prototype.isAppInstalled = function (app) {
-        //this.installedApps.
         if (app) {
             for (var _i = 0, _a = this.installedApps; _i < _a.length; _i++) {
                 var installedApp = _a[_i];
-                if (installedApp.unique_name == app.unique_name)
+                if (installedApp.unique_name == app.unique_name) {
+                    installedApp.isInstalled = true;
                     return true;
+                }
             }
         }
+        installedApp.isInstalled = false;
         return false;
-        /*
-
-        if (this.installedApps.indexOf(app) > -1) {
-            return true;
-        }
-        return false;
-
-        */
     };
     /*
     checkAppStatus(message : string){

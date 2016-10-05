@@ -22,7 +22,7 @@ var MockService = (function () {
         this.appstoreApps = [];
         this.installedApps = [];
         this.mockMessages = [];
-        this.http.get('app/mock-data.json')
+        this.http.get('app/mock-data_appstoreapps.json')
             .map(this.extractData)
             .map(this.mapData)
             .catch(this.handleError)
@@ -32,9 +32,10 @@ var MockService = (function () {
         }, function (err) {
             //this.apps_error = true 
         });
-        this.http.get('app/mock-data_2.json')
+        this.http.get('app/mock-data_installedapps.json')
             .map(this.extractData)
             .map(this.mapData)
+            .map(this.setAsInstalled)
             .catch(this.handleError)
             .subscribe(function (data) {
             _this.installedApps = data;
@@ -76,10 +77,13 @@ var MockService = (function () {
         if (app) {
             for (var _i = 0, _a = this.installedApps; _i < _a.length; _i++) {
                 var installedApp = _a[_i];
-                if (installedApp.unique_name == app.unique_name)
+                if (installedApp.unique_name == app.unique_name) {
+                    app.isInstalled = true;
                     return true;
+                }
             }
         }
+        app.isInstalled = false;
         return false;
     };
     MockService.prototype.getAppsStoreApps = function () {
@@ -157,6 +161,10 @@ var MockService = (function () {
         this.mockMessages.length = 0;
     };
     MockService.prototype.checkAppChanges = function (app) {
+        if (Math.random() >= 0.5)
+            app.updateAvailable = true;
+        else
+            app.updateAvailable = false;
     };
     MockService.prototype.extractData = function (res) {
         if (res.status < 200 || res.status >= 300) {
@@ -176,6 +184,14 @@ var MockService = (function () {
             });
         }
         return result;
+    };
+    MockService.prototype.setAsInstalled = function (apps) {
+        if (apps) {
+            apps.forEach(function (app) {
+                app.isInstalled = true;
+            });
+        }
+        return apps;
     };
     MockService.prototype.handleError = function (error) {
         // In a real world app we might send the error to remote logging infrastructure

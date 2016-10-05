@@ -1,0 +1,404 @@
+[
+      {
+         "provides_services":[
+            {
+               "service_name":"spaceify.org\/services\/bigscreen",
+               "service_type":"open"
+            }
+         ],
+         "name":"Bigscreen",
+         "unique_name":"spaceify\/bigscreen",
+         "version":"1.1.0",
+         "type":"sandboxed",
+         "category":"multimedia",
+         "start_command":"node bigscreen",
+         "developer":{
+            "name":"Spaceify Inc.",
+            "url":"http:\/\/spaceify.net",
+            "email":"admin@spaceify.net"
+         },
+         "short_description":"Big screen hub.",
+         "license":"MIT",
+         "creation_date":"2015-01-28 10:07:00",
+         "implements":[
+            "WEB_SERVER"
+         ],
+         "images":[
+
+         ],
+         "unique_directory":"spaceify\/bigscreen\/",
+         "icon":"spaceify.org\/users\/jouni\/packages\/spaceify\/bigscreen\/1.1.0\/media\/www\/images\/icon.png",
+         "version_canonical":"00001.00001.00000",
+         "publish_date":"2016-03-04 14:02:09",
+         "readme":"spaceify.org\/users\/jouni\/packages\/spaceify\/bigscreen\/1.1.0\/media\/readme.html",
+         "versions":[
+            "1.1.0",
+            "1.1.2",
+            "1.1.3"
+         ],
+         "canonical_versions":"00001.00001.00003"
+      },
+      {
+         "provides_services":[
+            {
+               "service_name":"spaceify.org\/services\/example\/application1",
+               "service_type":"open"
+            }
+         ],
+         "name":"Example application 1",
+         "unique_name":"example\/application1",
+         "version":"1.0.4",
+         "type":"sandboxed",
+         "category":"educational",
+         "start_command":"node application.js",
+         "short_description":"Returns current UTC date and time as a JSON datetime object. This application contains also an active tile example.",
+         "developer":{
+            "name":"Spaceify Oy",
+            "url":"http:\/\/spaceify.net",
+            "email":"admin@spaceify.net"
+         },
+         "icon":"",
+         "version_canonical":"00001.00000.00004",
+         "publish_date":"2016-08-02 08:12:10",
+         "readme":"spaceify.org\/users\/jouni\/packages\/example\/application1\/1.0.4\/media\/readme.html",
+         "versions":[
+            "1.0.4",
+            "1.0.5"
+         ],
+         "canonical_versions":"00001.00000.00005"
+      },
+      {
+         "provides_services":[
+            {
+               "service_name":"spaceify.org\/services\/lightcontrol",
+               "service_type":"open"
+            }
+         ],
+         "requires_services":[
+            {
+               "suggested_application":"spaceify\/driverphilipshue",
+               "service_name":"spaceify.org\/services\/lights",
+               "suggested_description":{
+                  "version":"0.1.0",
+                  "short_description":"Light control driver for Philips Hue lighting."
+               }
+            }
+         ],
+         "name":"Light Control app",
+         "unique_name":"spaceify\/lightcontrol",
+         "version":"0.1.0",
+         "type":"sandboxed",
+         "category":"graphics",
+         "start_command":"node lightcontrol.js",
+         "implements":[
+            "WEB_SERVER"
+         ],
+         "developer":{
+            "name":"Spaceify Oy",
+            "email":"admin@spaceify.net",
+            "url":"http:\/\/spaceify.net"
+         },
+         "short_description":"App for controlling your smart lights.",
+         "appstore_description":"App for controlling your smart lights. 'spaceify.org\/services\/lights' service implementing driver is required (e.g. 'spaceify\/driverphilipshue' or 'spaceify\/driverosramlightify').",
+         "license":"MIT",
+         "creation_date":"2016-09-26 17:20:00",
+         "icon":"",
+         "version_canonical":"00000.00001.00000",
+         "publish_date":"2016-09-26 18:15:02",
+         "readme":"spaceify.org\/users\/codise\/packages\/spaceify\/lightcontrol\/0.1.0\/media\/readme.html",
+         "versions":[
+            "0.1.0",
+            "0.1.1"
+         ],
+         "canonical_versions":"00000.00001.00001"
+      },
+      {
+         "provides_services":[
+            {
+               "service_name":"spaceify.org\/services\/lights",
+               "service_type":"open"
+            }
+         ],
+         "name":"OSRAM LIGHTIFY driver",
+         "unique_name":"spaceify\/driverosramlightify",
+         "version":"0.1.0",
+         "type":"sandboxed",
+         "category":"multimedia",
+         "start_command":"node driver-osram-lightify",
+         "developer":{
+            "name":"Spaceify Oy",
+            "url":"http:\/\/spaceify.net",
+            "email":"admin@spaceify.net"
+         },
+         "short_description":"Light control driver for OSRAM LIGHTIFY.",
+         "appstore_description":"You can setup OSRAM LIGHTIFY lights using this driver and them control them in other apps.",
+         "license":"MIT",
+         "creation_date":"2016-09-23 17:00:00",
+         "implements":[
+            "WEB_SERVER"
+         ],
+         "images":[
+
+         ],
+         "unique_directory":"spaceify\/driverosramlightify\/",
+         "icon":"spaceify.org\/users\/codise\/packages\/spaceify\/driverosramlightify\/0.1.0\/media\/www\/images\/icon.png",
+         "version_canonical":"00000.00001.00000",
+         "publish_date":"2016-09-26 18:13:34",
+         "readme":"spaceify.org\/users\/codise\/packages\/spaceify\/driverosramlightify\/0.1.0\/media\/readme.html",
+         "versions":[
+            "0.1.0"
+         ],
+         "canonical_versions":"00000.00001.00000"
+      },
+      {
+         "provides_services":[
+            {
+               "service_name":"spaceify.org\/services\/lights",
+               "service_type":"open"
+            }
+         ],
+         "name":"Philips Hue lighting driver",
+         "unique_name":"spaceify\/driverphilipshue",
+         "version":"0.1.0",
+         "type":"sandboxed",
+         "category":"multimedia",
+         "start_command":"node driver-philips-hue",
+         "developer":{
+            "name":"Spaceify Oy",
+            "url":"http:\/\/spaceify.net",
+            "email":"admin@spaceify.net"
+         },
+         "short_description":"Light control driver for Philips Hue lighting.",
+         "appstore_description":"You can setup Philips Hue lights using this driver and them control them in other apps.",
+         "license":"MIT",
+         "creation_date":"2016-09-23 17:00:00",
+         "implements":[
+            "WEB_SERVER"
+         ],
+         "images":[
+
+         ],
+         "unique_directory":"spaceify\/driverphilipshue\/",
+         "icon":"spaceify.org\/users\/codise\/packages\/spaceify\/driverphilipshue\/0.1.0\/media\/www\/images\/icon.png",
+         "version_canonical":"00000.00001.00000",
+         "publish_date":"2016-09-26 18:14:22",
+         "readme":"spaceify.org\/users\/codise\/packages\/spaceify\/driverphilipshue\/0.1.0\/media\/readme.html",
+         "versions":[
+            "0.1.0"
+         ],
+         "canonical_versions":"00000.00001.00000"
+      },
+      {
+         "provides_services":[
+            {
+               "service_name":"spaceify.org\/services\/urlviewer",
+               "service_type":"open"
+            }
+         ],
+         "requires_services":[
+            {
+               "suggested_application":"spaceify\/bigscreen",
+               "service_name":"spaceify.org\/services\/bigscreen",
+               "suggested_description":{
+                  "version":"1.1.3",
+                  "short_description":"Big screen hub."
+               }
+            }
+         ],
+         "name":"URL viewer",
+         "unique_name":"spaceify\/urlviewer",
+         "version":"1.1.3",
+         "type":"sandboxed",
+         "category":"graphics",
+         "start_command":"node urlviewer.js",
+         "implements":[
+            "WEB_SERVER"
+         ],
+         "developer":{
+            "name":"Spaceify Oy",
+            "email":"admin@spaceify.net",
+            "url":"http:\/\/spaceify.net"
+         },
+         "short_description":"Show typed URL on Big Screen.",
+         "license":"MIT",
+         "creation_date":"2016-02-20 16:34:00",
+         "icon":"",
+         "version_canonical":"00001.00001.00003",
+         "publish_date":"2016-08-02 08:13:14",
+         "readme":"spaceify.org\/users\/jouni\/packages\/spaceify\/urlviewer\/1.1.3\/media\/readme.html",
+         "versions":[
+            "1.1.3",
+            "1.1.4"
+         ],
+         "canonical_versions":"00001.00001.00004"
+      },
+
+      {
+         "provides_services":[
+            {
+               "service_name":"spaceify.org\/services\/example\/spacelet1",
+               "service_type":"open"
+            }
+         ],
+         "name":"Example spacelet 1",
+         "unique_name":"example\/spacelet1",
+         "version":"1.0.2",
+         "type":"spacelet",
+         "category":"educational",
+         "start_command":"node spacelet.js",
+         "shared":true,
+         "origins":[
+            "www.example.com"
+         ],
+         "inject_identifier":"<head>",
+         "inject_hostnames":[
+            "www.example.com"
+         ],
+         "inject_files":[
+            {
+               "file":"inject.js",
+               "type":"javascript"
+            }
+         ],
+         "short_description":"Displays current UTC date and time on URL www.example.com.",
+         "developer":{
+            "name":"Spaceify Inc.",
+            "url":"http:\/\/spaceify.org",
+            "email":"admin@spaceify.org"
+         },
+         "unique_directory":"example\/spacelet1\/",
+         "icon":"",
+         "version_canonical":"00001.00000.00002",
+         "publish_date":"2016-03-01 11:24:28",
+         "readme":"spaceify.org\/users\/jouni\/packages\/example\/spacelet1\/1.0.2\/media\/readme.html",
+         "versions":[
+            "1.0.2",
+            "1.0.3",
+            "1.0.4"
+         ],
+         "canonical_versions":"00001.00000.00004"
+      },
+      {
+         "provides_services":[
+            {
+               "service_name":"spaceify.org\/services\/example\/spacelet2",
+               "service_type":"open"
+            }
+         ],
+         "requires_services":[
+            {
+               "service_name":"spaceify.org\/services\/example\/application1",
+               "suggested_application":"example\/application1@1.0.4",
+               "suggested_description":null
+            }
+         ],
+         "name":"Example spacelet 2",
+         "unique_name":"example\/spacelet2",
+         "version":"1.0.0",
+         "type":"spacelet",
+         "category":"educational",
+         "start_command":"node spacelet.js",
+         "shared":true,
+         "origins":[
+            "www.example.com"
+         ],
+         "inject_identifier":"<head>",
+         "inject_hostnames":[
+            "www.example.com"
+         ],
+         "inject_files":[
+            {
+               "file":"inject.js",
+               "type":"javascript"
+            }
+         ],
+         "short_description":"Displays current UTC date and time got from the example\/aplication1 on the URL www.example.com.",
+         "developer":{
+            "name":"Spaceify Oy",
+            "url":"http:\/\/spaceify.net",
+            "email":"admin@spaceify.net"
+         },
+         "icon":"",
+         "version_canonical":"00001.00000.00000",
+         "publish_date":"2016-08-02 08:12:39",
+         "readme":"spaceify.org\/users\/jouni\/packages\/example\/spacelet2\/1.0.0\/media\/readme.html",
+         "versions":[
+            "1.0.0",
+            "1.0.1"
+         ],
+         "canonical_versions":"00001.00000.00001"
+      },
+      {
+         "provides_services":[
+            {
+               "service_name":"spaceify.org\/services\/pictureviewer",
+               "service_type":"open"
+            }
+         ],
+         "requires_services":[
+            {
+               "suggested_application":"spaceify\/bigscreen",
+               "service_name":"spaceify.org\/services\/bigscreen",
+               "service_type":"standard",
+               "suggested_description":{
+                  "version":"1.1.3",
+                  "short_description":"Big screen hub."
+               }
+            }
+         ],
+         "name":"Picture viewer",
+         "unique_name":"spaceify\/pictureviewer",
+         "version":"1.1.1",
+         "type":"spacelet",
+         "category":"graphics",
+         "shared":true,
+         "origins":[
+            "*hs.fi"
+         ],
+         "inject_hostnames":[
+            "*hs.fi"
+         ],
+         "inject_identifier":"<head>",
+         "inject_files":[
+            {
+               "file":"content.css",
+               "type":"css"
+            },
+            {
+               "file":"language.js",
+               "type":"javascript"
+            },
+            {
+               "file":"client.js",
+               "type":"javascript"
+            }
+         ],
+         "start_command":"node pictureviewer.js",
+         "implements":[
+            "WEB_SERVER"
+         ],
+         "developer":{
+            "name":"Spaceify Inc.",
+            "email":"admin@spaceify.net",
+            "url":"http:\/\/spaceify.net"
+         },
+         "short_description":"Show images on big screen.",
+         "license":"MIT",
+         "creation_date":"2014-04-02 04:19:07",
+         "images":[
+
+         ],
+         "unique_directory":"spaceify\/pictureviewer\/",
+         "icon":"spaceify.org\/users\/jouni\/packages\/spaceify\/pictureviewer\/1.1.1\/media\/www\/images\/icon.png",
+         "version_canonical":"00001.00001.00001",
+         "publish_date":"2016-03-01 11:25:41",
+         "readme":"spaceify.org\/users\/jouni\/packages\/spaceify\/pictureviewer\/1.1.1\/media\/readme.html",
+         "versions":[
+            "1.1.1",
+            "1.1.2",
+            "1.1.4",
+            "1.1.5"
+         ],
+         "canonical_versions":"00001.00001.00005"
+      }
+]

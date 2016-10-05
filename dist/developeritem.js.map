@@ -1,0 +1,1 @@
+{"version":3,"file":"developeritem.js","sourceRoot":"","sources":["../app/developeritem.ts"],"names":[],"mappings":";AAAA;IAKE,uBAAY,kBAAwB;QACrC,IAAI,CAAC,IAAI,GAAG,kBAAkB,CAAC,IAAI,CAAC;QACpC,IAAI,CAAC,GAAG,GAAG,kBAAkB,CAAC,GAAG,CAAC;QAClC,IAAI,CAAC,KAAK,GAAG,kBAAkB,CAAC,KAAK,CAAC;IACrC,CAAC;IACH,oBAAC;AAAD,CAAC,AAVD,IAUC;AAVY,qBAAa,gBAUzB,CAAA;AAED,kBAAkB"}

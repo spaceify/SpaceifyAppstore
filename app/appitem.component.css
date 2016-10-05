@@ -3,8 +3,8 @@
   margin-bottom: 15px;
 }
 
-ul {
-  width: 100%; /* 100% or define a width */
+/*ul {
+  width: 100%;
   list-style: none;
   margin: 0;
   margin-bottom: 15px;
@@ -44,8 +44,8 @@ ul li a {
   border: solid 1px #ddd;
   border-radius: 3px;
   display: block;
-  width: 270px; /* 300px - 2*15px */
-  height: 270px; /* 300px - 2*15px */
+  width: 270px;
+  height: 270px;
   padding: 15px 15px;
   color: #003b7c;
   text-decoration: none;
@@ -55,8 +55,17 @@ ul li a {
 ul li a:hover {
   background: #eee;
 }
+*/
 
-.appicon {
+.appinfoblock {
+  color: #003b7c;
+}
+
+.button_container {
+}
+
+.appiconleft {
+  float: left;
   margin: 0;
   padding: 0;
   width: 128px;
@@ -66,11 +75,17 @@ ul li a:hover {
   justify-content: center;
 }
 
-.appicon img {
+.appiconleft img {
   margin: 0;
   padding: 0;
   max-width: 128px;
   max-height: 128px;
+}
+
+.appinforight {
+  float: left;
+  margin-top: 30px;
+  margin-left: 15px;
 }
 
 .appname {
@@ -84,4 +99,36 @@ ul li a:hover {
 
 .appdeveloper {
   line-height: 1.5em;
+}
+
+.appdescription {
+  line-height: 1.5em;
+  color: #003b7c;
+  margin-bottom: 1em;
+}
+
+.packageField {
+  float: left;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-weight: 300;
+  font-family: Roboto;
+  margin: 0px;
+  padding: 2px 0px;
+  border-bottom: 1px solid rgb(205, 201, 201);
+  color: #003b7c;
+}
+
+.packageFieldTitle {
+  float: left;
+  width: 15%;
+  box-sizing: border-box;
+}
+
+.packageFieldValue {
+  float: left;
+  padding-left: 10px;
+  width: 85%;
+  box-sizing: border-box;
 }

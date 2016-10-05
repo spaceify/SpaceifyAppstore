@@ -21,7 +21,7 @@ export class MockService{
 
 	constructor(private http : Http) {
 
-		this.http.get('app/mock-data.json')
+		this.http.get('app/mock-data_appstoreapps.json')
 			.map(this.extractData)
 			.map(this.mapData)
 			.catch(this.handleError)
@@ -36,9 +36,10 @@ export class MockService{
  						}
 			); 
 
-			this.http.get('app/mock-data_2.json')
+			this.http.get('app/mock-data_installedapps.json')
 			.map(this.extractData)
 			.map(this.mapData)
+			.map(this.setAsInstalled)
 			.catch(this.handleError)
 			.subscribe(
 				data => {
@@ -86,21 +87,17 @@ export class MockService{
 	}
 
 	isAppInstalled(app : AppItem) : boolean{
-  		
-
-  		if(app){
-
-
-	  		for(var installedApp of this.installedApps){
-	  			if(installedApp.unique_name == app.unique_name )
-	  				return true;
-
-	  		}
-  		}
-  		return false;
-  		
-
-  	}
+		if(app){
+			for(var installedApp of this.installedApps){
+				if(installedApp.unique_name == app.unique_name ) {
+					app.isInstalled = true;
+					return true;
+				}
+			}
+		}
+		app.isInstalled = false;
+		return false;
+	}
 
 	getAppsStoreApps(): Array<AppItem> {
 		return this.appstoreApps;
@@ -199,7 +196,10 @@ export class MockService{
 	}
 
 	checkAppChanges(app : AppItem){
-
+		if (Math.random() >= 0.5)
+			app.updateAvailable = true;
+		else
+			app.updateAvailable = false;
 	}
 
 	private extractData(res: Response) {
@@ -224,6 +224,15 @@ export class MockService{
 			});
 		}
 		return result;
+	}
+
+	private setAsInstalled(apps: Array<any>) {
+		if (apps) {
+			apps.forEach((app) => {
+				app.isInstalled = true;
+			});
+		}
+		return apps;
 	}
 
 	private handleError(error: any) {

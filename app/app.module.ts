@@ -5,6 +5,7 @@ import { HttpModule }     from '@angular/http';
 
 import { AppComponent }  from './app.component';
 import { ApplistComponent }  from './applist.component';
+import { AppItemComponent }  from './appitem.component';
 
 import { ManageComponent }  from './manage.component';
 import { ManageAppComponent }  from './manageapp.component';
@@ -29,6 +30,7 @@ import { routing} from './app.routes';
   imports:      [ BrowserModule, FormsModule, HttpModule, routing],  // ,MdIconModule, MdButtonModule ],
   declarations: [ AppComponent,
                   ApplistComponent, 
+                  AppItemComponent, 
                   ManageComponent,
                   ManageAppComponent, 
                   InstallComponent,

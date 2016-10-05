@@ -14,6 +14,7 @@ var forms_1 = require('@angular/forms');
 var http_1 = require('@angular/http');
 var app_component_1 = require('./app.component');
 var applist_component_1 = require('./applist.component');
+var appitem_component_1 = require('./appitem.component');
 var manage_component_1 = require('./manage.component');
 var manageapp_component_1 = require('./manageapp.component');
 var install_component_1 = require('./install.component');
@@ -32,6 +33,7 @@ var AppModule = (function () {
             imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, app_routes_1.routing],
             declarations: [app_component_1.AppComponent,
                 applist_component_1.ApplistComponent,
+                appitem_component_1.AppItemComponent,
                 manage_component_1.ManageComponent,
                 manageapp_component_1.ManageAppComponent,
                 install_component_1.InstallComponent,

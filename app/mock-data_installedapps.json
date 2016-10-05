@@ -1,0 +1,168 @@
+[
+      {
+         "provides_services":[
+            {
+               "service_name":"spaceify.org\/services\/bigscreen",
+               "service_type":"open"
+            }
+         ],
+         "name":"Bigscreen",
+         "unique_name":"spaceify\/bigscreen",
+         "version":"1.1.0",
+         "type":"sandboxed",
+         "category":"multimedia",
+         "start_command":"node bigscreen",
+         "developer":{
+            "name":"Spaceify Inc.",
+            "url":"http:\/\/spaceify.net",
+            "email":"admin@spaceify.net"
+         },
+         "short_description":"Big screen hub.",
+         "license":"MIT",
+         "creation_date":"2015-01-28 10:07:00",
+         "implements":[
+            "WEB_SERVER"
+         ],
+         "images":[
+
+         ],
+         "unique_directory":"spaceify\/bigscreen\/",
+         "icon":"spaceify.org\/users\/jouni\/packages\/spaceify\/bigscreen\/1.1.0\/media\/www\/images\/icon.png",
+         "version_canonical":"00001.00001.00000",
+         "publish_date":"2016-03-04 14:02:09",
+         "readme":"spaceify.org\/users\/jouni\/packages\/spaceify\/bigscreen\/1.1.0\/media\/readme.html",
+         "versions":[
+            "1.1.0",
+            "1.1.2",
+            "1.1.3"
+         ],
+         "canonical_versions":"00001.00001.00003",
+         "isRunning": false
+      },
+
+      {
+         "provides_services":[
+            {
+               "service_name":"spaceify.org\/services\/lightcontrol",
+               "service_type":"open"
+            }
+         ],
+         "requires_services":[
+            {
+               "suggested_application":"spaceify\/driverphilipshue",
+               "service_name":"spaceify.org\/services\/lights",
+               "suggested_description":{
+                  "version":"0.1.0",
+                  "short_description":"Light control driver for Philips Hue lighting."
+               }
+            }
+         ],
+         "name":"Light Control app",
+         "unique_name":"spaceify\/lightcontrol",
+         "version":"0.1.0",
+         "type":"sandboxed",
+         "category":"graphics",
+         "start_command":"node lightcontrol.js",
+         "implements":[
+            "WEB_SERVER"
+         ],
+         "developer":{
+            "name":"Spaceify Oy",
+            "email":"admin@spaceify.net",
+            "url":"http:\/\/spaceify.net"
+         },
+         "short_description":"App for controlling your smart lights.",
+         "appstore_description":"App for controlling your smart lights. 'spaceify.org\/services\/lights' service implementing driver is required (e.g. 'spaceify\/driverphilipshue' or 'spaceify\/driverosramlightify').",
+         "license":"MIT",
+         "creation_date":"2016-09-26 17:20:00",
+         "icon":"",
+         "version_canonical":"00000.00001.00000",
+         "publish_date":"2016-09-26 18:15:02",
+         "readme":"spaceify.org\/users\/codise\/packages\/spaceify\/lightcontrol\/0.1.0\/media\/readme.html",
+         "versions":[
+            "0.1.0",
+            "0.1.1"
+         ],
+         "canonical_versions":"00000.00001.00001"
+      },
+
+      {
+         "provides_services":[
+            {
+               "service_name":"spaceify.org\/services\/lights",
+               "service_type":"open"
+            }
+         ],
+         "name":"OSRAM LIGHTIFY driver",
+         "unique_name":"spaceify\/driverosramlightify",
+         "version":"0.1.0",
+         "type":"sandboxed",
+         "category":"multimedia",
+         "start_command":"node driver-osram-lightify",
+         "developer":{
+            "name":"Spaceify Oy",
+            "url":"http:\/\/spaceify.net",
+            "email":"admin@spaceify.net"
+         },
+         "short_description":"Light control driver for OSRAM LIGHTIFY.",
+         "appstore_description":"You can setup OSRAM LIGHTIFY lights using this driver and them control them in other apps.",
+         "license":"MIT",
+         "creation_date":"2016-09-23 17:00:00",
+         "implements":[
+            "WEB_SERVER"
+         ],
+         "images":[
+
+         ],
+         "unique_directory":"spaceify\/driverosramlightify\/",
+         "icon":"spaceify.org\/users\/codise\/packages\/spaceify\/driverosramlightify\/0.1.0\/media\/www\/images\/icon.png",
+         "version_canonical":"00000.00001.00000",
+         "publish_date":"2016-09-26 18:13:34",
+         "readme":"spaceify.org\/users\/codise\/packages\/spaceify\/driverosramlightify\/0.1.0\/media\/readme.html",
+         "versions":[
+            "0.1.0"
+         ],
+         "canonical_versions":"00000.00001.00000",
+         "isRunning":"true"
+      },
+
+      {
+         "provides_services":[
+            {
+               "service_name":"spaceify.org\/services\/lights",
+               "service_type":"open"
+            }
+         ],
+         "name":"Philips Hue lighting driver",
+         "unique_name":"spaceify\/driverphilipshue",
+         "version":"0.1.0",
+         "type":"sandboxed",
+         "category":"multimedia",
+         "start_command":"node driver-philips-hue",
+         "developer":{
+            "name":"Spaceify Oy",
+            "url":"http:\/\/spaceify.net",
+            "email":"admin@spaceify.net"
+         },
+         "short_description":"Light control driver for Philips Hue lighting.",
+         "appstore_description":"You can setup Philips Hue lights using this driver and them control them in other apps.",
+         "license":"MIT",
+         "creation_date":"2016-09-23 17:00:00",
+         "implements":[
+            "WEB_SERVER"
+         ],
+         "images":[
+
+         ],
+         "unique_directory":"spaceify\/driverphilipshue\/",
+         "icon":"spaceify.org\/users\/codise\/packages\/spaceify\/driverphilipshue\/0.1.0\/media\/www\/images\/icon.png",
+         "version_canonical":"00000.00001.00000",
+         "publish_date":"2016-09-26 18:14:22",
+         "readme":"spaceify.org\/users\/codise\/packages\/spaceify\/driverphilipshue\/0.1.0\/media\/readme.html",
+         "versions":[
+            "0.1.0"
+         ],
+         "canonical_versions":"00000.00001.00000",
+         "isRunning":"true"
+      }
+]
