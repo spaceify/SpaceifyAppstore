@@ -149,13 +149,15 @@ var MockService = (function () {
         else if (operation == "update") {
         }
     };
-    MockService.prototype.getServerMessageColor = function (type) {
-        if (type == spaceifyhandler_1.ServerMessageType.Error)
-            return "red";
+    MockService.prototype.getServerMessageStyle = function (type) {
+        if (type == spaceifyhandler_1.ServerMessageType.Message)
+            return "serverMessageMessage";
+        else if (type == spaceifyhandler_1.ServerMessageType.Error)
+            return "serverMessageError";
         else if (type == spaceifyhandler_1.ServerMessageType.Warning)
-            return "yellow";
+            return "serverMessageWarning";
         else if (type == spaceifyhandler_1.ServerMessageType.Notification)
-            return "blue";
+            return "serverMessageNotification";
     };
     MockService.prototype.clearLogMessages = function () {
         this.mockMessages.length = 0;

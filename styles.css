@@ -380,9 +380,50 @@ input#search {
   color: #AB3C3E;
   width: 100%;
   margin: 0px;
-  padding: 20px;
+  padding: 0px;
   padding-top: 20px
   padding-bottom: 20px;
+}
+
+#page_content_inner {
+  padding: 0px;
+  margin: 0px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.serverMessages {
+  font-family: Roboto;
+  width: 100%;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  max-height: 400px;
+  overflow: scroll;
+  border-bottom: 1px solid rgb(205, 201, 201);
+  line-height: 1.5em;
+  padding-top: 0.5em;
+  padding-bottom: 1em;
+}
+
+.serverMessageMessage {
+  color: #003b7c;
+}
+
+.serverMessageError {
+  color: #660500;
+  font-weight: bold;
+  /*color: #FF0000;*/
+}
+
+.serverMessageWarning {
+  color: #003b7c;
+  font-weight: bold;
+  /*color: #FFEF0D;*/
+}
+
+.serverMessageNotification {
+  color: #003b7c;
+  /*color: #003b7c;*/
 }
 
 

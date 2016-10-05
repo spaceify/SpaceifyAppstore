@@ -98,14 +98,15 @@ export class AppManagerService {
 		return this.messageHandler.serverMessages;
   	}
 
-  	getServerMessageColor(type : ServerMessageType){
-		
-		if (type == ServerMessageType.Error)
-			return "red";
+  	getServerMessageStyle(type : ServerMessageType){
+		if (type == ServerMessageType.Message)
+			return "serverMessageMessage";
+		else if (type == ServerMessageType.Error)
+			return "serverMessageError";
 		else if(type == ServerMessageType.Warning)
-			return "yellow";
+			return "serverMessageWarning";
 		else if (type == ServerMessageType.Notification)
-			return "blue";
+			return "serverMessageNotification";
 	}
 
   	clearLogMessages(){

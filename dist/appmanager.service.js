@@ -45,13 +45,15 @@ var AppManagerService = (function () {
         enumerable: true,
         configurable: true
     });
-    AppManagerService.prototype.getServerMessageColor = function (type) {
-        if (type == spaceifyhandler_1.ServerMessageType.Error)
-            return "red";
+    AppManagerService.prototype.getServerMessageStyle = function (type) {
+        if (type == spaceifyhandler_1.ServerMessageType.Message)
+            return "serverMessageMessage";
+        else if (type == spaceifyhandler_1.ServerMessageType.Error)
+            return "serverMessageError";
         else if (type == spaceifyhandler_1.ServerMessageType.Warning)
-            return "yellow";
+            return "serverMessageWarning";
         else if (type == spaceifyhandler_1.ServerMessageType.Notification)
-            return "blue";
+            return "serverMessageNotification";
     };
     AppManagerService.prototype.clearLogMessages = function () {
         this.messageHandler.clearMessages();
