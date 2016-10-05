@@ -17,7 +17,7 @@
 		<div class="appinforight">
 			<div id="button_container" class="button_container">
 				<span *ngIf="!_appservice.isAppInstalled(app)">
-				    <input type="button" value="Install" (click)="_appservice.commandApp('install', selectedApp)">
+				    <input type="button" value="Install" (click)="_appservice.commandApp('install', app)">
 				</span>
 
 				<span *ngIf="_appservice.isAppInstalled(app)">
