@@ -24,7 +24,6 @@ var _404_1 = require('./404');
 var spaceifysrc_directive_1 = require('./spaceifysrc.directive');
 //import {HTTP_PROVIDERS} from '@angular/http';
 var appmanager_service_1 = require('./appmanager.service');
-var appmanager_mockservice_1 = require('./appmanager.mockservice');
 var app_routes_1 = require('./app.routes');
 var AppModule = (function () {
     function AppModule() {
@@ -43,7 +42,7 @@ var AppModule = (function () {
                 _404_1.PageNotFoundComponent,
                 spaceifysrc_directive_1.SpaceifySourceDirective],
             providers: [
-                { provide: appmanager_service_1.AppManagerService, useClass: appmanager_mockservice_1.MockService } //  AppManagerService
+                { provide: appmanager_service_1.AppManagerService, useClass: appmanager_service_1.AppManagerService } // MockService
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 
