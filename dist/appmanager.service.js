@@ -74,7 +74,7 @@ var AppManagerService = (function () {
         //this._appservice.updateInstalledApplicationsList();
     };
     AppManagerService.prototype.searchAppStore = function (name) {
-        this.appStoreApps.length = 0;
+        var _this = this;
         var order = { "name": "ASC" };
         var pageSize = 10;
         var page = 1;
@@ -103,6 +103,7 @@ var AppManagerService = (function () {
         //var searchObject = { "where": {}, "page": 1, "pageSize": 10 };
         //console.log(searchObject);
         this.sam.appStoreGetPackages(searchObject, function (err, result) {
+            _this.appStoreApps.length = 0;
             //console.log(err+" "+result);
             if (result == null) {
                 console.log("appStoreGetPackages returned null");
