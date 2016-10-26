@@ -42,7 +42,7 @@ var AppModule = (function () {
                 _404_1.PageNotFoundComponent,
                 spaceifysrc_directive_1.SpaceifySourceDirective],
             providers: [
-                { provide: appmanager_service_1.AppManagerService, useClass: appmanager_service_1.AppManagerService } // MockService 
+                { provide: appmanager_service_1.AppManagerService, useClass: appmanager_service_1.AppManagerService } //  MockService
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

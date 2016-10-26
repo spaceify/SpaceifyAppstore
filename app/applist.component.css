@@ -64,6 +64,7 @@ ul li a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  float: left;
 }
 
 .appicon img {
@@ -74,6 +75,7 @@ ul li a:hover {
 }
 
 .appname {
+  clear: both;
   line-height: 1.7em;
   font-weight: bolder;
 }
@@ -85,3 +87,13 @@ ul li a:hover {
 .appdeveloper {
   line-height: 1.5em;
 }
+
+.installedIcon {
+  font-size: 14px;
+  padding: 6px;
+  float: right;
+  color: #666;
+  border: solid 1px #999;
+  border-radius: 10px;
+}
+

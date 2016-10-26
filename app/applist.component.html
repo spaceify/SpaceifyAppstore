@@ -11,9 +11,9 @@
 				<div class="appicon">
 					<img [sp_src]="app.icon" alt="" onError="this.src='./assets/icon-80p.png';" />
 				</div>
+				<div *ngIf="app.isInstalled" class="installedIcon">Installed</div>
 				<div class="appname">{{app.name}}</div>
 				<div class="appdescription">{{app.short_description}}</div>
-				<div >{{app.isInstalled}}</div>
 			</a>
 
 <!--
