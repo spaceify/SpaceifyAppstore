@@ -142,7 +142,7 @@ export class AppManagerService {
 
 	searchAppStore(name?: string) {
 
-		this.appStoreApps.length = 0;
+		
 
 		var order = { "name": "ASC" };
 		var pageSize = 10;
@@ -186,6 +186,7 @@ export class AppManagerService {
 		this.sam.appStoreGetPackages(searchObject,
 			(err: any, result: any) => {
 
+				this.appStoreApps.length = 0;
 				//console.log(err+" "+result);
 
 				if (result == null) {
