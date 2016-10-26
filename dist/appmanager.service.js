@@ -126,6 +126,12 @@ var AppManagerService = (function () {
                 appItem.isInstalled = false;
                 self.appStoreApps.push(appItem);
             }
+            for (var _f = 0, _g = self.appStoreApps; _f < _g.length; _f++) {
+                var appItem = _g[_f];
+                if (self.isAppInstalled(appItem)) {
+                    appItem.isInstalled = true;
+                }
+            }
         });
     };
     AppManagerService.prototype.getAppstoreApp = function (unique_name) {

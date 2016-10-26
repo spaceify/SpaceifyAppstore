@@ -210,6 +210,12 @@ export class AppManagerService {
 					appItem.isInstalled = false;
 					self.appStoreApps.push(appItem);
 				}
+
+				for (var appItem of self.appStoreApps) {
+					if (self.isAppInstalled(appItem)) {
+						appItem.isInstalled = true;
+					}
+				}
 			}
 		);
   	}
