@@ -1,4 +1,9 @@
 "use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -15,19 +20,23 @@ require('rxjs/Rx');
 var appitem_1 = require('./appitem');
 var Rx_1 = require('rxjs/Rx');
 var spaceifyhandler_1 = require('./spaceifyhandler');
-var MockService = (function () {
+var appmanager_service_1 = require('./appmanager.service');
+var MockService = (function (_super) {
+    __extends(MockService, _super);
     function MockService(http) {
         var _this = this;
+        _super.call(this);
         this.http = http;
-        this.appstoreApps = [];
-        this.installedApps = [];
+        //private appstoreApps: AppItem[] = [];
+        //private installedApps: AppItem[] = [];
         this.mockMessages = [];
+        this.messageHandler = new spaceifyhandler_1.SpaceifyHandler();
         this.http.get('app/mock-data_appstoreapps.json')
             .map(this.extractData)
             .map(this.mapData)
             .catch(this.handleError)
             .subscribe(function (data) {
-            _this.appstoreApps = data;
+            _this.appStoreApps = data;
             console.log(data);
         }, function (err) {
             //this.apps_error = true 
@@ -47,23 +56,35 @@ var MockService = (function () {
     MockService.prototype.searchAppStore = function (name) {
         console.log("Searched: " + name);
     };
-    MockService.prototype.getAppstoreApp = function (unique_name) {
-        for (var _i = 0, _a = this.appstoreApps; _i < _a.length; _i++) {
-            var appStoreApp = _a[_i];
-            if (appStoreApp.unique_name == unique_name)
-                return appStoreApp;
+    /*
+    getAppstoreApp(unique_name: string) :AppItem {
+        for(var appStoreApp of this.appstoreApps){
+                if(appStoreApp.unique_name == unique_name )
+                    return appStoreApp;
+
         }
         return null;
-    };
-    MockService.prototype.getInstalledApp = function (unique_name) {
-        for (var _i = 0, _a = this.installedApps; _i < _a.length; _i++) {
-            var InstalledApp = _a[_i];
-            if (InstalledApp.unique_name == unique_name)
-                return InstalledApp;
+    }
+
+    getInstalledApp(unique_name: string) :AppItem {
+        for(var InstalledApp of this.installedApps){
+                if(InstalledApp.unique_name == unique_name )
+                    return InstalledApp;
+
         }
         return null;
+    }
+    */
+    MockService.prototype.updateInstalledApplicationsList = function () {
+        var self = this;
+        // Update appstore apps list also
+        for (var _i = 0, _a = self.appStoreApps; _i < _a.length; _i++) {
+            var appItem = _a[_i];
+            if (self.isAppInstalled(appItem)) {
+                appItem.isInstalled = true;
+            }
+        }
     };
-    MockService.prototype.updateInstalledApplicationsList = function () { };
     Object.defineProperty(MockService.prototype, "serverMessages", {
         get: function () {
             return this.mockMessages;
@@ -73,11 +94,11 @@ var MockService = (function () {
     });
     MockService.prototype.isAppRunning = function (unique_name) {
     };
-    MockService.prototype.isAppInstalled = function (app) {
-        if (app) {
-            for (var _i = 0, _a = this.installedApps; _i < _a.length; _i++) {
-                var installedApp = _a[_i];
-                if (installedApp.unique_name == app.unique_name) {
+    /*
+    isAppInstalled(app : AppItem) : boolean{
+        if(app){
+            for(var installedApp of this.installedApps){
+                if(installedApp.unique_name == app.unique_name ) {
                     app.isInstalled = true;
                     return true;
                 }
@@ -85,13 +106,17 @@ var MockService = (function () {
         }
         app.isInstalled = false;
         return false;
-    };
-    MockService.prototype.getAppsStoreApps = function () {
+    }
+    */
+    /*
+    getAppsStoreApps(): Array<AppItem> {
         return this.appstoreApps;
-    };
-    MockService.prototype.getInstalledApps = function () {
+    }
+
+    getInstalledApps(): Array<AppItem> {
         return this.installedApps;
-    };
+    }
+    */
     MockService.prototype.commandApp = function (operation, app) {
         //var id = setInterval(frame, 10);
         //clearInterval(id);
@@ -206,6 +231,6 @@ var MockService = (function () {
         __metadata('design:paramtypes', [http_1.Http])
     ], MockService);
     return MockService;
-}());
+}(appmanager_service_1.AppManagerService));
 exports.MockService = MockService;
 //# sourceMappingURL=appmanager.mockservice.js.map

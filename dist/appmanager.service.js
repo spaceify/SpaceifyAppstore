@@ -19,13 +19,17 @@ var AppManagerService = (function () {
         this.appStoreApps = [];
         this.installedApps = [];
         //super();
-        this.config = new SpaceifyConfig();
-        this.sam = new SpaceifyApplicationManager();
-        this.core = new SpaceifyCore();
+        if (typeof (SpaceifyConfig) === "Function")
+            this.config = new SpaceifyConfig();
+        if (typeof (SpaceifyApplicationManager) === "Function") {
+            this.sam = new SpaceifyApplicationManager();
+        }
+        if (typeof (SpaceifyCore) === "Function")
+            this.core = new SpaceifyCore();
         this.messageHandler = new spaceifyhandler_1.SpaceifyHandler();
         //console.log(this.sam);
         //this.core.isApplicationRunning(<paketin nimi>, <callback>);
-        this.initService();
+        //this.initService();
         //console.log("kerran");
     }
     AppManagerService.prototype.initService = function () {
@@ -36,7 +40,6 @@ var AppManagerService = (function () {
         //console.log("testesetste");
         //self.updateInstalledApplicationsList();
         //this.sam.logIn("spaceify123", self, self.printStatus);
-        this.sam.isAdminLoggedIn(self.messageHandler, self.printStatus);
     };
     Object.defineProperty(AppManagerService.prototype, "serverMessages", {
         get: function () {

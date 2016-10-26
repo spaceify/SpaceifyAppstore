@@ -48,10 +48,10 @@ export class AppManagerService {
 	private sam: SpaceifyApplicationManager;
 	private core: SpaceifyCore;
 
-	private appStoreApps: AppItem[] = [];
-	private installedApps: AppItem[] = [];
+	protected appStoreApps: AppItem[] = [];
+	protected installedApps: AppItem[] = [];
 
-	private messageHandler : SpaceifyHandler;
+	protected messageHandler : SpaceifyHandler;
 
 	//private _serverMessages: ServerMessage[] = [];
 
@@ -60,16 +60,24 @@ export class AppManagerService {
 	constructor() {
 
 		//super();
-		this.config = new SpaceifyConfig();
-		this.sam = new SpaceifyApplicationManager();
-		this.core = new SpaceifyCore();
+		if(typeof(SpaceifyConfig) === "Function")
+			this.config = new SpaceifyConfig();
+		if(typeof(SpaceifyApplicationManager) === "Function"){
+			this.sam = new SpaceifyApplicationManager();
+			//this.sam.isAdminLoggedIn(self.messageHandler, self.printStatus);
+
+		}
+		if(typeof(SpaceifyCore) === "Function")
+			this.core = new SpaceifyCore();
+		
+		
 		this.messageHandler = new SpaceifyHandler();
 		
 		//console.log(this.sam);
 		
 			//this.core.isApplicationRunning(<paketin nimi>, <callback>);
 
-		this.initService();
+		//this.initService();
 		//console.log("kerran");
 	 }
 
@@ -89,7 +97,6 @@ export class AppManagerService {
 		
 
 		//this.sam.logIn("spaceify123", self, self.printStatus);
-		this.sam.isAdminLoggedIn(self.messageHandler, self.printStatus);
 
 		
 	}

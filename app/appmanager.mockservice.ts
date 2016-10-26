@@ -10,16 +10,21 @@ import {Observable} from 'rxjs/Rx';
 
 import {SpaceifyHandler, ServerMessage, ServerMessageType} from './spaceifyhandler';
 
+import {AppManagerService} from './appmanager.service'
+
 @Injectable()
-export class MockService{
+export class MockService extends AppManagerService{
 
-	private appstoreApps: AppItem[] = [];
+	//private appstoreApps: AppItem[] = [];
 
-	private installedApps: AppItem[] = [];
+	//private installedApps: AppItem[] = [];
 
 	private mockMessages: ServerMessage[] = [];
 
 	constructor(private http : Http) {
+		super();
+		this.messageHandler = new SpaceifyHandler();
+
 
 		this.http.get('app/mock-data_appstoreapps.json')
 			.map(this.extractData)
@@ -27,7 +32,7 @@ export class MockService{
 			.catch(this.handleError)
 			.subscribe(
 				data => {
-					this.appstoreApps = data;
+					this.appStoreApps = data;
 						console.log(data);
 					},
  				err => { 
@@ -58,6 +63,7 @@ export class MockService{
 		console.log("Searched: "+name);
 	}
 
+	/*
 	getAppstoreApp(unique_name: string) :AppItem {
 		for(var appStoreApp of this.appstoreApps){
 	  			if(appStoreApp.unique_name == unique_name )
@@ -75,17 +81,29 @@ export class MockService{
 		}
 		return null;
 	}
+	*/
 
-	updateInstalledApplicationsList() {}
+	updateInstalledApplicationsList() {
+		var self = this;
+		// Update appstore apps list also
+			for (var appItem of self.appStoreApps) {
+				if (self.isAppInstalled(appItem)) {
+					appItem.isInstalled = true;
+				}
+			}
+	}
 
+	
 	get serverMessages(): ServerMessage[] {
 		return this.mockMessages;
 	}
+	
 
 	isAppRunning(unique_name: string) {
 		
 	}
 
+	/*
 	isAppInstalled(app : AppItem) : boolean{
 		if(app){
 			for(var installedApp of this.installedApps){
@@ -98,7 +116,10 @@ export class MockService{
 		app.isInstalled = false;
 		return false;
 	}
+	*/
 
+
+	/*
 	getAppsStoreApps(): Array<AppItem> {
 		return this.appstoreApps;
 	}
@@ -106,6 +127,7 @@ export class MockService{
 	getInstalledApps(): Array<AppItem> {
 		return this.installedApps;
 	}
+	*/
 
 	commandApp(operation : string, app : AppItem) {
 
