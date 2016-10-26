@@ -60,14 +60,14 @@ export class AppManagerService {
 	constructor() {
 
 		//super();
-		if(typeof(SpaceifyConfig) === "Function")
+		if(typeof(SpaceifyConfig) === "function")
 			this.config = new SpaceifyConfig();
-		if(typeof(SpaceifyApplicationManager) === "Function"){
+		if(typeof(SpaceifyApplicationManager) === "function"){
 			this.sam = new SpaceifyApplicationManager();
 			//this.sam.isAdminLoggedIn(self.messageHandler, self.printStatus);
 
 		}
-		if(typeof(SpaceifyCore) === "Function")
+		if(typeof(SpaceifyCore) === "function")
 			this.core = new SpaceifyCore();
 		
 		

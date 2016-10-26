@@ -19,12 +19,12 @@ var AppManagerService = (function () {
         this.appStoreApps = [];
         this.installedApps = [];
         //super();
-        if (typeof (SpaceifyConfig) === "Function")
+        if (typeof (SpaceifyConfig) === "function")
             this.config = new SpaceifyConfig();
-        if (typeof (SpaceifyApplicationManager) === "Function") {
+        if (typeof (SpaceifyApplicationManager) === "function") {
             this.sam = new SpaceifyApplicationManager();
         }
-        if (typeof (SpaceifyCore) === "Function")
+        if (typeof (SpaceifyCore) === "function")
             this.core = new SpaceifyCore();
         this.messageHandler = new spaceifyhandler_1.SpaceifyHandler();
         //console.log(this.sam);
