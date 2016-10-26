@@ -144,7 +144,6 @@ var AppManagerService = (function () {
         return null;
     };
     AppManagerService.prototype.updateInstalledApplicationsList = function () {
-        var _this = this;
         var self = this;
         var types = [this.config.SPACELET, this.config.SANDBOXED]; //, this.config.NATIVE];
         //console.log(this.config.SPACELET);
@@ -152,7 +151,7 @@ var AppManagerService = (function () {
         //this.sam.getApplications(types, self, this.printStatus);		
         this.sam.getApplications(types, self.messageHandler, function (apps) {
             console.log(apps);
-            _this.installedApps.length = 0;
+            self.installedApps.length = 0;
             if (apps == null) {
                 console.log("getApplications returned null");
                 return;

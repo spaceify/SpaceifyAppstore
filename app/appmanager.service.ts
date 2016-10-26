@@ -243,7 +243,7 @@ export class AppManagerService {
 			(apps: any) => {
 				console.log(apps);
 
-				this.installedApps.length = 0;
+				self.installedApps.length = 0;
 
 				if (apps == null) {
 					console.log("getApplications returned null");
