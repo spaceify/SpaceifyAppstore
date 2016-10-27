@@ -275,14 +275,20 @@ export class AppManagerService {
 						appItem.isInstalled = true;
 					}
 
-					this.core.isApplicationRunning(appItem.unique_name,
-					(err, result) => {
-						console.log(result);
-						appItem.isRunning = result;
-
-					});
+					
 
 				}
+
+				//Check if app is running after installation
+				for (var appItem of self.installedApps) {
+					this.core.isApplicationRunning(appItem.unique_name,
+						(err, result) => {
+							console.log(result);
+							appItem.isRunning = result;
+
+						});
+				}
+
 			}
 		);
 

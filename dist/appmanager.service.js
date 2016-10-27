@@ -183,6 +183,10 @@ var AppManagerService = (function () {
                 if (self.isAppInstalled(appItem)) {
                     appItem.isInstalled = true;
                 }
+            }
+            //Check if app is running after installation
+            for (var _f = 0, _g = self.installedApps; _f < _g.length; _f++) {
+                var appItem = _g[_f];
                 _this.core.isApplicationRunning(appItem.unique_name, function (err, result) {
                     console.log(result);
                     appItem.isRunning = result;
