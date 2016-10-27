@@ -9,7 +9,7 @@
 
 			<a>
 				<div class="appicon">
-					<img [sp_src]="app.icon" alt="" onError="this.src='./assets/icon-80p.png';" />
+					<img [sp_src]="app.icon" alt="" onError="this.src='./assets/default_icon-128p.png';" />
 				</div>
 				<div *ngIf="app.isInstalled" class="installedIcon">Installed</div>
 				<div class="appname">{{app.name}}</div>
@@ -18,7 +18,7 @@
 
 <!--
 			<div class="iconcontainer">
-				<img class="icon" [sp_src]="app.icon" alt="" onError="this.src='./assets/icon-80p.png';" />
+				<img class="icon" [sp_src]="app.icon" alt="" onError="this.src='./assets/default_icon-128p.png';" />
 			</div>
 
 			<div class="text">
