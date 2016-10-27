@@ -352,12 +352,10 @@ export class AppManagerService {
 		if (app){
 			for (var installedApp of this.installedApps){
 				if (installedApp.unique_name == app.unique_name ) {
-					installedApp.isInstalled = true;
 					return true;
 				}
 			}
 		}
-		installedApp.isInstalled = false;
 		return false;
 	}
 	/*

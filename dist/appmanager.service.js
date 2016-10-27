@@ -236,12 +236,10 @@ var AppManagerService = (function () {
             for (var _i = 0, _a = this.installedApps; _i < _a.length; _i++) {
                 var installedApp = _a[_i];
                 if (installedApp.unique_name == app.unique_name) {
-                    installedApp.isInstalled = true;
                     return true;
                 }
             }
         }
-        installedApp.isInstalled = false;
         return false;
     };
     /*
