@@ -144,6 +144,7 @@ var AppManagerService = (function () {
         return null;
     };
     AppManagerService.prototype.updateInstalledApplicationsList = function () {
+        var _this = this;
         var self = this;
         var types = [this.config.SPACELET, this.config.SANDBOXED]; //, this.config.NATIVE];
         //console.log(this.config.SPACELET);
@@ -182,6 +183,10 @@ var AppManagerService = (function () {
                 if (self.isAppInstalled(appItem)) {
                     appItem.isInstalled = true;
                 }
+                _this.core.isApplicationRunning(appItem.unique_name, function (err, result) {
+                    console.log(result);
+                    appItem.isRunning = result;
+                });
             }
         });
     };

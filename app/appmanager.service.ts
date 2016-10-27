@@ -274,6 +274,14 @@ export class AppManagerService {
 					if (self.isAppInstalled(appItem)) {
 						appItem.isInstalled = true;
 					}
+
+					this.core.isApplicationRunning(appItem.unique_name,
+					(err, result) => {
+						console.log(result);
+						appItem.isRunning = result;
+
+					});
+
 				}
 			}
 		);
