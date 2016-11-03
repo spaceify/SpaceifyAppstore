@@ -5,6 +5,16 @@
 		<div id="logoname" class="logoname">Spaceify Store</div>
 	</div>
 
+	<nav class="menu_container">
+		<a class="menu_topic" routerLink="/install" routerLinkActive="navActive">STORE</a>
+		<a class="menu_topic" routerLink="/manage" routerLinkActive="navActive">INSTALLED APPLICATIONS</a>
+
+		<div id="search_bar" class="search_bar">
+			<input type="search" id="search" placeholder="Search" #search (keyup.enter)="doSearch(search.value)">
+		</div>
+		<br class="menu_clear" />
+	</nav>
+
 	<div id="content_container">
 		<router-outlet></router-outlet>
 	</div>
