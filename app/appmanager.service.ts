@@ -58,7 +58,7 @@ export class AppManagerService {
 
 
 	constructor() {
-
+		var self = this;
 		//super();
 		if(typeof(SpaceifyConfig) === "function")
 			this.config = new SpaceifyConfig();
@@ -79,27 +79,11 @@ export class AppManagerService {
 
 		//this.initService();
 		//console.log("kerran");
+
+		self.updateInstalledApplicationsList(self.searchAppStore);
+
 	 }
 
-	private initService(){
-		var self = this;
-
-		
-		//this.searchAppStore();
-
-
-		//setTimeout( ()=>self.updateInstalledApplicationsList(), 200);
-		//self.updateInstalledApplicationsList();
-
-		//console.log("testesetste");
-
-		//self.updateInstalledApplicationsList();
-		
-
-		//this.sam.logIn("spaceify123", self, self.printStatus);
-
-		
-	}
 
   	get serverMessages() : ServerMessage[]{
 		return this.messageHandler.serverMessages;
@@ -230,7 +214,7 @@ export class AppManagerService {
 		return null;
 	}
 
-	updateInstalledApplicationsList() {
+	updateInstalledApplicationsList(callback? : () => void) {
 		var self = this;
 
 		var types = [this.config.SPACELET, this.config.SANDBOXED];//, this.config.NATIVE];
@@ -270,6 +254,7 @@ export class AppManagerService {
 				}*/
 
 				// Update appstore apps list also
+				/*
 				for (var appItem of self.appStoreApps) {
 					if (self.isAppInstalled(appItem)) {
 						appItem.isInstalled = true;
@@ -278,6 +263,9 @@ export class AppManagerService {
 					
 
 				}
+				*/
+
+				
 
 				//Check if app is running after installation
 				for (var appItem of self.installedApps) {
@@ -288,6 +276,9 @@ export class AppManagerService {
 
 						});
 				}
+
+				if(callback)
+					callback();
 
 			}
 		);

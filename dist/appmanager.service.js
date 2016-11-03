@@ -18,6 +18,7 @@ var AppManagerService = (function () {
     function AppManagerService() {
         this.appStoreApps = [];
         this.installedApps = [];
+        var self = this;
         //super();
         if (typeof (SpaceifyConfig) === "function")
             this.config = new SpaceifyConfig();
@@ -31,16 +32,8 @@ var AppManagerService = (function () {
         //this.core.isApplicationRunning(<paketin nimi>, <callback>);
         //this.initService();
         //console.log("kerran");
+        self.updateInstalledApplicationsList(self.searchAppStore);
     }
-    AppManagerService.prototype.initService = function () {
-        var self = this;
-        //this.searchAppStore();
-        //setTimeout( ()=>self.updateInstalledApplicationsList(), 200);
-        //self.updateInstalledApplicationsList();
-        //console.log("testesetste");
-        //self.updateInstalledApplicationsList();
-        //this.sam.logIn("spaceify123", self, self.printStatus);
-    };
     Object.defineProperty(AppManagerService.prototype, "serverMessages", {
         get: function () {
             return this.messageHandler.serverMessages;
@@ -143,7 +136,7 @@ var AppManagerService = (function () {
         }
         return null;
     };
-    AppManagerService.prototype.updateInstalledApplicationsList = function () {
+    AppManagerService.prototype.updateInstalledApplicationsList = function (callback) {
         var _this = this;
         var self = this;
         var types = [this.config.SPACELET, this.config.SANDBOXED]; //, this.config.NATIVE];
@@ -178,20 +171,26 @@ var AppManagerService = (function () {
                 self.installedApps.push(appItem;
             }*/
             // Update appstore apps list also
-            for (var _d = 0, _e = self.appStoreApps; _d < _e.length; _d++) {
-                var appItem = _e[_d];
+            /*
+            for (var appItem of self.appStoreApps) {
                 if (self.isAppInstalled(appItem)) {
                     appItem.isInstalled = true;
                 }
+
+                
+
             }
+            */
             //Check if app is running after installation
-            for (var _f = 0, _g = self.installedApps; _f < _g.length; _f++) {
-                var appItem = _g[_f];
+            for (var _d = 0, _e = self.installedApps; _d < _e.length; _d++) {
+                var appItem = _e[_d];
                 _this.core.isApplicationRunning(appItem.unique_name, function (err, result) {
                     console.log(result);
                     appItem.isRunning = result;
                 });
             }
+            if (callback)
+                callback();
         });
     };
     AppManagerService.prototype.getInstalledApp = function (unique_name) {

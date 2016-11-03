@@ -67,8 +67,11 @@ var AppComponent = (function () {
     AppComponent.prototype.ngOnInit = function () {
         //console.log("ngOnInit");
         this.getAppsStoreApps();
+        /*
         this._appservice.updateInstalledApplicationsList();
         this._appservice.searchAppStore();
+
+        */
     };
     AppComponent.prototype.ngOnDestroy = function () {
     };

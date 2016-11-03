@@ -94,8 +94,14 @@ export class AppComponent implements OnInit, OnDestroy {
 	ngOnInit() {
 		//console.log("ngOnInit");
 		this.getAppsStoreApps();
+
+
+
+		/*
 		this._appservice.updateInstalledApplicationsList();
 		this._appservice.searchAppStore();
+
+		*/
 
 	}
 
