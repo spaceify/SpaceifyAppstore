@@ -82,6 +82,8 @@ export class AppManagerService {
 
 		self.updateInstalledApplicationsList(self.searchAppStore);
 
+		
+
 	 }
 
 
@@ -170,7 +172,7 @@ export class AppManagerService {
 		this.sam.appStoreGetPackages(searchObject,
 			(err: any, result: any) => {
 
-				this.appStoreApps.length = 0;
+				self.appStoreApps.length = 0;
 				//console.log(err+" "+result);
 
 				if (result == null) {
@@ -190,11 +192,14 @@ export class AppManagerService {
 					self.appStoreApps.push(appItem);
 				}
 
+				//Native array undefined?
+				/*
 				for (var manifest of result.native) {
 					var appItem:AppItem = new AppItem(manifest);
 					appItem.isInstalled = false;
 					self.appStoreApps.push(appItem);
 				}
+				*/
 
 				for (var appItem of self.appStoreApps) {
 					if (self.isAppInstalled(appItem)) {
@@ -265,6 +270,12 @@ export class AppManagerService {
 				}
 				*/
 
+				for (var appItem of self.appStoreApps) {
+					if (self.isAppInstalled(appItem)) {
+						appItem.isInstalled = true;
+					}
+
+				}
 				
 
 				//Check if app is running after installation
@@ -278,7 +289,7 @@ export class AppManagerService {
 				}
 
 				if(callback)
-					callback();
+					callback.bind(self);
 
 			}
 		);
