@@ -15,6 +15,7 @@ var http_1 = require('@angular/http');
 var app_component_1 = require('./app.component');
 var applist_component_1 = require('./applist.component');
 var appitem_component_1 = require('./appitem.component');
+var contextbar_component_1 = require('./contextbar.component');
 var manage_component_1 = require('./manage.component');
 var manageapp_component_1 = require('./manageapp.component');
 var install_component_1 = require('./install.component');
@@ -34,6 +35,7 @@ var AppModule = (function () {
             declarations: [app_component_1.AppComponent,
                 applist_component_1.ApplistComponent,
                 appitem_component_1.AppItemComponent,
+                contextbar_component_1.ContextbarComponent,
                 manage_component_1.ManageComponent,
                 manageapp_component_1.ManageAppComponent,
                 install_component_1.InstallComponent,

@@ -7,6 +7,8 @@ import { AppComponent }  from './app.component';
 import { ApplistComponent }  from './applist.component';
 import { AppItemComponent }  from './appitem.component';
 
+import {ContextbarComponent} from './contextbar.component'
+
 import { ManageComponent }  from './manage.component';
 import { ManageAppComponent }  from './manageapp.component';
 import { InstallComponent }  from './install.component';
@@ -30,7 +32,8 @@ import { routing} from './app.routes';
   imports:      [ BrowserModule, FormsModule, HttpModule, routing],  // ,MdIconModule, MdButtonModule ],
   declarations: [ AppComponent,
                   ApplistComponent, 
-                  AppItemComponent, 
+                  AppItemComponent,
+                  ContextbarComponent, 
                   ManageComponent,
                   ManageAppComponent, 
                   InstallComponent,
