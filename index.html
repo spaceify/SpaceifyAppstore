@@ -8,7 +8,7 @@
     <link href="node_modules/@angular2-material/core/overlay/overlay.css" rel="stylesheet">
     <link href="material-icons.css" rel="stylesheet">    
 
-    <script src="../../libs/spaceifyinitialize.js"> </script>
+    <script src="../../js/spaceify.app.js"> </script>
 
     <!-- 1. Load libraries -->
     <!-- IE required polyfills, in this exact order -->
@@ -36,9 +36,9 @@
     <script>
     
       
-      window.addEventListener("spaceifyReady", function()
+      window.addEventListener("load", function()
       { // Injection is ready
-        console.log("index: spaceifyReady");
+        console.log("index: load");
         //window.angularComponentRef.zone.run(() => {window.angularComponentRef.component.spaceifyReady();});
 
 
