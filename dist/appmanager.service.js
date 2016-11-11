@@ -241,9 +241,10 @@ var AppManagerService = (function () {
                 appStoreManifest = manifest;
             }*/
             //console.log(appStoreManifest);
-            if (app.version_canonical < appStoreManifest.version_canonical) {
-                app.updateAvailable = true;
-            }
+            if (appStoreManifest)
+                if (app.version_canonical < appStoreManifest.version_canonical) {
+                    app.updateAvailable = true;
+                }
         });
     };
     AppManagerService.prototype.isAppInstalled = function (app) {

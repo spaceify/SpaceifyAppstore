@@ -356,7 +356,7 @@ export class AppManagerService {
 				}*/
 
 				//console.log(appStoreManifest);
-
+				if(appStoreManifest)
 				if (app.version_canonical < appStoreManifest.version_canonical) {
 					app.updateAvailable = true;
 				}
