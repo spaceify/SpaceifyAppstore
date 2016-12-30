@@ -1,0 +1,47 @@
+<div id="launchpageapplist">
+
+	<!-- SPACELETS -- -- -- -- -- -- -- -- -- -- -->
+	<h5 *ngIf="apps.spacelet.length > 0" class="edgeH H3" id="spaceletHeader"> getString('index', 'spacelets') </h5>
+	<div *ngIf="apps.spacelet.length > 0" id="spacelet"></div>
+
+	<!-- SANDBOXED -- -- -- -- -- -- -- -- -- -- -->
+	<h5 *ngIf="apps.sandboxed.length > 0" class="edgeH H3" id="sandboxedHeader"> getString('index', 'sandboxed') </h5>
+	<div *ngIf="apps.sandboxed.length > 0" id="sandboxed">
+		<li *ngFor="let app of apps.sandboxed"
+			(click)="onSelect(app)">
+			{{app.name}}
+		</li>
+	</div>
+
+	<!-- SANDBOXED DEBIAN -- -- -- -- -- -- -- -- -- -- -->
+	<h5 *ngIf="apps.sandboxed_debian.length > 0" class="edgeH H3" id="sandboxedDebianHeader"> getString('index', 'sandboxed_debian') </h5>
+	<div *ngIf="apps.sandboxed_debian.length > 0" id="sandboxed_debian"></div>
+
+	<!-- NATIVE DEBIAN -->
+	<h5 *ngIf="apps.native_debian.length > 0" class="edgeH H3" id="nativeDebianHeader"> getString('index', 'native_debian') </h5>
+	<div *ngIf="apps.native_debian.length > 0" id="native_debian"></div>
+
+<!--
+	<ul>
+	<li>
+	<ul>
+		<li *ngFor="let app of apps"
+			[class.selected]="app === selectedApp"
+			(click)="onSelect(app)">
+
+			<a>
+				<div class="appicon">
+					<img alt="" [sp_src]="app.icon" />
+				</div>
+				<div *ngIf="app.isInstalled" class="installedIcon">Installed</div>
+				<div class="appname">{{app.name}}</div>
+				<div class="appdescription">{{app.short_description}}</div>
+			</a>
+
+		</li>
+	</ul>
+	</li>
+	</ul>
+-->
+
+</div>

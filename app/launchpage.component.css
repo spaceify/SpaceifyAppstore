@@ -1,0 +1,13 @@
+.contentContainer {
+	width: 100%;
+	background-color: #fff;
+	margin: 0px;
+	padding: 20px 0px 20px 0px;
+}
+
+.container {
+	position: relative;
+	width: 100%;
+	max-width: 850px;
+	margin: 0 auto;
+}

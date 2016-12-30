@@ -1,0 +1,108 @@
+<!doctype html>
+<html spaceify-login>
+	<head body-directive>
+		<!-- -->
+		<meta charset="utf-8">
+		<meta name="product" content="Spaceify">
+		<meta name="author" content="Spaceify Oy">
+		<meta name="description" content="Spaceify Edge">
+		<meta name="viewport" content="width=100%, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+
+		<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgo=">
+		<link rel="stylesheet" spe_href="fonts/roboto/roboto.base64.css">
+		<link rel="stylesheet" spe_href="css/spaceify.edge.css" type="text/css">
+
+		<title ng-bind="$root.getString('admin/login', 'title')">Loading...</title>
+		<!-- -->
+
+		<!-- -->
+		<script src="../js/spaceify.loader.js"></script>
+		<script spe_src="js/spaceify.edge.js"></script>
+		<!-- -->
+
+		<script>
+		var sam;
+		var net;
+
+		function angularReady()
+			{
+			net = new SpaceifyNet();
+			sam = new SpaceifyApplicationManager();
+
+			$("#edgeBody").show();
+			$("#password").val("").focus();
+
+			$("#password").keyup(function(e)
+				{
+				if(e.which == "13")
+					logIn();
+				});
+			}
+
+		function logIn()
+			{
+			sam.logIn($("#password").val(), this, loggedIn);
+			}
+
+		function loggedIn(result)
+			{
+			if(result.isLoggedIn)
+				net.loadAppstorePage();
+			}
+
+		this.error = function(err)
+			{
+			$("#password").empty();
+			net.showError(err[0] ? err[0].message : err.message);
+			}
+
+		</script>
+	</head>
+
+	<body id="edgeBody" ng-controller="bodyController" body-directive style="display: none;">
+
+		<div class="topBar">
+			<a class="topBarLogoLink" routerLink="/intro"><img spe_src="images/icon-80p.png" alt="" /></a>
+			<div class="topBarLogoText">Spaceify Edge</div>
+			<a class="topBarPageLink" onclick="net.loadLaunchPage(); return false;"><img spe_src="images/launchpage.png" alt="" /></a>
+		</div>
+
+		<div class="large_background_footer">&nbsp;</div>
+
+		<div id="contentContainer" class="contentContainer">
+
+			<div class="container admin">
+
+				<div class="adminLogo">
+					<span class="adminLogoHelper"></span>
+					<img sp_src="assets/logotext.png" class="adminLogoImage" width="291" height="100"
+						onclick="net.loadLaunchPage();">
+				</div>
+
+				<div class="adminInputContainer">
+					<input class="adminInput" style="width: 200px" type="password" name="password" id="password" placeholder="{{ getString('admin/login', 'password') }}"/>
+				</div>
+
+				<div class="adminInputContainer">
+					<button class="adminButton normal" name="operation" onclick="logIn();">
+						{{ getString("admin/login", "login") }}
+					</button>
+				</div>
+
+				<div class="breaker"></div>
+
+			</div>
+
+		</div>
+
+		<div id="footer" class="footer">
+			<div class="footerContentLeft">
+				<img id="32pxc" sp_src="assets/by-nc-nd_eu.png" width="91" height="32">
+			</div>
+			<div class="footerContentLeft">
+				<span>{{  getString('global', 'copyright') }}</span>
+			</div>
+		</div>
+
+	</body>
+</html>

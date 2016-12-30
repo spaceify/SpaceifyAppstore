@@ -8,10 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
 //import { ROUTER_DIRECTIVES } from '@angular/router';
-var router_1 = require('@angular/router');
-var appmanager_service_1 = require('./appmanager.service');
+var router_1 = require("@angular/router");
+var appmanager_service_1 = require("./appmanager.service");
 var InstallAppComponent = (function () {
     function InstallAppComponent(_appservice, route) {
         this._appservice = _appservice;
@@ -31,15 +31,15 @@ var InstallAppComponent = (function () {
     InstallAppComponent.prototype.ngOnDestroy = function () {
         this.sub.unsubscribe();
     };
-    InstallAppComponent = __decorate([
-        core_1.Component({
-            selector: 'installapp',
-            templateUrl: 'app/installapp.component.html',
-            styleUrls: ['app/app.component.css'],
-        }), 
-        __metadata('design:paramtypes', [appmanager_service_1.AppManagerService, router_1.ActivatedRoute])
-    ], InstallAppComponent);
     return InstallAppComponent;
 }());
+InstallAppComponent = __decorate([
+    core_1.Component({
+        selector: 'installapp',
+        templateUrl: 'appstore/app/installapp.component.html',
+        styleUrls: ['appstore/app/app.component.css'],
+    }),
+    __metadata("design:paramtypes", [appmanager_service_1.AppManagerService, router_1.ActivatedRoute])
+], InstallAppComponent);
 exports.InstallAppComponent = InstallAppComponent;
 //# sourceMappingURL=installapp.component.js.map

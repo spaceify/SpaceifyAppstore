@@ -8,10 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
 //import { ROUTER_DIRECTIVES } from '@angular/router';
-var router_1 = require('@angular/router');
-var appmanager_service_1 = require('./appmanager.service');
+var router_1 = require("@angular/router");
+var appmanager_service_1 = require("./appmanager.service");
 var ManageAppComponent = (function () {
     function ManageAppComponent(_appservice, route) {
         this._appservice = _appservice;
@@ -31,15 +31,15 @@ var ManageAppComponent = (function () {
     ManageAppComponent.prototype.ngOnDestroy = function () {
         this.sub.unsubscribe();
     };
-    ManageAppComponent = __decorate([
-        core_1.Component({
-            selector: 'manageapp',
-            templateUrl: 'app/manageapp.component.html',
-            styleUrls: ['app/app.component.css'],
-        }), 
-        __metadata('design:paramtypes', [appmanager_service_1.AppManagerService, router_1.ActivatedRoute])
-    ], ManageAppComponent);
     return ManageAppComponent;
 }());
+ManageAppComponent = __decorate([
+    core_1.Component({
+        selector: 'manageapp',
+        templateUrl: 'appstore/app/manageapp.component.html',
+        styleUrls: ['appstore/app/app.component.css'],
+    }),
+    __metadata("design:paramtypes", [appmanager_service_1.AppManagerService, router_1.ActivatedRoute])
+], ManageAppComponent);
 exports.ManageAppComponent = ManageAppComponent;
 //# sourceMappingURL=manageapp.component.js.map

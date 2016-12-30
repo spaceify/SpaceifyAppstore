@@ -8,8 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var appmanager_service_1 = require('./appmanager.service');
+var core_1 = require("@angular/core");
+var appmanager_service_1 = require("./appmanager.service");
 var InstallComponent = (function () {
     function InstallComponent(_appservice) {
         this._appservice = _appservice;
@@ -35,15 +35,15 @@ var InstallComponent = (function () {
     InstallComponent.prototype.ngOnDestroy = function () {
         console.log("install.component: ngOnDestroy");
     };
-    InstallComponent = __decorate([
-        core_1.Component({
-            selector: 'install',
-            templateUrl: 'app/install.component.html',
-            styleUrls: ['app/install.component.css'],
-        }), 
-        __metadata('design:paramtypes', [appmanager_service_1.AppManagerService])
-    ], InstallComponent);
     return InstallComponent;
 }());
+InstallComponent = __decorate([
+    core_1.Component({
+        selector: 'install',
+        templateUrl: 'appstore/app/install.component.html',
+        styleUrls: ['appstore/app/install.component.css'],
+    }),
+    __metadata("design:paramtypes", [appmanager_service_1.AppManagerService])
+], InstallComponent);
 exports.InstallComponent = InstallComponent;
 //# sourceMappingURL=install.component.js.map

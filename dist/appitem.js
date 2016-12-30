@@ -1,10 +1,17 @@
 "use strict";
-var developeritem_1 = require('./developeritem');
-var imageitem_1 = require('./imageitem');
-var providedserviceitem_1 = require('./providedserviceitem');
-var requiredserviceitem_1 = require('./requiredserviceitem');
+var developeritem_1 = require("./developeritem");
+var imageitem_1 = require("./imageitem");
+var providedserviceitem_1 = require("./providedserviceitem");
+var requiredserviceitem_1 = require("./requiredserviceitem");
 var AppItem = (function () {
     function AppItem(manifest) {
+        this.dateSplitter = /[ :-]/;
+        if (typeof (SpaceifyConfig) === "function")
+            this.config = new SpaceifyConfig();
+        if (typeof (SpaceifyUtility) === "function")
+            this.utility = new SpaceifyUtility();
+        if (typeof (SpaceifyNetwork) === "function")
+            this.network = new SpaceifyNetwork();
         this.provides_services = [];
         if (manifest.hasOwnProperty('provides_services')) {
             for (var _i = 0, _a = manifest.provides_services; _i < _a.length; _i++) {
@@ -31,7 +38,7 @@ var AppItem = (function () {
             this.appstore_description = manifest.appstore_description;
         }
         this.license = manifest.license;
-        this.creation_date = new Date(manifest.creation_date);
+        this.creation_date = this.getManifestDate(manifest.creation_date);
         this.implements = manifest.implements;
         this.images = [];
         if (manifest.hasOwnProperty('images')) {
@@ -41,9 +48,17 @@ var AppItem = (function () {
             }
         }
         this.unique_directory = manifest.unique_directory;
-        this.icon = manifest.icon;
+        if (typeof manifest.icon == "undefined") {
+            this.aicon = this.utility.getApplicationIcon(manifest, true);
+            if (this.aicon)
+                this.icon = this.network.getEdgeURL(true, null, true) + this.unique_name + this.aicon;
+            else
+                this.icon = "assets/default_icon-128p.png";
+        }
+        else
+            this.icon = window.location.protocol + this.config.get("EDGE_GET_RESOURCE_URL") + encodeURIComponent(manifest.icon);
         this.version_canonical = manifest.version_canonical;
-        this.publish_date = new Date(manifest.publish_date);
+        this.publish_date = this.getManifestDate(manifest.publish_date);
         this.readme = manifest.readme;
         this.versions = manifest.versions;
         this.canonical_versions = manifest.canonical_versions;
@@ -57,6 +72,15 @@ var AppItem = (function () {
             this.isRunning = false;
         this.updateAvailable = false;
     }
+    AppItem.prototype.getManifestDate = function (date) {
+        var dateParts, mdate = null;
+        if (date) {
+            dateParts = date.split(this.dateSplitter);
+            if (dateParts.length == 6)
+                mdate = new Date(+dateParts[0], +dateParts[1], +dateParts[2], +dateParts[3], +dateParts[4], +dateParts[5], 0);
+        }
+        return mdate;
+    };
     return AppItem;
 }());
 exports.AppItem = AppItem;

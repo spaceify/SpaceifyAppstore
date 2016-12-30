@@ -8,32 +8,31 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
 var SpaceifySourceDirective = (function () {
     function SpaceifySourceDirective(el) {
         this.el = el.nativeElement;
     }
     Object.defineProperty(SpaceifySourceDirective.prototype, "spaceifySource", {
         set: function (src) {
-            //console.log(src);
-            this.el['src'] = "http://" + src;
-            //this.el
+            this.el.setAttribute("sp_src", src); // Dynamic and static, e.g. dynamic: [sp_src]="app.icon", static: sp_src="assets/icon.png"
+            spaceifyLoader.loadData(this.el, null);
         },
         enumerable: true,
         configurable: true
     });
-    __decorate([
-        core_1.Input('sp_src'), 
-        __metadata('design:type', String), 
-        __metadata('design:paramtypes', [String])
-    ], SpaceifySourceDirective.prototype, "spaceifySource", null);
-    SpaceifySourceDirective = __decorate([
-        core_1.Directive({
-            selector: '[sp_src]'
-        }), 
-        __metadata('design:paramtypes', [core_1.ElementRef])
-    ], SpaceifySourceDirective);
     return SpaceifySourceDirective;
 }());
+__decorate([
+    core_1.Input('sp_src'),
+    __metadata("design:type", String),
+    __metadata("design:paramtypes", [String])
+], SpaceifySourceDirective.prototype, "spaceifySource", null);
+SpaceifySourceDirective = __decorate([
+    core_1.Directive({
+        selector: '[sp_src]'
+    }),
+    __metadata("design:paramtypes", [core_1.ElementRef])
+], SpaceifySourceDirective);
 exports.SpaceifySourceDirective = SpaceifySourceDirective;
 //# sourceMappingURL=spaceifysrc.directive.js.map

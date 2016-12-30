@@ -8,10 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var appmanager_service_1 = require('./appmanager.service');
-//import {SpaceifySourceDirective} from './spaceifysrc.directive';
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var appmanager_service_1 = require("./appmanager.service");
 var ApplistComponent = (function () {
     function ApplistComponent(_appservice, router) {
         this._appservice = _appservice;
@@ -31,23 +30,23 @@ var ApplistComponent = (function () {
         //lue path ja lisää unique_name
         //this.selected.next({ value: app });
     };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Array)
-    ], ApplistComponent.prototype, "apps", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', String)
-    ], ApplistComponent.prototype, "selectedMode", void 0);
-    ApplistComponent = __decorate([
-        core_1.Component({
-            selector: 'applist',
-            templateUrl: 'app/applist.component.html',
-            styleUrls: ['app/applist.component.css']
-        }), 
-        __metadata('design:paramtypes', [appmanager_service_1.AppManagerService, router_1.Router])
-    ], ApplistComponent);
     return ApplistComponent;
 }());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Array)
+], ApplistComponent.prototype, "apps", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], ApplistComponent.prototype, "selectedMode", void 0);
+ApplistComponent = __decorate([
+    core_1.Component({
+        selector: 'applist',
+        templateUrl: 'appstore/app/applist.component.html',
+        styleUrls: ['appstore/app/applist.component.css']
+    }),
+    __metadata("design:paramtypes", [appmanager_service_1.AppManagerService, router_1.Router])
+], ApplistComponent);
 exports.ApplistComponent = ApplistComponent;
 //# sourceMappingURL=applist.component.js.map

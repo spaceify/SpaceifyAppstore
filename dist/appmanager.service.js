@@ -8,11 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-require('rxjs/add/operator/map');
-require('rxjs/Rx');
-var appitem_1 = require('./appitem');
-var spaceifyhandler_1 = require('./spaceifyhandler');
+var core_1 = require("@angular/core");
+require("rxjs/add/operator/map");
+require("rxjs/Rx");
+var appitem_1 = require("./appitem");
+var spaceifyhandler_1 = require("./spaceifyhandler");
 var AppManagerService = (function () {
     //private _serverMessages: ServerMessage[] = [];
     function AppManagerService() {
@@ -73,7 +73,7 @@ var AppManagerService = (function () {
         //var where : {name? : any} = {};
         //var where = { "name": {} };
         var where = {};
-        //{ "where": { }, "page": jotain, "pageSize": jotain } 
+        //{ "where": { }, "page": jotain, "pageSize": jotain }
         //console.log(name);
         if (name) {
             where = { "name": { "value": name, "operator": "LIKE" } };
@@ -81,13 +81,14 @@ var AppManagerService = (function () {
         //console.log(where);
         //{ "where": {}, "page": jotain, "pageSize": jotain } hakee kaikki
         //console.log(where);
-        //where.type = { "value": this.config.SPACELET };
+        //where.type = { "value": this.config.get("SPACELET") };
         //where.username = { "value": "*", "operator": "LIKE" };
         var search = {
             "where": {
                 "name": { "value": "bigscreen", "operator": "LIKE" },
                 "username": { "value": "jouni", "operator": "=" }
-            }, "page": 1,
+            },
+            "page": 1,
             "pageSize": 20, "order": { "name": "ASC", "username": "ASC" }
         };
         var self = this;
@@ -96,7 +97,6 @@ var AppManagerService = (function () {
         //console.log(searchObject);
         this.sam.appStoreGetPackages(searchObject, function (err, result) {
             self.appStoreApps.length = 0;
-            //console.log(err+" "+result);
             if (result == null) {
                 console.log("appStoreGetPackages returned null");
                 return;
@@ -113,16 +113,20 @@ var AppManagerService = (function () {
                 appItem.isInstalled = false;
                 self.appStoreApps.push(appItem);
             }
-            //Native array undefined?
-            /*
-            for (var manifest of result.native) {
-                var appItem:AppItem = new AppItem(manifest);
+            for (var _d = 0, _e = result.sandboxed_debian; _d < _e.length; _d++) {
+                var manifest = _e[_d];
+                var appItem = new appitem_1.AppItem(manifest);
                 appItem.isInstalled = false;
                 self.appStoreApps.push(appItem);
             }
-            */
-            for (var _d = 0, _e = self.appStoreApps; _d < _e.length; _d++) {
-                var appItem = _e[_d];
+            for (var _f = 0, _g = result.native_debian; _f < _g.length; _f++) {
+                var manifest = _g[_f];
+                var appItem = new appitem_1.AppItem(manifest);
+                appItem.isInstalled = false;
+                self.appStoreApps.push(appItem);
+            }
+            for (var _h = 0, _j = self.appStoreApps; _h < _j.length; _h++) {
+                var appItem = _j[_h];
                 if (self.isAppInstalled(appItem)) {
                     appItem.isInstalled = true;
                 }
@@ -140,10 +144,7 @@ var AppManagerService = (function () {
     AppManagerService.prototype.updateInstalledApplicationsList = function (callback) {
         var _this = this;
         var self = this;
-        var types = [this.config.SPACELET, this.config.SANDBOXED]; //, this.config.NATIVE];
-        //console.log(this.config.SPACELET);
-        //this.sam.getApplications(types, self, null);
-        //this.sam.getApplications(types, self, this.printStatus);		
+        var types = [this.config.get("SPACELET"), this.config.get("SANDBOXED"), this.config.get("SANDBOXED_DEBIAN"), this.config.get("NATIVE_DEBIAN")];
         this.sam.getApplications(types, self.messageHandler, function (apps) {
             console.log(apps);
             self.installedApps.length = 0;
@@ -166,33 +167,33 @@ var AppManagerService = (function () {
                 appItem.isInstalled = true;
                 self.installedApps.push(appItem);
             }
-            /*for (var manifest of apps.native) {
-                var appItem:AppItem = new AppItem(manifest);
+            for (var _d = 0, _e = apps.sandboxed_debian; _d < _e.length; _d++) {
+                var manifest = _e[_d];
+                var appItem = new appitem_1.AppItem(manifest);
                 appItem.isInstalled = true;
-                self.installedApps.push(appItem;
-            }*/
+                self.installedApps.push(appItem);
+            }
+            for (var _f = 0, _g = apps.native_debian; _f < _g.length; _f++) {
+                var manifest = _g[_f];
+                var appItem = new appitem_1.AppItem(manifest);
+                appItem.isInstalled = true;
+                self.installedApps.push(appItem);
+            }
             // Update appstore apps list also
-            /*
-            for (var appItem of self.appStoreApps) {
+            for (var _h = 0, _j = self.appStoreApps; _h < _j.length; _h++) {
+                var appItem = _j[_h];
                 if (self.isAppInstalled(appItem)) {
                     appItem.isInstalled = true;
-                }
-
-                
-
-            }
-            */
-            for (var _d = 0, _e = self.appStoreApps; _d < _e.length; _d++) {
-                var appItem = _e[_d];
-                if (self.isAppInstalled(appItem)) {
-                    appItem.isInstalled = true;
+                    _this.core.isApplicationRunning(appItem.unique_name, function (err, result) {
+                        appItem.isRunning = result;
+                    });
                 }
             }
-            //Check if app is running after installation
-            for (var _f = 0, _g = self.installedApps; _f < _g.length; _f++) {
-                var appItem = _g[_f];
+            // Check if app is running after installation
+            for (var _k = 0, _l = self.installedApps; _k < _l.length; _k++) {
+                var appItem = _l[_k];
                 _this.core.isApplicationRunning(appItem.unique_name, function (err, result) {
-                    console.log(result);
+                    console.log("updateInstalledApplicationsList - isApplicationRunning", appItem.unique_name, err, result);
                     appItem.isRunning = result;
                 });
             }
@@ -210,20 +211,18 @@ var AppManagerService = (function () {
     };
     AppManagerService.prototype.isAppRunning = function (unique_name) {
         this.core.isApplicationRunning(unique_name, function (err, result) {
-            console.log(err);
-            console.log(result);
+            console.log("isAppRunning", unique_name, err, result);
         });
     };
     AppManagerService.prototype.checkAppChanges = function (app) {
         var self = this;
         this.core.isApplicationRunning(app.unique_name, function (err, result) {
-            console.log(result);
+            console.log("checkAppChanges - isApplicationRunning", app.unique_name, err, result);
             app.isRunning = result;
         });
         var where = { "unique_name": app.unique_name };
         var searchObject = { "where": where, "page": 1, "pageSize": 10 };
         this.sam.appStoreGetPackages(searchObject, function (err, result) {
-            //console.log(err+" "+result);
             if (result == null) {
                 console.log("appStoreGetPackages returned null");
                 return;
@@ -237,14 +236,19 @@ var AppManagerService = (function () {
                 var manifest = _c[_b];
                 appStoreManifest = manifest;
             }
-            /*for (var manifest of result.native) {
+            for (var _d = 0, _e = result.sandboxed_debian; _d < _e.length; _d++) {
+                var manifest = _e[_d];
                 appStoreManifest = manifest;
-            }*/
-            //console.log(appStoreManifest);
-            if (appStoreManifest)
+            }
+            for (var _f = 0, _g = result.native_debian; _f < _g.length; _f++) {
+                var manifest = _g[_f];
+                appStoreManifest = manifest;
+            }
+            if (appStoreManifest) {
                 if (app.version_canonical < appStoreManifest.version_canonical) {
                     app.updateAvailable = true;
                 }
+            }
         });
     };
     AppManagerService.prototype.isAppInstalled = function (app) {
@@ -259,9 +263,9 @@ var AppManagerService = (function () {
         return false;
     };
     /*
-    checkAppStatus(message : string){
-
-    }
+    checkAppStatus(message : string)
+        {
+        }
     */
     AppManagerService.prototype.getAppsStoreApps = function () {
         return this.appStoreApps;
@@ -271,61 +275,64 @@ var AppManagerService = (function () {
     };
     AppManagerService.prototype.commandApp = function (operation, app) {
         //this._serverMessages.push(operation);
-        console.log(operation);
+        console.log("commandApp", operation);
         var self = this;
         if (operation == "logOut")
             self.sam.logOut(self.messageHandler, self.printStatus);
-        else if (operation == "stop")
+        else if (operation == "stop") {
             self.sam.stopApplication(app.unique_name, self.messageHandler, function (message) {
-                console.log(message);
+                console.log("stopApplication", message);
                 self.core.isApplicationRunning(app.unique_name, function (err, result) {
-                    console.log(result);
+                    console.log("commandApp", operation, "- isApplicationRunning", app.unique_name, err, result);
                     app.isRunning = result;
                 });
             });
-        else if (operation == "start")
+        }
+        else if (operation == "start") {
             self.sam.startApplication(app.unique_name, self.messageHandler, function (message) {
-                console.log(message);
+                console.log("startApplication", message);
                 self.core.isApplicationRunning(app.unique_name, function (err, result) {
-                    console.log(result);
+                    console.log("commandApp", operation, "- isApplicationRunning", app.unique_name, err, result);
                     app.isRunning = result;
                 });
             });
-        else if (operation == "restart")
+        }
+        else if (operation == "restart") {
             self.sam.restartApplication(app.unique_name, self.messageHandler, function (message) {
-                console.log(message);
+                console.log("restartApplication", message);
                 self.core.isApplicationRunning(app.unique_name, function (err, result) {
-                    console.log(result);
+                    console.log("commandApp", operation, "- isApplicationRunning", app.unique_name, err, result);
                     app.isRunning = result;
                 });
             });
-        else if (operation == "remove")
+        }
+        else if (operation == "remove") {
             self.sam.removeApplication(app.unique_name, self.messageHandler, function (message) {
+                console.log("removeApplication", message);
                 self.updateInstalledApplicationsList();
-                console.log(message);
             });
+        }
         else if (operation == "install") {
-            //console.log(unique_name);
             self.sam.installApplication(app.unique_name, "", "", true, self.messageHandler, function (message) {
+                console.log("commandApp", operation, "- status:", message);
                 self.updateInstalledApplicationsList();
-                console.log(message);
             });
         }
         else if (operation == "update") {
             self.sam.installApplication(app.unique_name, "", "", true, self.messageHandler, function (message) {
+                console.log("commandApp", operation, "(update) - status:", message);
                 self.updateInstalledApplicationsList();
-                console.log(message);
             });
         }
     };
     AppManagerService.prototype.printStatus = function (result) {
         console.log(result);
     };
-    AppManagerService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
-    ], AppManagerService);
     return AppManagerService;
 }());
+AppManagerService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [])
+], AppManagerService);
 exports.AppManagerService = AppManagerService;
 //# sourceMappingURL=appmanager.service.js.map

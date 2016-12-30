@@ -1,15 +1,20 @@
 "use strict";
-var router_1 = require('@angular/router');
-var manage_component_1 = require('./manage.component');
-var manageapp_component_1 = require('./manageapp.component');
-var install_component_1 = require('./install.component');
-var installapp_component_1 = require('./installapp.component');
-var intro_1 = require('./intro');
-var _404_1 = require('./404');
+var router_1 = require("@angular/router");
+var launchpage_component_1 = require("./launchpage.component");
+var manage_component_1 = require("./manage.component");
+var manageapp_component_1 = require("./manageapp.component");
+var install_component_1 = require("./install.component");
+var installapp_component_1 = require("./installapp.component");
+var intro_1 = require("./intro");
+var _404_1 = require("./404");
 var routes = [
     {
         path: 'manage/:unique_name',
         component: manageapp_component_1.ManageAppComponent
+    },
+    {
+        path: 'launchpage',
+        component: launchpage_component_1.LaunchPageComponent
     },
     {
         path: 'manage',

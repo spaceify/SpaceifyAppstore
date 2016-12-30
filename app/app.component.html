@@ -1,8 +1,14 @@
-
-<div id="main">
-	<div id="top_bar" class="top_bar">
-		<a id="logolink" class="logolink" routerLink="/intro"><img id="appstorelogo" class="appstorelogo" src="assets/icon-80p.png" alt="" /></a>
-		<div id="logoname" class="logoname">Spaceify Store</div>
+<div id="main" style="float: left">
+<!--
+	<div class="topBar">
+		<a class="topBarLogoLink" routerLink="/intro"><img sp_src="assets/icon-80p.png" alt="" /></a>
+		<div class="topBarLogoText">Spaceify Store</div>
+	</div>
+-->
+	<div class="topBar">
+		<a class="topBarLogoLink" routerLink="/intro"><img sp_src="assets/icon-80p.png" alt="" /></a>
+		<div class="topBarLogoText">Spaceify Edge</div>
+		<a class="topBarPageLink" (click)="loadLaunchPage()"><img sp_src="assets/launchpage.png" alt="" /></a>
 	</div>
 
 	<!--
@@ -10,39 +16,28 @@
 		<a class="menu_topic" routerLink="/install" routerLinkActive="navActive">STORE</a>
 		<a class="menu_topic" routerLink="/manage" routerLinkActive="navActive">INSTALLED APPLICATIONS</a>
 
-		
 		<div id="search_bar" class="search_bar">
 			<input type="search" id="search" placeholder="Search" #search (keyup.enter)="doSearch(search.value)">
 		</div>
 
-		
 		<br class="menu_clear" />
 	</nav>
 
 	<contextbar></contextbar>
 	-->
 
-	
-
-	<div id="content_container">
+	<div class="contentContainer">
 		<router-outlet></router-outlet>
 	</div>
 
 	<div id="footer" class="footer">
-		<div class="section_w35">
-			<div class="footerContentLeft smaller">
-				<img class="floatLeft" id="32pxc" src="./assets/by-nc-nd_eu.png" width="91" height="32">
-				<span class="floatLeft">Copyright &copy; 2014-2016 Spaceify.org</span>
-			</div>
+		<div class="footerContentLeft">
+			<img id="32pxc" sp_src="assets/by-nc-nd_eu.png" width="91" height="32">
 		</div>
-		<div class="section_w30">
-			<div class="footerContentLeft">&nbsp;</div>
-		</div>
-		<div class="section_w35">
-			<div class="footerContentRight smaller">
-				Made with code and love.
-				<img style="width: 16px; height: 16px;" src="./assets/heart_32x32.png" />
-			</div>
+		<div class="footerContentLeft">
+			<span>Copyright &copy; 2014 - 2017 Spaceify Oy</span>
 		</div>
 	</div>
+
 </div>
+

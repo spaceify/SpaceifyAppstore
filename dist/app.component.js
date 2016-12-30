@@ -8,20 +8,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
 //import {Control} from "@angular/common";
 //import { ROUTER_DIRECTIVES } from '@angular/router';
-var appmanager_service_1 = require('./appmanager.service');
-require('rxjs/add/operator/map');
-require('rxjs/add/operator/debounceTime');
-require('rxjs/add/operator/distinctUntilChanged');
-require('rxjs/add/operator/switchMap');
+var appmanager_service_1 = require("./appmanager.service");
+require("rxjs/add/operator/map");
+require("rxjs/add/operator/debounceTime");
+require("rxjs/add/operator/distinctUntilChanged");
+require("rxjs/add/operator/switchMap");
 var AppComponent = (function () {
-    //query = new Control();
-    /*
-        @ViewChild(ApplistComponent)
-        private applistComponent: ApplistComponent;
-        */
     function AppComponent(_appservice) {
         /*
         this.query.valueChanges
@@ -33,23 +28,25 @@ var AppComponent = (function () {
                     _appservice.searchAppStore(value);
                 }
             );
-
-            */
+        */
         this._appservice = _appservice;
         this.selectedMode = "install";
+        if (typeof (SpaceifyNet) === "function")
+            this.net = new SpaceifyNet();
     }
     /*
-        getServerMessageStyle(type : ServerMessageType){
-            if (type == ServerMessageType.Message)
-                return "serverMessageMessage";
-            else if (type == ServerMessageType.Error)
-                return "serverMessageError";
-            else if(type == ServerMessageType.Warning)
-                return "serverMessageWarning";
-            else if (type == ServerMessageType.Notification)
-                return "serverMessageNotification";
+    getServerMessageStyle(type : ServerMessageType)
+        {
+        if (type == ServerMessageType.Message)
+            return "serverMessageMessage";
+        else if (type == ServerMessageType.Error)
+            return "serverMessageError";
+        else if(type == ServerMessageType.Warning)
+            return "serverMessageWarning";
+        else if (type == ServerMessageType.Notification)
+            return "serverMessageNotification";
         }
-        */
+    */
     AppComponent.prototype.getAppsStoreApps = function () {
         this.apps = this._appservice.getAppsStoreApps();
     };
@@ -58,28 +55,28 @@ var AppComponent = (function () {
         this._appservice.updateInstalledApplicationsList();
     };
     /*
-        commandApp(selectedApp, command) {
-            if (selectedApp)
-                this._appservice.commandApp(command, selectedApp);
+    commandApp(selectedApp, command)
+        {
+        if (selectedApp)
+            this._appservice.commandApp(command, selectedApp);
         }
-    
-        */
+    */
     AppComponent.prototype.ngOnInit = function () {
         //console.log("ngOnInit");
         this.getAppsStoreApps();
         /*
         this._appservice.updateInstalledApplicationsList();
         this._appservice.searchAppStore();
-
         */
     };
     AppComponent.prototype.ngOnDestroy = function () {
     };
     /*
-    get selectedApp() : AppItem{
+    get selectedApp() : AppItem
+        {
         if (this.applistComponent)
             return this.applistComponent.getSelectedApp();
-    }
+        }
     */
     AppComponent.prototype.setMode = function (mode) {
         this.selectedMode = mode;
@@ -91,16 +88,19 @@ var AppComponent = (function () {
             this.getInstalledApps();
         }
     };
-    AppComponent = __decorate([
-        core_1.Component({
-            selector: 'my-app',
-            //pipes: [AppFilterPipe],
-            templateUrl: 'app/app.component.html',
-            styleUrls: ['app/app.component.css'],
-        }), 
-        __metadata('design:paramtypes', [appmanager_service_1.AppManagerService])
-    ], AppComponent);
+    AppComponent.prototype.loadLaunchPage = function () {
+        this.net.loadLaunchPage();
+    };
     return AppComponent;
 }());
+AppComponent = __decorate([
+    core_1.Component({
+        selector: 'my-app',
+        //pipes: [AppFilterPipe],
+        templateUrl: 'appstore/app/app.component.html',
+        styleUrls: ['appstore/app/app.component.css'],
+    }),
+    __metadata("design:paramtypes", [appmanager_service_1.AppManagerService])
+], AppComponent);
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map

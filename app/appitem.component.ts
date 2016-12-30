@@ -3,24 +3,28 @@ import { Router } from '@angular/router';
 import {AppManagerService} from './appmanager.service';
 import {AppItem} from './appitem';
 
-
 @Component({
-    selector: 'appitem',
-    templateUrl: 'app/appitem.component.html',
-    styleUrls: [ 'app/appitem.component.css' ]
+	selector: 'appitem',
+	templateUrl: 'appstore/app/appitem.component.html',
+	styleUrls: [ 'appstore/app/appitem.component.css' ]
 })
 
-export class AppItemComponent { 
-  @Input() app: AppItem;
+export class AppItemComponent
+{
+@Input() app: AppItem;
 
-  constructor(private _appservice: AppManagerService, private router : Router) { 
-  }
+constructor(private _appservice: AppManagerService, private router : Router)
+	{
+	}
 
-  getApp() : AppItem {
-    return this.app;     
-  }
+getApp() : AppItem
+	{
+	return this.app;
+	}
 
-  onSelect(app: AppItem) {
-    this.app = app;
-  }
+onSelect(app: AppItem)
+	{
+	this.app = app;
+	}
+
 }

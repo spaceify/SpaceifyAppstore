@@ -1,0 +1,44 @@
+.edgeH {
+	margin: 0px;
+	padding: 0px;
+}
+.edgeH.H1 { font-size: 2.0em; font-weight: normal; }
+.edgeH.H2 { font-size: 1.8em; font-weight: normal; }
+.edgeH.H3 { font-size: 1.5em; font-weight: normal; }
+.edgeH.H4 { font-size: 1.3em; font-weight: normal; }
+.edgeH.H5 { font-size: 1.1em; font-weight: normal; }
+.edgeH.H6 { font-size: 1.0em; font-weight: normal; }
+
+.edgeTile {
+	float: left;
+	display: inline;
+	position: relative;
+	margin: 0px 10px 10px 0px;
+	padding: 0px;
+	width: 300px;
+	height: 150px;
+	cursor: pointer;
+	overflow: hidden;
+	visibility: visible;
+	border-radius: 5px;
+	box-sizing: border-box;
+	border: solid 1px #ddd;
+	background-color: #fff;
+}
+
+.edgeTile img {
+	display: block;
+	margin: 18px auto 9px auto;
+}
+
+.edgeText {
+	margin: 0;
+	padding: 0;
+	width: 300px;
+	text-align: center;
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.edgeSubText {
+	color: #888;
+}

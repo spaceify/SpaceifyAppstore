@@ -3,13 +3,13 @@
 	<ul>
 	<li>
 	<ul>
-		<li *ngFor="let app of apps" 
+		<li *ngFor="let app of apps"
 			[class.selected]="app === selectedApp"
 			(click)="onSelect(app)">
 
 			<a>
 				<div class="appicon">
-					<img [sp_src]="app.icon" alt="" onError="this.src='./assets/default_icon-128p.png';" />
+					<img alt="" [sp_src]="app.icon" />
 				</div>
 				<div *ngIf="app.isInstalled" class="installedIcon">Installed</div>
 				<div class="appname">{{app.name}}</div>
@@ -18,7 +18,7 @@
 
 <!--
 			<div class="iconcontainer">
-				<img class="icon" [sp_src]="app.icon" alt="" onError="this.src='./assets/default_icon-128p.png';" />
+				<img class="icon" sp_src="assets/default_icon-128p.png" />
 			</div>
 
 			<div class="text">

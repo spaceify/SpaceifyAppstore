@@ -1,134 +1,140 @@
-
 #applist {
-  margin-bottom: 15px;
+	margin-bottom: 15px;
 }
 
 /*ul {
-  width: 100%;
-  list-style: none;
-  margin: 0;
-  margin-bottom: 15px;
-  padding: 0;
-  padding-bottom: 15px;
-  overflow: auto;
+	width: 100%;
+	list-style: none;
+	margin: 0;
+	margin-bottom: 15px;
+	padding: 0;
+	padding-bottom: 15px;
+	overflow: auto;
 }
 
 ul > li {
-  margin: 0;
-  padding: 0;
-  margin-bottom: 15px;
+	margin: 0;
+	padding: 0;
+	margin-bottom: 15px;
 }
 
 li span {
-  margin: 0;
-  display: block;
-  clear: both;
-  padding: 25px 0;
+	margin: 0;
+	display: block;
+	clear: both;
+	padding: 25px 0;
 }
 
 ul ul li {
-  padding: 0;
-  float: left;
-  width: 300px;
-  height: 300px;
-  margin: 15px 15px 0px 0px;
+	padding: 0;
+	float: left;
+	width: 300px;
+	height: 300px;
+	margin: 15px 15px 0px 0px;
 }
 
 ul ul li:nth-child(3) {
-  margin-right: 15px !important;
+	margin-right: 15px !important;
 }
 
 ul li a {
-  margin: 0;
-  padding: 0;
-  border: solid 1px #ddd;
-  border-radius: 3px;
-  display: block;
-  width: 270px;
-  height: 270px;
-  padding: 15px 15px;
-  color: #003b7c;
-  text-decoration: none;
-  transition: 0.4s;
+	margin: 0;
+	padding: 0;
+	border: solid 1px #ddd;
+	border-radius: 3px;
+	display: block;
+	width: 270px;
+	height: 270px;
+	padding: 15px 15px;
+	color: #003b7c;
+	text-decoration: none;
+	transition: 0.4s;
 }
 
 ul li a:hover {
-  background: #eee;
+	background: #eee;
 }
 */
 
 .appinfoblock {
-  color: #003b7c;
+	color: #003b7c;
 }
 
 .button_container {
 }
 
 .appiconleft {
-  float: left;
-  margin: 0;
-  padding: 0;
-  width: 128px;
-  height: 128px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	float: left;
+	margin: 0;
+	padding: 0;
+	width: 128px;
+	height: 128px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .appiconleft img {
-  margin: 0;
-  padding: 0;
-  max-width: 128px;
-  max-height: 128px;
+	margin: 0;
+	padding: 0;
+	max-width: 128px;
+	max-height: 128px;
 }
 
 .appinforight {
-  float: left;
-  margin-top: 30px;
-  margin-left: 15px;
+	float: left;
+	margin-top: 30px;
+	margin-left: 15px;
 }
 
 .appname {
-  line-height: 1.7em;
-  font-weight: bolder;
+	line-height: 1.7em;
+	font-weight: bolder;
 }
 
 .appdescription {
-  line-height: 1.5em;
+	line-height: 1.5em;
 }
 
 .appdeveloper {
-  line-height: 1.5em;
+	line-height: 1.5em;
 }
 
 .appdescription {
-  line-height: 1.5em;
-  color: #003b7c;
-  margin-bottom: 1em;
+	line-height: 1.5em;
+	color: #003b7c;
+	margin-bottom: 1em;
 }
 
 .packageField {
-  float: left;
-  width: 100%;
-  box-sizing: border-box;
-  font-size: 14px;
-  font-weight: 300;
-  font-family: Roboto;
-  margin: 0px;
-  padding: 2px 0px;
-  border-bottom: 1px solid rgb(205, 201, 201);
-  color: #003b7c;
+	float: left;
+	width: 100%;
+	box-sizing: border-box;
+	font-size: 14px;
+	font-weight: 300;
+	margin: 0px;
+	padding: 2px 0px;
+	border-bottom: 1px solid rgb(205, 201, 201);
+	color: #003b7c;
 }
 
 .packageFieldTitle {
-  float: left;
-  width: 15%;
-  box-sizing: border-box;
+	float: left;
+	width: 15%;
+	box-sizing: border-box;
 }
 
 .packageFieldValue {
-  float: left;
-  padding-left: 10px;
-  width: 85%;
-  box-sizing: border-box;
+	float: left;
+	padding-left: 10px;
+	width: 85%;
+	box-sizing: border-box;
+}
+
+.appitemContainer {
+	margin-top: 15px;
+}
+
+.appItemEmph {
+	font-weight: bold;
 }

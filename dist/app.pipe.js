@@ -8,21 +8,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
 var AppFilterPipe = (function () {
     function AppFilterPipe() {
     }
     AppFilterPipe.prototype.transform = function (items, args) {
         return items.filter(function (item) { return item.id.indexOf(args[0]) !== -1; });
     };
-    AppFilterPipe = __decorate([
-        core_1.Pipe({
-            name: 'appfilter'
-        }),
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
-    ], AppFilterPipe);
     return AppFilterPipe;
 }());
+AppFilterPipe = __decorate([
+    core_1.Pipe({
+        name: 'appfilter'
+    }),
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [])
+], AppFilterPipe);
 exports.AppFilterPipe = AppFilterPipe;
 //# sourceMappingURL=app.pipe.js.map

@@ -1,24 +1,22 @@
-
-
-<div *ngIf="app" id="main_content">
+<div *ngIf="app" id="main_content" class="appitemContainer">
 	<!--
 	  images: ImageItem[];
 	-->
 
 	<div class="appinfoblock">
 		<div class="appiconleft">
-			<img [sp_src]="app.icon" alt="" onError="this.src='./assets/default_icon-128p.png';" />
+			<img alt="" [sp_src]="app.icon" />
 		</div>
 
 		<div class="appinforight">
 			<div id="button_container" class="button_container">
 				<span *ngIf="!_appservice.isAppInstalled(app)">
-				    <input type="button" value="Install" (click)="_appservice.commandApp('install', app)">
+					<input type="button" value="Install" (click)="_appservice.commandApp('install', app)">
 				</span>
 
 				<span *ngIf="_appservice.isAppInstalled(app)">
 					<input *ngIf="!app.isRunning" type="button" value="Start" (click)="_appservice.commandApp('start', app)">
-					<input *ngIf="app.isRunning" type="button" value="Stop" (click)="_appservice.commandApp('stop', app)"> 
+					<input *ngIf="app.isRunning" type="button" value="Stop" (click)="_appservice.commandApp('stop', app)">
 					<input *ngIf="app.isRunning" type="button" value="Restart" (click)="_appservice.commandApp('restart', app)">
 					<input type="button" value="Uninstall" (click)="_appservice.commandApp('remove', app)">
 					<!-- <input type="button" value="Configure"> -->
@@ -42,8 +40,12 @@
 		<div class="packageFieldTitle">Short description</div>
 		<div class="packageFieldValue">{{app.short_description}}</div>
 	</div>
-	<div class="packageField">
-		<div class="packageFieldTitle">Publish date</div>
+	<div *ngIf="app.creation_date" class="packageField">
+		<div class="packageFieldTitle">Created</div>
+		<div class="packageFieldValue">{{app.creation_date}}</div>
+	</div>
+	<div *ngIf="app.publish_date" class="packageField">
+		<div class="packageFieldTitle">Published</div>
 		<div class="packageFieldValue">{{app.publish_date}}</div>
 	</div>
 	<div class="packageField">
@@ -70,21 +72,25 @@
 		<div class="packageFieldTitle">Provides services ({{app.provides_services.length}})</div>
 		<div class="packageFieldValue">
 			<span *ngFor="let provivedservice of app.provides_services">
-			{{provivedservice.service_name}} (type: {{provivedservice.service_type}})<br />
+			<p>
+			<span class="appItemEmph">name: </span>{{provivedservice.service_name}}<br />
+			<span class="appItemEmph">type: </span>{{provivedservice.service_type}}
 			</span>
 		</div>
 	</div>
-	<div class="packageField">
+	<div *ngIf="app.requires_services.length > 0" class="packageField">
 		<div class="packageFieldTitle">Requires services ({{app.requires_services.length}})</div>
 		<div class="packageFieldValue">
 			<span *ngFor="let requiredservice of app.requires_services">
-			{{requiredservice.service_name}} (suggested application: {{requiredservice.suggested_application}})<br />
+			<p>
+			<span class="appItemEmph">name: </span>{{requiredservice.service_name}}<br />
+			<span class="appItemEmph">application: </span>{{requiredservice.suggested_application}}
 			</span>
 		</div>
 	</div>
-	<div class="packageField">
+	<div *ngIf="app.readme" class="packageField">
 		<div class="packageFieldTitle">Readme</div>
-		<div class="packageFieldValue"><a href="http://{{app.readme}}">link</a></div>
+		<div class="packageFieldValue"><a href="http://{{app.readme}}" target="_blank">link</a></div>
 	</div>
 	<div class="menu_clear">&nbsp;</div>
 

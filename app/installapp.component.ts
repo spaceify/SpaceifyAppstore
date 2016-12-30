@@ -6,39 +6,36 @@ import {AppManagerService} from './appmanager.service';
 import {AppItem} from './appitem';
 
 @Component({
-    selector: 'installapp',
-    templateUrl: 'app/installapp.component.html',
-	styleUrls: [ 'app/app.component.css' ],
+	selector: 'installapp',
+	templateUrl: 'appstore/app/installapp.component.html',
+	styleUrls: [ 'appstore/app/app.component.css' ],
 })
 
-export class InstallAppComponent implements OnInit, OnDestroy { 
+export class InstallAppComponent implements OnInit, OnDestroy
+{
+selectedApp: AppItem;
+sub: any;
 
-	selectedApp: AppItem;
-  	sub: any;
+constructor(private _appservice: AppManagerService, private route: ActivatedRoute)
+	{
+	}
 
+ngOnInit()
+	{
+	//console.log("ngOnInit");
+	//this.getAppsStoreApps();
+	//this._appservice.updateInstalledApplicationsList();
+	//this._appservice.searchAppStore();
 
-    constructor(private _appservice: AppManagerService, private route: ActivatedRoute){
-        
-    }
-
-    ngOnInit() {
-		//console.log("ngOnInit");
-		//this.getAppsStoreApps();
-		//this._appservice.updateInstalledApplicationsList();
-		//this._appservice.searchAppStore();
-
-		this.sub = this.route.params.subscribe(params => {
-			let un = decodeURIComponent(params['unique_name']);
-			this.selectedApp = this._appservice.getAppstoreApp(un);
-
+	this.sub = this.route.params.subscribe(params => {
+		let un = decodeURIComponent(params['unique_name']);
+		this.selectedApp = this._appservice.getAppstoreApp(un);
 		});
 	}
 
-	ngOnDestroy() {
-		this.sub.unsubscribe();
+ngOnDestroy()
+	{
+	this.sub.unsubscribe();
 	}
 
-
-
 }
-

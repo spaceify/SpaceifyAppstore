@@ -13,67 +13,71 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
-require('rxjs/add/operator/map');
-require('rxjs/Rx');
-var appitem_1 = require('./appitem');
-var Rx_1 = require('rxjs/Rx');
-var spaceifyhandler_1 = require('./spaceifyhandler');
-var appmanager_service_1 = require('./appmanager.service');
+var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
+require("rxjs/add/operator/map");
+require("rxjs/Rx");
+var appitem_1 = require("./appitem");
+var Rx_1 = require("rxjs/Rx");
+var spaceifyhandler_1 = require("./spaceifyhandler");
+var appmanager_service_1 = require("./appmanager.service");
 var MockService = (function (_super) {
     __extends(MockService, _super);
     function MockService(http) {
-        var _this = this;
-        _super.call(this);
-        this.http = http;
+        var _this = _super.call(this) || this;
+        _this.http = http;
         //private appstoreApps: AppItem[] = [];
         //private installedApps: AppItem[] = [];
-        this.mockMessages = [];
-        this.messageHandler = new spaceifyhandler_1.SpaceifyHandler();
-        this.http.get('app/mock-data_appstoreapps.json')
-            .map(this.extractData)
-            .map(this.mapData)
-            .catch(this.handleError)
+        _this.mockMessages = [];
+        _this.messageHandler = new spaceifyhandler_1.SpaceifyHandler();
+        _this.http.get('appstore/app/mock-data_appstoreapps.json')
+            .map(_this.extractData)
+            .map(_this.mapData)
+            .catch(_this.handleError)
             .subscribe(function (data) {
             _this.appStoreApps = data;
             console.log(data);
         }, function (err) {
-            //this.apps_error = true 
+            //this.apps_error = true
         });
-        this.http.get('app/mock-data_installedapps.json')
-            .map(this.extractData)
-            .map(this.mapData)
-            .map(this.setAsInstalled)
-            .catch(this.handleError)
+        _this.http.get('appstore/app/mock-data_installedapps.json')
+            .map(_this.extractData)
+            .map(_this.mapData)
+            .map(_this.setAsInstalled)
+            .catch(_this.handleError)
             .subscribe(function (data) {
             _this.installedApps = data;
             console.log(data);
         }, function (err) {
-            //this.apps_error = true 
+            //this.apps_error = true
         });
+        return _this;
     }
     MockService.prototype.searchAppStore = function (name) {
         console.log("Searched: " + name);
     };
     /*
-    getAppstoreApp(unique_name: string) :AppItem {
-        for(var appStoreApp of this.appstoreApps){
-                if(appStoreApp.unique_name == unique_name )
-                    return appStoreApp;
-
-        }
+    getAppstoreApp(unique_name: string) :AppItem
+        {
+        for(var appStoreApp of this.appstoreApps)
+            {
+            if(appStoreApp.unique_name == unique_name )
+                return appStoreApp;
+            }
+    
         return null;
-    }
-
-    getInstalledApp(unique_name: string) :AppItem {
-        for(var InstalledApp of this.installedApps){
-                if(InstalledApp.unique_name == unique_name )
-                    return InstalledApp;
-
         }
+    
+    getInstalledApp(unique_name: string) :AppItem
+        {
+        for(var InstalledApp of this.installedApps)
+            {
+            if(InstalledApp.unique_name == unique_name)
+                return InstalledApp;
+            }
+    
         return null;
-    }
+        }
     */
     MockService.prototype.updateInstalledApplicationsList = function () {
         var self = this;
@@ -95,27 +99,34 @@ var MockService = (function (_super) {
     MockService.prototype.isAppRunning = function (unique_name) {
     };
     /*
-    isAppInstalled(app : AppItem) : boolean{
-        if(app){
-            for(var installedApp of this.installedApps){
-                if(installedApp.unique_name == app.unique_name ) {
+    isAppInstalled(app : AppItem) : boolean
+        {
+        if(app)
+            {
+            for(var installedApp of this.installedApps)
+                {
+                if(installedApp.unique_name == app.unique_name)
+                    {
                     app.isInstalled = true;
                     return true;
+                    }
                 }
             }
-        }
+    
         app.isInstalled = false;
         return false;
-    }
+        }
     */
     /*
-    getAppsStoreApps(): Array<AppItem> {
+    getAppsStoreApps(): Array<AppItem>
+        {
         return this.appstoreApps;
-    }
-
-    getInstalledApps(): Array<AppItem> {
+        }
+    
+    getInstalledApps(): Array<AppItem>
+        {
         return this.installedApps;
-    }
+        }
     */
     MockService.prototype.commandApp = function (operation, app) {
         //var id = setInterval(frame, 10);
@@ -226,11 +237,11 @@ var MockService = (function (_super) {
         console.error(errMsg);
         return Rx_1.Observable.throw(errMsg);
     };
-    MockService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
-    ], MockService);
     return MockService;
 }(appmanager_service_1.AppManagerService));
+MockService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
+], MockService);
 exports.MockService = MockService;
 //# sourceMappingURL=appmanager.mockservice.js.map
