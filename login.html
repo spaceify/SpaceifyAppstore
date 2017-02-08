@@ -24,8 +24,10 @@
 		var sam;
 		var net;
 
-		function angularReady()
+		window.addEventListener("spaceifyReady", function()
 			{
+			angular.bootstrap(document, ["spaceifyApp"]);
+
 			net = new SpaceifyNet();
 			sam = new SpaceifyApplicationManager();
 
@@ -37,7 +39,7 @@
 				if(e.which == "13")
 					logIn();
 				});
-			}
+			});
 
 		function logIn()
 			{
