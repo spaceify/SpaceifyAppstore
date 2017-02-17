@@ -6,16 +6,17 @@ import {RequiredServiceItem} from './requiredserviceitem';
 declare class SpaceifyConfig
 	{
 	public get(c: string): any;
+	public initialize(mode: string): SpaceifyConfig;
 	}
 
 declare class SpaceifyUtility
 	{
-	public getApplicationIcon(manifest: any): any;
+	public getApplicationIcon(manifest: any, startWithSlash: boolean): any;
 	}
 
 declare class SpaceifyNetwork
 	{
-	public getEdgeURL(forceSecure: any, port: any, withEndSlash: any): any;
+	public getEdgeURL(options: any): any;
 	}
 
 export class AppItem
@@ -58,7 +59,10 @@ private dateSplitter = /[ :-]/;
 constructor(manifest : any)
 	{
 	if(typeof(SpaceifyConfig) === "function")
+		{
 		this.config = new SpaceifyConfig();
+		this.config.initialize("");
+		}
 
 	if(typeof(SpaceifyUtility) === "function")
 		this.utility = new SpaceifyUtility();
@@ -113,7 +117,7 @@ constructor(manifest : any)
 		this.aicon = this.utility.getApplicationIcon(manifest, true);
 
 		if(this.aicon)
-			this.icon = this.network.getEdgeURL(true, null, true) + this.unique_name + this.aicon;
+			this.icon = this.network.getEdgeURL({ forceSecureProtocol: true, ownProtocol: null, port: null, withEndSlash: true }) + this.unique_name + this.aicon;
 		else
 			this.icon = "assets/default_icon-128p.png";
 		}

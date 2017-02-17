@@ -11,19 +11,22 @@ import {SpaceifyHandler, ServerMessage, ServerMessageType} from './spaceifyhandl
 
 declare class SpaceifyApplicationManager
 	{
-	public appStoreGetPackages(o: Object, f: Function): void;
-	public logOut(origin: SpaceifyHandler, f: Function): void;
-	public stopApplication(unique_name: string, origin: SpaceifyHandler, callback: Function): void;
-	public startApplication(unique_name: string, origin: SpaceifyHandler, callback: Function): void;
-	public restartApplication(unique_name: string, origin: SpaceifyHandler, callback: Function): void;
-	public removeApplication(unique_name: string, origin: SpaceifyHandler, callback: Function): void;
-	public installApplication(unique_name: string, user: string, password: string, force: boolean, origin: SpaceifyHandler, callback: Function): void;
-	public getApplications(types: string[], origin: SpaceifyHandler, callback: Function): void;
+	public installApplication(unique_name: string, username: string, password: string, force: boolean, origin: SpaceifyHandler, handler: Function): void;
+	public removeApplication(unique_name: string, origin: SpaceifyHandler, handler: Function): void;
+	public purgeApplication(unique_name: string, origin: SpaceifyHandler, handler: Function): void;
+	public startApplication(unique_name: string, origin: SpaceifyHandler, handler: Function): void;
+	public stopApplication(unique_name: string, origin: SpaceifyHandler, handler: Function): void;
+	public restartApplication(unique_name: string, origin: SpaceifyHandler, handler: Function): void;
 	public logIn(password: string, origin: SpaceifyHandler, handler: Function);
+	public logOut(origin: SpaceifyHandler, handler: Function): void;
 	public isAdminLoggedIn(origin: SpaceifyHandler, handler: Function): void;
-	public getSettings(origin: SpaceifyHandler, handler: Function): void;
-	public saveSettings(settings, origin: SpaceifyHandler, handler: Function): void;
+	public getCoreSettings(origin: SpaceifyHandler, handler: Function): void;
+	public saveCoreSettings(settings: Object, origin: SpaceifyHandler, handler: Function): void;
+	public getEdgeSettings(origin: SpaceifyHandler, handler: Function): void;
+	public saveEdgeSettings(settings: Object, origin: SpaceifyHandler, handler: Function): void;
 	public getServiceRuntimeStates(origin: SpaceifyHandler, handler): void;
+	public getApplications(types: string[], origin: SpaceifyHandler, handler: Function): void;
+	public appStoreGetPackages(o: Object, handler: Function): void;
 	}
 
 declare class SpaceifyCore
@@ -34,6 +37,7 @@ declare class SpaceifyCore
 declare class SpaceifyConfig
 	{
 	public get(c: string): any;
+	public initialize(mode: string): any;
 	}
 
 @Injectable()
@@ -57,25 +61,20 @@ constructor()
 	//super();
 
 	if(typeof(SpaceifyConfig) === "function")
+		{
 		this.config = new SpaceifyConfig();
+		this.config.initialize("");
+		}
 
 	if(typeof(SpaceifyApplicationManager) === "function")
 		{
 		this.sam = new SpaceifyApplicationManager();
-			//this.sam.isAdminLoggedIn(self.messageHandler, self.printStatus);
 		}
 
 	if(typeof(SpaceifyCore) === "function")
 		this.core = new SpaceifyCore();
 
 	this.messageHandler = new SpaceifyHandler();
-
-	//console.log(this.sam);
-
-	//this.core.isApplicationRunning(<paketin nimi>, <callback>);
-
-	//this.initService();
-	//console.log("kerran");
 
 	self.updateInstalledApplicationsList(self.searchAppStore);
 	}
@@ -87,14 +86,22 @@ get serverMessages() : ServerMessage[]
 
 getServerMessageStyle(type : ServerMessageType)
 	{
-	if (type == ServerMessageType.Message)
-		return "serverMessageMessage";
+	if (type == ServerMessageType.Fail)
+		return "serverMessageFail";
 	else if (type == ServerMessageType.Error)
 		return "serverMessageError";
 	else if(type == ServerMessageType.Warning)
 		return "serverMessageWarning";
-	else if (type == ServerMessageType.Notification)
-		return "serverMessageNotification";
+	else if (type == ServerMessageType.Notify)
+		return "serverMessageNotify";
+	else if (type == ServerMessageType.Message)
+		return "serverMessageMessage";
+	else if (type == ServerMessageType.Question)
+		return "serverMessageQuestion";
+	else if (type == ServerMessageType.QuestionTimedOut)
+		return "serverMessageQuestionTimedOut";
+	else if (type == ServerMessageType.End)
+		return "serverMessageEnd";
 	}
 
 clearLogMessages()
@@ -108,7 +115,6 @@ testClick(name)
 	this.sam.isAdminLoggedIn(self.messageHandler, self.printStatus);
 	//this.isAppRunning(name);
 	//self.sam.restartApplication(name, self, self.printStatus);
-
 	//self.sam.removeApplication(name, self, self.printStatus);
 	}
 
@@ -229,8 +235,6 @@ updateInstalledApplicationsList(callback? : () => void)
 	this.sam.getApplications(types, self.messageHandler,
 	(apps: any) =>
 		{
-		console.log(apps);
-
 		self.installedApps.length = 0;
 
 		if (apps == null)
@@ -246,7 +250,9 @@ updateInstalledApplicationsList(callback? : () => void)
 		for (var manifest of apps.sandboxed)
 			{
 			var appItem:AppItem = new AppItem(manifest);
+
 			appItem.isInstalled = true;
+
 			self.installedApps.push(appItem);
 			}
 

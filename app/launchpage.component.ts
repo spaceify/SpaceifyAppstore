@@ -7,6 +7,7 @@ import {SpaceifyBgndDirective} from './spaceifybgnd.directive';
 declare class SpaceifyConfig
 	{
 	public get(c: string): any;
+	public initialize(mode: string): any;
 	}
 
 @Component({
@@ -28,10 +29,13 @@ private config: SpaceifyConfig;
 constructor(private _appservice: AppManagerService)
 	{
 	if(typeof(SpaceifyConfig) === "function")
+		{
 		this.config = new SpaceifyConfig();
+		this.config.initialize("");
+		}
 
 	this.appTypes = this.config.get("APP_TYPES");
-console.log("----------------------------", this.appTypes);
+
 	for(var i = 0; i < this.appTypes.length; i++)
 		this.apps[this.appTypes[i]] = [];
 	}
@@ -53,7 +57,7 @@ getInstalledApps()
 		var app = this.appsAll.shift();
 		this.apps[app.type].push(app);
 		}
-console.log("--------------", this.apps);
+
 	this._appservice.updateInstalledApplicationsList();
 	}
 

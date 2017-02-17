@@ -151,7 +151,7 @@ commandApp(operation : string, app : AppItem)
 	var self = this;
 	setTimeout(function()
 		{
-		serverMessage = { text: "Notification: "+operation + " " + app.unique_name, type: ServerMessageType.Notification };
+		serverMessage = { text: "Notification: "+operation + " " + app.unique_name, type: ServerMessageType.Notify };
 		self.mockMessages.push(serverMessage);
 
 		setTimeout(function()
@@ -227,8 +227,8 @@ getServerMessageStyle(type : ServerMessageType)
 		return "serverMessageError";
 	else if(type == ServerMessageType.Warning)
 		return "serverMessageWarning";
-	else if (type == ServerMessageType.Notification)
-		return "serverMessageNotification";
+	else if (type == ServerMessageType.Notify)
+		return "serverMessageNotify";
 	}
 
 clearLogMessages()

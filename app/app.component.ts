@@ -68,8 +68,8 @@ getServerMessageStyle(type : ServerMessageType)
 		return "serverMessageError";
 	else if(type == ServerMessageType.Warning)
 		return "serverMessageWarning";
-	else if (type == ServerMessageType.Notification)
-		return "serverMessageNotification";
+	else if (type == ServerMessageType.Notify)
+		return "serverMessageNotify";
 	}
 */
 

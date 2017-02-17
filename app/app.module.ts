@@ -26,28 +26,49 @@ import { MdButtonModule } from '@angular2-material/button';
 
 //import {HTTP_PROVIDERS} from '@angular/http';
 
-import {AppManagerService} from './appmanager.service';
-import {MockService} from './appmanager.mockservice';
+import { AppManagerService } from './appmanager.service';
+import { MockService } from './appmanager.mockservice';
 
-import { routing} from './app.routes';
+import { routing } from './app.routes';
+
+//import{ WindowRef } from './windowref';
 
 @NgModule({
-	imports:		[ BrowserModule, FormsModule, HttpModule, routing],  // ,MdIconModule, MdButtonModule ],
-	declarations:	[ AppComponent,
-					  LaunchPageApplistComponent,
-					  ApplistComponent,
-					  AppItemComponent,
-					  ContextbarComponent,
-					  LaunchPageComponent,
-					  ManageComponent,
-					  ManageAppComponent,
-					  InstallComponent,
-					  InstallAppComponent,
-					  IntroComponent,
-					  PageNotFoundComponent,
-					  SpaceifySourceDirective,
-					  SpaceifyBgndDirective ],
- 	providers: 		[ { provide: AppManagerService, useClass: AppManagerService }],				// MockService
-	bootstrap: [ AppComponent ]
-})
+	imports:
+		[
+			BrowserModule,
+			FormsModule,
+			HttpModule,
+			routing
+			// ,MdIconModule,
+			// MdButtonModule
+		],
+	declarations:
+		[
+			AppComponent,
+			LaunchPageApplistComponent,
+			ApplistComponent,
+			AppItemComponent,
+			ContextbarComponent,
+			LaunchPageComponent,
+			ManageComponent,
+			ManageAppComponent,
+			InstallComponent,
+			InstallAppComponent,
+			IntroComponent,
+			PageNotFoundComponent,
+			SpaceifySourceDirective,
+			SpaceifyBgndDirective
+		],
+ 	providers:
+ 		[
+			{ provide: AppManagerService, useClass: AppManagerService },			// MockService
+			//{ provide: "WindowRef", useValue: window}
+ 		],
+	bootstrap:
+		[
+		AppComponent
+		]
+	})
+
 export class AppModule { }

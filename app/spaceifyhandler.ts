@@ -1,9 +1,13 @@
 export enum ServerMessageType
 	{
-	Message,
+	Fail,
+	Error,
 	Warning,
-	Notification,
-	Error
+	Notify,
+	Message,
+	Question,
+	QuestionTimedOut,
+	End
 	}
 
 export interface ServerMessage
@@ -14,13 +18,14 @@ export interface ServerMessage
 
 export interface ISpaceifyHandler
 	{
-	failed();
+	fail();
 	error(errors);
 	warning(message, code);
 	notify(message, code);
 	message(message);
-	question(question, choices, origin, answerId);
+	question(message, choices, origin, answerId);
 	questionTimedOut(message, origin, answerId);
+	end(message);
 	}
 
 export class SpaceifyHandler implements ISpaceifyHandler
@@ -37,7 +42,7 @@ clearMessages()
 	this._serverMessages = [];
 	}
 
-failed()
+fail()
 	{
 	console.log("Application manager: connection failed");
 	}
@@ -86,7 +91,7 @@ notify(message, code)
 	{
 	console.log(code, message);
 
-	var serverMessage = { text: code + " " + message, type: ServerMessageType.Notification };
+	var serverMessage = { text: code + " " + message, type: ServerMessageType.Notify };
 	this._serverMessages.push(serverMessage);
 	}
 
@@ -98,9 +103,9 @@ message(message)
 	this._serverMessages.push(serverMessage);
 	}
 
-question(question, choices, origin, answerId)
+question(message, choices, origin, answerId)
 	{ // Questions from the Application manager
-	console.log(question);
+	console.log(message);
 
 	for (var i = 0; i < choices.length; i++)
 		{
@@ -109,11 +114,11 @@ question(question, choices, origin, answerId)
 	}
 
 questionTimedOut(message, origin, answerId)
-	{ // Application manager does't wait forever answers to questions
+	{ // Application manager does't wait answers to questions forever
 	console.log(message);
 	}
 
-end()
+end(message)
 	{
 	
 	}

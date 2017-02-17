@@ -175,8 +175,10 @@ input#search {
 	padding-bottom: 1em;
 }
 
-.serverMessageMessage {
-	color: #003b7c;
+.serverMessageFail {
+	color: #ee0500;
+	font-weight: bold;
+	/*color: #FF0000;*/
 }
 
 .serverMessageError {
@@ -191,9 +193,25 @@ input#search {
 	/*color: #FFEF0D;*/
 }
 
-.serverMessageNotification {
+.serverMessageNotify {
 	color: #003b7c;
 	/*color: #003b7c;*/
+}
+
+.serverMessageMessage {
+	color: #003b7c;
+}
+
+.serverMessageQuestion {
+	color: #003b7c;
+}
+
+.serverMessageQuestionTimedOut {
+	color: #003b7c;
+}
+
+.serverMessageEnd {
+	color: #003b7c;
 }
 
 /*
