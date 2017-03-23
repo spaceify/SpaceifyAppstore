@@ -16,7 +16,7 @@ var SpaceifyBgndDirective = (function () {
     Object.defineProperty(SpaceifyBgndDirective.prototype, "spaceifyBgnd", {
         set: function (src) {
             this.el.setAttribute("sp_bgnd", src); // Dynamic and static, e.g. dynamic: [sp_src]="app.icon", static: sp_src="assets/icon.png"
-            spaceifyLoader.loadData(this.el, null);
+            spaceifyLoader.loadData(this.el, {}, null);
         },
         enumerable: true,
         configurable: true

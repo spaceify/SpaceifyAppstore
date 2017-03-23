@@ -29,6 +29,7 @@ var spaceifybgnd_directive_1 = require("./spaceifybgnd.directive");
 //import {HTTP_PROVIDERS} from '@angular/http';
 var appmanager_service_1 = require("./appmanager.service");
 var app_routes_1 = require("./app.routes");
+//import{ WindowRef } from './windowref';
 var AppModule = (function () {
     function AppModule() {
     }
@@ -36,8 +37,14 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, app_routes_1.routing],
-        declarations: [app_component_1.AppComponent,
+        imports: [
+            platform_browser_1.BrowserModule,
+            forms_1.FormsModule,
+            http_1.HttpModule,
+            app_routes_1.routing
+        ],
+        declarations: [
+            app_component_1.AppComponent,
             launchpage_applist_component_1.LaunchPageApplistComponent,
             applist_component_1.ApplistComponent,
             appitem_component_1.AppItemComponent,
@@ -50,9 +57,14 @@ AppModule = __decorate([
             intro_1.IntroComponent,
             _404_1.PageNotFoundComponent,
             spaceifysrc_directive_1.SpaceifySourceDirective,
-            spaceifybgnd_directive_1.SpaceifyBgndDirective],
-        providers: [{ provide: appmanager_service_1.AppManagerService, useClass: appmanager_service_1.AppManagerService }],
-        bootstrap: [app_component_1.AppComponent]
+            spaceifybgnd_directive_1.SpaceifyBgndDirective
+        ],
+        providers: [
+            { provide: appmanager_service_1.AppManagerService, useClass: appmanager_service_1.AppManagerService },
+        ],
+        bootstrap: [
+            app_component_1.AppComponent
+        ]
     }),
     __metadata("design:paramtypes", [])
 ], AppModule);
