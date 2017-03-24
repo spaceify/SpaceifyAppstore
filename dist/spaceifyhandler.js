@@ -1,10 +1,14 @@
 "use strict";
 var ServerMessageType;
 (function (ServerMessageType) {
-    ServerMessageType[ServerMessageType["Message"] = 0] = "Message";
-    ServerMessageType[ServerMessageType["Warning"] = 1] = "Warning";
-    ServerMessageType[ServerMessageType["Notification"] = 2] = "Notification";
-    ServerMessageType[ServerMessageType["Error"] = 3] = "Error";
+    ServerMessageType[ServerMessageType["Fail"] = 0] = "Fail";
+    ServerMessageType[ServerMessageType["Error"] = 1] = "Error";
+    ServerMessageType[ServerMessageType["Warning"] = 2] = "Warning";
+    ServerMessageType[ServerMessageType["Notify"] = 3] = "Notify";
+    ServerMessageType[ServerMessageType["Message"] = 4] = "Message";
+    ServerMessageType[ServerMessageType["Question"] = 5] = "Question";
+    ServerMessageType[ServerMessageType["QuestionTimedOut"] = 6] = "QuestionTimedOut";
+    ServerMessageType[ServerMessageType["End"] = 7] = "End";
 })(ServerMessageType = exports.ServerMessageType || (exports.ServerMessageType = {}));
 var SpaceifyHandler = (function () {
     function SpaceifyHandler() {
@@ -20,7 +24,7 @@ var SpaceifyHandler = (function () {
     SpaceifyHandler.prototype.clearMessages = function () {
         this._serverMessages = [];
     };
-    SpaceifyHandler.prototype.failed = function () {
+    SpaceifyHandler.prototype.fail = function () {
         console.log("Application manager: connection failed");
     };
     SpaceifyHandler.prototype.error = function (errors) {
@@ -56,7 +60,7 @@ var SpaceifyHandler = (function () {
     };
     SpaceifyHandler.prototype.notify = function (message, code) {
         console.log(code, message);
-        var serverMessage = { text: code + " " + message, type: ServerMessageType.Notification };
+        var serverMessage = { text: code + " " + message, type: ServerMessageType.Notify };
         this._serverMessages.push(serverMessage);
     };
     SpaceifyHandler.prototype.message = function (message) {
@@ -64,8 +68,8 @@ var SpaceifyHandler = (function () {
         var serverMessage = { text: message, type: ServerMessageType.Message };
         this._serverMessages.push(serverMessage);
     };
-    SpaceifyHandler.prototype.question = function (question, choices, origin, answerId) {
-        console.log(question);
+    SpaceifyHandler.prototype.question = function (message, choices, origin, answerId) {
+        console.log(message);
         for (var i = 0; i < choices.length; i++) {
             console.log("<div><button onclick=\"sam.answer('" + choices[i].short + "', '" + answerId + "');\">" + choices[i].screen + "</button></div>");
         }
@@ -73,7 +77,7 @@ var SpaceifyHandler = (function () {
     SpaceifyHandler.prototype.questionTimedOut = function (message, origin, answerId) {
         console.log(message);
     };
-    SpaceifyHandler.prototype.end = function () {
+    SpaceifyHandler.prototype.end = function (message) {
     };
     return SpaceifyHandler;
 }());

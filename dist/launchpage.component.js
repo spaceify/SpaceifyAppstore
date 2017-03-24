@@ -16,10 +16,11 @@ var LaunchPageComponent = (function () {
         this.apps = {};
         this.appsAll = [];
         this.appTypes = [];
-        if (typeof (SpaceifyConfig) === "function")
+        if (typeof (SpaceifyConfig) === "function") {
             this.config = new SpaceifyConfig();
+            this.config.initialize("");
+        }
         this.appTypes = this.config.get("APP_TYPES");
-        console.log("----------------------------", this.appTypes);
         for (var i = 0; i < this.appTypes.length; i++)
             this.apps[this.appTypes[i]] = [];
     }
@@ -34,7 +35,6 @@ var LaunchPageComponent = (function () {
             var app = this.appsAll.shift();
             this.apps[app.type].push(app);
         }
-        console.log("--------------", this.apps);
         this._appservice.updateInstalledApplicationsList();
     };
     LaunchPageComponent.prototype.ngOnInit = function () {

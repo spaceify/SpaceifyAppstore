@@ -117,7 +117,7 @@ constructor(manifest : any)
 		this.aicon = this.utility.getApplicationIcon(manifest, true);
 
 		if(this.aicon)
-			this.icon = this.network.getEdgeURL({ forceSecureProtocol: true, ownProtocol: null, port: null, withEndSlash: true }) + this.unique_name + this.aicon;
+			this.icon = this.network.getEdgeURL({ forceSecureProtocol: true, withEndSlash: true }) + this.unique_name + this.aicon;
 		else
 			this.icon = "assets/default_icon-128p.png";
 		}

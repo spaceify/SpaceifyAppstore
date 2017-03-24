@@ -20,18 +20,16 @@ var AppManagerService = (function () {
         this.installedApps = [];
         var self = this;
         //super();
-        if (typeof (SpaceifyConfig) === "function")
+        if (typeof (SpaceifyConfig) === "function") {
             this.config = new SpaceifyConfig();
+            this.config.initialize("");
+        }
         if (typeof (SpaceifyApplicationManager) === "function") {
             this.sam = new SpaceifyApplicationManager();
         }
         if (typeof (SpaceifyCore) === "function")
             this.core = new SpaceifyCore();
         this.messageHandler = new spaceifyhandler_1.SpaceifyHandler();
-        //console.log(this.sam);
-        //this.core.isApplicationRunning(<paketin nimi>, <callback>);
-        //this.initService();
-        //console.log("kerran");
         self.updateInstalledApplicationsList(self.searchAppStore);
     }
     Object.defineProperty(AppManagerService.prototype, "serverMessages", {
@@ -42,14 +40,22 @@ var AppManagerService = (function () {
         configurable: true
     });
     AppManagerService.prototype.getServerMessageStyle = function (type) {
-        if (type == spaceifyhandler_1.ServerMessageType.Message)
-            return "serverMessageMessage";
+        if (type == spaceifyhandler_1.ServerMessageType.Fail)
+            return "serverMessageFail";
         else if (type == spaceifyhandler_1.ServerMessageType.Error)
             return "serverMessageError";
         else if (type == spaceifyhandler_1.ServerMessageType.Warning)
             return "serverMessageWarning";
-        else if (type == spaceifyhandler_1.ServerMessageType.Notification)
-            return "serverMessageNotification";
+        else if (type == spaceifyhandler_1.ServerMessageType.Notify)
+            return "serverMessageNotify";
+        else if (type == spaceifyhandler_1.ServerMessageType.Message)
+            return "serverMessageMessage";
+        else if (type == spaceifyhandler_1.ServerMessageType.Question)
+            return "serverMessageQuestion";
+        else if (type == spaceifyhandler_1.ServerMessageType.QuestionTimedOut)
+            return "serverMessageQuestionTimedOut";
+        else if (type == spaceifyhandler_1.ServerMessageType.End)
+            return "serverMessageEnd";
     };
     AppManagerService.prototype.clearLogMessages = function () {
         this.messageHandler.clearMessages();
@@ -146,7 +152,6 @@ var AppManagerService = (function () {
         var self = this;
         var types = [this.config.get("SPACELET"), this.config.get("SANDBOXED"), this.config.get("SANDBOXED_DEBIAN"), this.config.get("NATIVE_DEBIAN")];
         this.sam.getApplications(types, self.messageHandler, function (apps) {
-            console.log(apps);
             self.installedApps.length = 0;
             if (apps == null) {
                 console.log("getApplications returned null");

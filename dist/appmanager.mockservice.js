@@ -135,7 +135,7 @@ var MockService = (function (_super) {
         this.mockMessages.push(serverMessage);
         var self = this;
         setTimeout(function () {
-            serverMessage = { text: "Notification: " + operation + " " + app.unique_name, type: spaceifyhandler_1.ServerMessageType.Notification };
+            serverMessage = { text: "Notification: " + operation + " " + app.unique_name, type: spaceifyhandler_1.ServerMessageType.Notify };
             self.mockMessages.push(serverMessage);
             setTimeout(function () {
                 serverMessage = { text: "Warning: " + operation + " " + app.unique_name, type: spaceifyhandler_1.ServerMessageType.Warning };
@@ -192,8 +192,8 @@ var MockService = (function (_super) {
             return "serverMessageError";
         else if (type == spaceifyhandler_1.ServerMessageType.Warning)
             return "serverMessageWarning";
-        else if (type == spaceifyhandler_1.ServerMessageType.Notification)
-            return "serverMessageNotification";
+        else if (type == spaceifyhandler_1.ServerMessageType.Notify)
+            return "serverMessageNotify";
     };
     MockService.prototype.clearLogMessages = function () {
         this.mockMessages.length = 0;

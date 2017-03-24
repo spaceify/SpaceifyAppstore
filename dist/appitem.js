@@ -6,8 +6,10 @@ var requiredserviceitem_1 = require("./requiredserviceitem");
 var AppItem = (function () {
     function AppItem(manifest) {
         this.dateSplitter = /[ :-]/;
-        if (typeof (SpaceifyConfig) === "function")
+        if (typeof (SpaceifyConfig) === "function") {
             this.config = new SpaceifyConfig();
+            this.config.initialize("");
+        }
         if (typeof (SpaceifyUtility) === "function")
             this.utility = new SpaceifyUtility();
         if (typeof (SpaceifyNetwork) === "function")
@@ -51,7 +53,7 @@ var AppItem = (function () {
         if (typeof manifest.icon == "undefined") {
             this.aicon = this.utility.getApplicationIcon(manifest, true);
             if (this.aicon)
-                this.icon = this.network.getEdgeURL(true, null, true) + this.unique_name + this.aicon;
+                this.icon = this.network.getEdgeURL({ forceSecureProtocol: true, withEndSlash: true }) + this.unique_name + this.aicon;
             else
                 this.icon = "assets/default_icon-128p.png";
         }

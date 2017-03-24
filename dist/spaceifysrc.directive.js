@@ -10,13 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var SpaceifySourceDirective = (function () {
-    function SpaceifySourceDirective(el) {
+    //private windowRef: WindowRef;
+    function SpaceifySourceDirective(el /*, windowRef: WindowRef*/) {
         this.el = el.nativeElement;
+        //this.windowRef = windowRef.nativeWindow;
     }
     Object.defineProperty(SpaceifySourceDirective.prototype, "spaceifySource", {
         set: function (src) {
             this.el.setAttribute("sp_src", src); // Dynamic and static, e.g. dynamic: [sp_src]="app.icon", static: sp_src="assets/icon.png"
-            spaceifyLoader.loadData(this.el, null);
+            /*this.windowRef.*/ spaceifyLoader.loadData(this.el, {}, null);
         },
         enumerable: true,
         configurable: true
@@ -32,7 +34,7 @@ SpaceifySourceDirective = __decorate([
     core_1.Directive({
         selector: '[sp_src]'
     }),
-    __metadata("design:paramtypes", [core_1.ElementRef])
+    __metadata("design:paramtypes", [core_1.ElementRef /*, windowRef: WindowRef*/])
 ], SpaceifySourceDirective);
 exports.SpaceifySourceDirective = SpaceifySourceDirective;
 //# sourceMappingURL=spaceifysrc.directive.js.map
