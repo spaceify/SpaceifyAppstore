@@ -35,7 +35,8 @@
 		window.addEventListener("spaceifyReady", function()
 			{ // Injection is ready
 			console.log("index: load");
-			System.import('dist').catch(function(err){ console.error(err); });
+
+			System.import('app').then(function(m){console.log(m)}).catch(function(err){ console.error(err); });
 			});
 
 		//new SpaceifyInitalize().start(true);
