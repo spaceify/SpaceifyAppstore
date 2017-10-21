@@ -2,7 +2,7 @@
  * System configuration for Angular 2 samples
  * Adjust as necessary for your application needs.
  */
-console.log("systemjs.config.js ladattu");
+
 (function (global) {
   System.config({
     baseURL: "/appstore/dist",
