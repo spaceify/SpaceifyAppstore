@@ -91,6 +91,9 @@ var AppComponent = (function () {
     AppComponent.prototype.loadLaunchPage = function () {
         this.net.loadLaunchPage();
     };
+    AppComponent.prototype.adminLogOut = function () {
+        this.net.adminLogOut();
+    };
     return AppComponent;
 }());
 AppComponent = __decorate([
