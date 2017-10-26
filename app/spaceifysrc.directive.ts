@@ -24,7 +24,7 @@ constructor(el: ElementRef/*, windowRef: WindowRef*/)
 
 @Input('sp_src') set spaceifySource(src : string)
 	{
-	this.el.setAttribute("sp_src", src);						// Dynamic and static, e.g. dynamic: [sp_src]="app.icon", static: sp_src="assets/icon.png"
+	this.el.setAttribute("sp_src", src);						// Dynamic and static, e.g. dynamic: [sp_src]="app.icon", static: sp_src="assets/images/icon.png"
 
 	/*this.windowRef.*/spaceifyLoader.loadData(this.el, {}, null);
 	}

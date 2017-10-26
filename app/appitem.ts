@@ -119,7 +119,7 @@ constructor(manifest : any)
 		if(this.aicon)
 			this.icon = this.network.getEdgeURL({ forceSecureProtocol: true, withEndSlash: true }) + this.unique_name + this.aicon;
 		else
-			this.icon = "assets/default_icon-128p.png";
+			this.icon = "assets/images/default_icon-128p.png";
 		}
 	else																			// Application in repository
 		this.icon = window.location.protocol + this.config.get("EDGE_GET_RESOURCE_URL") + encodeURIComponent(manifest.icon);
