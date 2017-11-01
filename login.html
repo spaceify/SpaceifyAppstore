@@ -11,6 +11,7 @@
 		<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgo=">
 		<link rel="stylesheet" spe_href="fonts/roboto/roboto.base64.css">
 		<link rel="stylesheet" spe_href="css/spaceify.edge.css" type="text/css">
+		<link rel="stylesheet" spe_href="css/styles.css" type="text/css">
 
 		<title ng-bind="$root.getString('login', 'title')">Loading...</title>
 		<!-- -->
@@ -30,6 +31,11 @@
 
 			net = new SpaceifyNet();
 			sam = new SpaceifyApplicationManager();
+
+			if(window.location.protocol == "http:")
+				$("#securitywarningcontainer").show();
+			else
+				$("#logincontainer").show();
 
 			$("#edgeBody").show();
 			$("#password").val("").focus();
@@ -66,28 +72,42 @@
 		<div class="topBar">
 			<a class="topBarLogoLink" routerLink="/intro"><img spe_src="images/icon-80p.png" alt="" /></a>
 			<div class="topBarLogoText">Spaceify Edge</div>
-			<a class="topBarPageLink" onclick="net.loadLaunchPage(); return false;"><img spe_src="images/launchpage.png" alt="" title="{{ getString('login', 'backtolaunchpage') }}" /></a>
+			<a class="topBarPageLink" onclick="net.loadLaunchPage(); return false;"><img spe_src="images/launchpage.png" alt="" title="{{ getString('login', 'back_to_launchpage') }}" /></a>
 		</div>
 
 		<div class="large_background_footer">&nbsp;</div>
 
-		<div id="contentContainer" class="contentContainer">
+		<div id="contentContainer" class="edgeContentContainer">
 
-			<div class="container admin">
+			<!-- SECURITY WARNING CONTAINER -->
+			<div class="edgeContainer" id="securitywarningcontainer" style="display: none;">
 
-				<div class="adminLogo">
-					<span class="adminLogoHelper"></span>
-					<img sp_src="assets/images/logotext.png" class="adminLogoImage" width="291" height="100"
+				<div class="edgeInfo warning">
+					{{ getString("login", "security_warning") }}
+
+					<p>
+					<button class="edgeButton inrow" onclick="net.loadSecurePage();">{{ getString("global", "btn_reload") }}</button>
+				</div>
+				<div class="breaker"></div>
+
+			</div>
+
+			<!-- LOGIN CONTAINER -->
+			<div class="edgeContainer login" id="logincontainer" style="display: none;">
+
+				<div class="loginLogo">
+					<span class="loginLogoHelper"></span>
+					<img sp_src="assets/images/logotext.png" class="loginLogoImage" width="291" height="100"
 						onclick="net.loadLaunchPage();">
 				</div>
 
-				<div class="adminInputContainer">
-					<input class="adminInput" style="width: 200px" type="password" name="password" id="password" placeholder="{{ getString('login', 'password') }}"/>
+				<div class="loginInputContainer">
+					<input class="loginInput" style="width: 200px" type="password" name="password" id="password" placeholder="{{ getString('login', 'password') }}"/>
 				</div>
 
-				<div class="adminInputContainer">
-					<button class="adminButton normal" name="operation" onclick="logIn();">
-						{{ getString("login", "login") }}
+				<div class="loginInputContainer">
+					<button class="edgeButton normal" name="operation" onclick="logIn();">
+						{{ getString("global", "btn_login") }}
 					</button>
 				</div>
 
