@@ -83,10 +83,12 @@
 			<div class="edgeContainer" id="securitywarningcontainer" style="display: none;">
 
 				<div class="edgeInfo warning">
-					{{ getString("login", "security_warning") }}
+					{{ getString("global", "security_warning") }}
 
 					<p>
-					<button class="edgeButton inrow" onclick="net.loadSecurePage();">{{ getString("global", "btn_reload") }}</button>
+					<button class="edgeButton inrow" onclick="net.loadSecurePage();">
+						{{ getString("global", "btn_reload") }}
+					</button>
 				</div>
 				<div class="breaker"></div>
 

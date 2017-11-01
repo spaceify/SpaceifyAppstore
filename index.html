@@ -7,15 +7,17 @@
 			#loadingTemporary {
 			width: 100%;
 			height: 100%;
-			background-color: #fff;
 			padding: 2em;
 			font-size: 1.5em;
+			color: "#444";
+			background-color: #fff;
 			}
 		</style>
 
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" sp_href="assets/fonts/roboto/roboto.base64.css">
 		<link rel="stylesheet" sp_href="assets/css/styles.css">
+		<link rel="stylesheet" spe_href="css/spaceify.edge.css" type="text/css">
 
 		<link sp_href="node_modules/@angular2-material/core/style/core.css" rel="stylesheet">
 		<link sp_href="node_modules/@angular2-material/core/overlay/overlay.css" rel="stylesheet">
@@ -23,6 +25,7 @@
 
 		<script src="libs/spaceify.loader.js"></script>
 		<script spe_src="libs/spaceify.api.js"></script>
+		<script spe_src="libs/spaceify.locales.js"></script>
 
 		<!-- 1. Load libraries -->
 		<!-- IE required polyfills, in this exact order -->
@@ -41,14 +44,35 @@
 		<script sp_src="systemjs.config.js"></script>
 
 		<script>
+		var net;
+		var network;
 
 		window.addEventListener("spaceifyReady", function()
-			{ // Injection is ready
-			console.log("index: loaded");
+			{
+			var net = new SpaceifyNet();
+			var network = new SpaceifyNetwork();
 
-			window.document.getElementById("loadingTemporary").style.color = "#888";
+			if(window.location.protocol == "http:")
+				{
+				var spelocale = network.getCookie("locale") || "en_US";
 
-			System.import('app').then(function(m){console.log(m)}).catch(function(err){ console.error(err); });
+				var warning = document.getElementById("securitywarningcontainer");
+				var reload = document.getElementById("btnreload");
+
+				var text = document.createTextNode(window.spelocales[spelocale]["global"]["security_warning"]);
+				warning.insertBefore(text, warning.firstChild);
+
+				text = document.createTextNode(window.spelocales[spelocale]["global"]["btn_reload"]);
+				reload.insertBefore(text, reload.firstChild);
+
+				warning.style.display = "block";
+				}
+			else
+				{
+				document.getElementById("loadingTemporary").style.display = "block";
+
+				System.import('app').then(function(m){console.log(m)}).catch(function(err){ console.error(err); });
+				}
 			});
 
 		//new SpaceifyInitalize().start(true);
@@ -59,7 +83,23 @@
 	<!-- 3. Display the application -->
 	<body>
 		<my-app>
-			<div id="loadingTemporary" style="color: transparent;">
+			<!-- SECURITY WARNING CONTAINER -->
+			<div class="edgeContainer">
+
+				<div id="securitywarningcontainer" class="edgeInfo warning" style="display: none;">
+					<!-- locale: security_warning -->
+
+					<p>
+					<button class="edgeButton inrow" id="btnreload" onclick="net.loadSecurePage();">
+						<!--locale: btn_reload-->
+					</button>
+				</div>
+				<div class="breaker"></div>
+
+			</div>
+
+			<!-- LOADING -->
+			<div id="loadingTemporary" style="display: none;">
 				Loading...
 			</div>
 		</my-app>
