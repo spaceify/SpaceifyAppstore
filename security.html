@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+	<head body-directive>
+		<!-- -->
+		<meta charset="utf-8">
+		<meta name="product" content="Spaceify">
+		<meta name="author" content="Spaceify Oy">
+		<meta name="description" content="Spaceify Edge">
+		<meta name="viewport" content="width=100%, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+
+		<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgo=">
+		<link rel="stylesheet" spe_href="fonts/roboto/roboto.base64.css">
+		<link rel="stylesheet" spe_href="css/spaceify.edge.css" type="text/css">
+		<link rel="stylesheet" spe_href="css/styles.css" type="text/css">
+
+		<title ng-bind="$root.getString('login', 'title')">Loading...</title>
+		<!-- -->
+
+		<!-- -->
+		<script src="libs/spaceify.loader.bundle.js"></script>
+		<script spe_src="libs/spaceify.edge.bundle.js"></script>
+		<!-- -->
+
+		<script>
+		var net;
+
+		window.addEventListener("spaceifyReady", function()
+			{
+			angular.bootstrap(document, ["spaceifyApp"]);
+
+			net = new SpaceifyNet();
+
+			var url = "https://" + window.location.hostname + "/";
+			spaceifyLoader.loadResource("location.conf", 80, url, url, function(result)
+				{
+				if (result.crtErr)
+					$("#certificateerror").css("display", "block");
+				else
+					$("#securitywarning").css("display", "block");
+
+				$("#edgeBody").show();
+				});
+			});
+		</script>
+	</head>
+
+	<body id="edgeBody" ng-controller="bodyController" body-directive style="display: none;">
+
+		<div class="topBar">
+			<a class="topBarLogoLink" routerLink="/intro"><img spe_src="images/icon-80p.png" alt="" /></a>
+			<div class="topBarLogoText">Spaceify Edge</div>
+			<a class="topBarPageLink" onclick="net.loadLaunchPage(); return false;"><img spe_src="images/launchpage.png" alt="" title="{{ getString('login', 'back_to_launchpage') }}" /></a>
+		</div>
+
+		<div class="large_background_footer">&nbsp;</div>
+
+		<div id="contentContainer" class="edgeContentContainer">
+
+			<!-- SECURITY ERROR -->
+			<div id="securitywarning" class="edgeContainer" style="display: none;">
+
+				<div class="edgeInfo warning">
+					{{ getString("global", "security_warning") }}
+
+					<p>
+					<button class="edgeButton inrow" onclick="net.loadSecurePage();">
+						{{ getString("global", "btn_reload") }}
+					</button>
+				</div>
+				<div class="breaker"></div>
+
+			</div>
+
+			<!-- CERTIFICATE ERROR -->
+			<div id="certificateerror" class="edgeInfo" style="display: none; margin: 0px 10px 0px 10px;">
+
+				{{ getString("global", "certificate_error") }}
+
+				<p>
+				<button class="edgeButton inrow" onclick="net.loadCertificate();">{{ getString("global", "btn_install") }}</button>
+				<button class="edgeButton inrow" onclick="net.loadSecurePage();">{{ getString("global", "btn_reload") }}</button>
+				<div class="breaker"></div>
+
+				<div class="edgeSmallInfo">
+					{{ getString("global", "delete_certificate") }}
+				</div>
+
+			</div>
+			<div class="breaker"></div>
+
+		</div>
+
+		<iframe id="certIframe" src="" sp_src="-" class="edgeCertIframe" scrolling="no" frameborder="0"></iframe>
+
+		<div id="footer" class="footer">
+			<div class="footerContentLeft">
+				<img id="32pxc" sp_src="assets/images/by-nc-nd_eu.png" width="91" height="32">
+			</div>
+			<div class="footerContentLeft">
+				<span>{{  getString('global', 'copyright') }}</span>
+			</div>
+		</div>
+
+	</body>
+</html>

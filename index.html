@@ -1,5 +1,5 @@
 <!doctype html>
-<html sp-SE>
+<html>
 	<head>
 		<title>Spaceify Appstore</title>
 
@@ -23,8 +23,8 @@
 		<link sp_href="node_modules/@angular2-material/core/overlay/overlay.css" rel="stylesheet">
 		<link sp_href="assets/css/material-icons.css" rel="stylesheet">
 
-		<script src="libs/spaceify.loader.js"></script>
-		<script spe_src="libs/spaceify.api.js"></script>
+		<script src="libs/spaceify.loader.bundle.js"></script>
+		<script spe_src="libs/spaceify.api.bundle.js"></script>
 		<script spe_src="libs/spaceify.locales.js"></script>
 
 		<!-- 1. Load libraries -->
@@ -44,35 +44,11 @@
 		<script sp_src="systemjs.config.js"></script>
 
 		<script>
-		var net;
-		var network;
-
 		window.addEventListener("spaceifyReady", function()
 			{
-			var net = new SpaceifyNet();
-			var network = new SpaceifyNetwork();
+			document.getElementById("loadingTemporary").style.display = "block";
 
-			if(window.location.protocol == "http:")
-				{
-				var spelocale = network.getCookie("locale") || "en_US";
-
-				var warning = document.getElementById("securitywarningcontainer");
-				var reload = document.getElementById("btnreload");
-
-				var text = document.createTextNode(window.spelocales[spelocale]["global"]["security_warning"]);
-				warning.insertBefore(text, warning.firstChild);
-
-				text = document.createTextNode(window.spelocales[spelocale]["global"]["btn_reload"]);
-				reload.insertBefore(text, reload.firstChild);
-
-				warning.style.display = "block";
-				}
-			else
-				{
-				document.getElementById("loadingTemporary").style.display = "block";
-
-				System.import('app').then(function(m){console.log(m)}).catch(function(err){ console.error(err); });
-				}
+			System.import('app').then(function(m){console.log(m)}).catch(function(err){ console.error(err); });
 			});
 
 		//new SpaceifyInitalize().start(true);
@@ -83,21 +59,6 @@
 	<!-- 3. Display the application -->
 	<body>
 		<my-app>
-			<!-- SECURITY WARNING CONTAINER -->
-			<div class="edgeContainer">
-
-				<div id="securitywarningcontainer" class="edgeInfo warning" style="display: none;">
-					<!-- locale: security_warning -->
-
-					<p>
-					<button class="edgeButton inrow" id="btnreload" onclick="net.loadSecurePage();">
-						<!--locale: btn_reload-->
-					</button>
-				</div>
-				<div class="breaker"></div>
-
-			</div>
-
 			<!-- LOADING -->
 			<div id="loadingTemporary" style="display: none;">
 				Loading...
