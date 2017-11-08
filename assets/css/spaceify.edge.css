@@ -49,6 +49,17 @@ body, input[text], button {
 	border: 1px solid #ddd;
 }
 
+.edgeContainer.login.error {
+	border: none;
+	background-color:rgba(255, 0, 0, 0.5);
+	padding: 5px;
+	box-sizing: border-box;
+	min-height: 40px;
+	line-height: 40px;
+	vertical-align: middle;
+	text-align: center;
+}
+
 	/* -- -- -- -- -- -- -- -- -- -- */
 .edgeH {
 	margin: 0px;

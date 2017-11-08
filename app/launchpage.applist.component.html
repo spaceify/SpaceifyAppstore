@@ -1,11 +1,11 @@
 <div id="launchpageapplist">
 
 	<!-- SPACELETS -- -- -- -- -- -- -- -- -- -- -->
-	<h5 *ngIf="apps.spacelet.length > 0" class="edgeH H3" id="spaceletHeader"> getString('index', 'spacelets') </h5>
+	<h5 *ngIf="apps.spacelet.length > 0" class="edgeH H3" id="spacelet_header"> getString('index', 'spacelets') </h5>
 	<div *ngIf="apps.spacelet.length > 0" id="spacelet"></div>
 
 	<!-- SANDBOXED -- -- -- -- -- -- -- -- -- -- -->
-	<h5 *ngIf="apps.sandboxed.length > 0" class="edgeH H3" id="sandboxedHeader"> getString('index', 'sandboxed') </h5>
+	<h5 *ngIf="apps.sandboxed.length > 0" class="edgeH H3" id="sandboxed_header"> getString('index', 'sandboxed') </h5>
 	<div *ngIf="apps.sandboxed.length > 0" id="sandboxed">
 		<li *ngFor="let app of apps.sandboxed"
 			(click)="onSelect(app)">
@@ -14,11 +14,11 @@
 	</div>
 
 	<!-- SANDBOXED DEBIAN -- -- -- -- -- -- -- -- -- -- -->
-	<h5 *ngIf="apps.sandboxed_debian.length > 0" class="edgeH H3" id="sandboxedDebianHeader"> getString('index', 'sandboxed_debian') </h5>
+	<h5 *ngIf="apps.sandboxed_debian.length > 0" class="edgeH H3" id="sandboxed_debian_header"> getString('index', 'sandboxed_debian') </h5>
 	<div *ngIf="apps.sandboxed_debian.length > 0" id="sandboxed_debian"></div>
 
 	<!-- NATIVE DEBIAN -->
-	<h5 *ngIf="apps.native_debian.length > 0" class="edgeH H3" id="nativeDebianHeader"> getString('index', 'native_debian') </h5>
+	<h5 *ngIf="apps.native_debian.length > 0" class="edgeH H3" id="native_debian_header"> getString('index', 'native_debian') </h5>
 	<div *ngIf="apps.native_debian.length > 0" id="native_debian"></div>
 
 <!--

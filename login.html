@@ -24,29 +24,36 @@
 		<script>
 		var sam;
 		var net;
+		var spdom;
+		var spaceifyApp = null;
 
 		window.addEventListener("spaceifyReady", function()
 			{
+			spaceifyApp = new SpaceifyApp();
 			angular.bootstrap(document, ["spaceifyApp"]);
 
 			net = new SpaceifyNet();
+			spdom = new SpaceifyDOM();
 			sam = new SpaceifyApplicationManager();
 
-			$("#logincontainer").show();
+			spdom.show("logincontainer", true);
 
-			$("#edgeBody").show();
-			$("#password").val("").focus();
+			spdom.show("edgeBody", true);
 
-			$("#password").keyup(function(e)
+			document.getElementById("password").focus();
+
+			document.getElementById("password").addEventListener("keyup", function(e)
 				{
-				if(e.which == "13")
+				var keyCode = e.keyCode || e.key || e.which;
+
+				if (keyCode == "Enter" || keyCode == 13)
 					logIn();
 				});
 			});
 
 		function logIn()
 			{
-			sam.logIn($("#password").val(), this, loggedIn);
+			sam.logIn(spdom.value("password"), this, loggedIn);
 			}
 
 		function loggedIn(result)
@@ -57,8 +64,10 @@
 
 		this.error = function(err)
 			{
-			$("#password").empty();
-			net.showError(err[0] ? err[0].message : err.message);
+			spdom.value("password", "");
+			spdom.focus("password");
+
+			net.showError("logincontainererror", err[0] ? err[0].message : err.message);
 			}
 
 		</script>
@@ -97,6 +106,10 @@
 
 				<div class="breaker"></div>
 
+			</div>
+
+			<div class="edgeContainer login error" id="logincontainererror" style="visibility: hidden;">
+				&nbsp;dffgsd
 			</div>
 
 		</div>

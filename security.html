@@ -23,22 +23,26 @@
 
 		<script>
 		var net;
+		var spdom;
+		var spaceifyApp = null;
 
 		window.addEventListener("spaceifyReady", function()
 			{
+			spaceifyApp = new SpaceifyApp();
 			angular.bootstrap(document, ["spaceifyApp"]);
 
 			net = new SpaceifyNet();
+			spdom = new SpaceifyDOM();
 
 			var url = "https://" + window.location.hostname + "/";
 			spaceifyLoader.loadResource("location.conf", 80, url, url, function(result)
 				{
 				if (result.crtErr)
-					$("#certificateerror").css("display", "block");
+					spdom.show("certificateerror", true);
 				else
-					$("#securitywarning").css("display", "block");
+					spdom.show("securitywarning", true);
 
-				$("#edgeBody").show();
+				spdom.show("edgeBody", true);
 				});
 			});
 		</script>
