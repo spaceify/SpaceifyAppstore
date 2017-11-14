@@ -38,6 +38,7 @@ body, input[text], button {
 	width: 100%;
 	max-width: 850px;
 	margin: 0 auto;
+	box-sizing: border-box;
 }
 
 .edgeContainer.login {
@@ -165,9 +166,11 @@ body, input[text], button {
 	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
 }
 .edgeInfo.warning {
+	box-sizing: border-box;
 	border: 8px dashed rgb(255, 0, 0);
 }
 .edgeInfo.crtErr {
+	box-sizing: border-box;
 	margin: 0px 10px 0px 10px;
 }
 
