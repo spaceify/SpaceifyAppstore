@@ -13,7 +13,7 @@
 		<link rel="stylesheet" spe_href="css/spaceify.edge.css" type="text/css">
 		<link rel="stylesheet" spe_href="css/styles.css" type="text/css">
 
-		<title ng-bind="$root.getString('login', 'title')">Loading...</title>
+		<title>Loading...</title>
 		<!-- -->
 
 		<!-- -->
@@ -25,16 +25,16 @@
 		var sam;
 		var net;
 		var spdom;
-		var spaceifyApp = null;
+		var lang = null;
 
 		window.addEventListener("spaceifyReady", function()
 			{
-			spaceifyApp = new SpaceifyApp();
-			angular.bootstrap(document, ["spaceifyApp"]);
-
 			net = new SpaceifyNet();
 			spdom = new SpaceifyDOM();
+			lang = new SpaceifyLanguage();
 			sam = new SpaceifyApplicationManager();
+
+			lang.processDocument("edgeBody", "data-language", {title: {section: "login", index: "title"}});
 
 			spdom.show("logincontainer", true);
 
@@ -73,12 +73,12 @@
 		</script>
 	</head>
 
-	<body id="edgeBody" ng-controller="bodyController" body-directive style="display: none;">
+	<body id="edgeBody" style="display: none;">
 
 		<div class="topBar">
 			<a class="topBarLogoLink" routerLink="/intro"><img spe_src="images/icon-80p.png" alt="" /></a>
 			<div class="topBarLogoText">Spaceify Edge</div>
-			<a class="topBarPageLink" onclick="net.loadLaunchPage(); return false;"><img spe_src="images/launchpage.png" alt="" title="{{ getString('login', 'back_to_launchpage') }}" /></a>
+			<a class="topBarPageLink" onclick="net.loadLaunchPage(); return false;"><img spe_src="images/launchpage.png" alt="" data-language="title>global.back_to_launchpage" /></a>
 		</div>
 
 		<div class="large_background_footer">&nbsp;</div>
@@ -95,13 +95,11 @@
 				</div>
 
 				<div class="loginInputContainer">
-					<input class="loginInput" style="width: 200px" type="password" name="password" id="password" placeholder="{{ getString('login', 'password') }}"/>
+					<input class="loginInput" style="width: 200px" type="password" name="password" id="password" data-language="placeholder>login.password" />
 				</div>
 
 				<div class="loginInputContainer">
-					<button class="edgeButton normal" name="operation" onclick="logIn();">
-						{{ getString("global", "btn_login") }}
-					</button>
+					<button class="edgeButton normal" name="operation" data-language="global.btn_login" onclick="logIn();"></button>
 				</div>
 
 				<div class="breaker"></div>
@@ -118,9 +116,8 @@
 			<div class="footerContentLeft">
 				<img id="32pxc" sp_src="assets/images/by-nc-nd_eu.png" width="91" height="32">
 			</div>
-			<div class="footerContentLeft">
-				<span>{{  getString('global', 'copyright') }}</span>
-			</div>
+
+			<div class="footerContentLeft" data-language="global.copyright"></div>
 		</div>
 
 	</body>

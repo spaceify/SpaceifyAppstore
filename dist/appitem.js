@@ -58,7 +58,7 @@ var AppItem = (function () {
                 this.icon = "assets/images/default_icon-128p.png";
         }
         else
-            this.icon = window.location.protocol + this.config.get("EDGE_GET_RESOURCE_URL") + encodeURIComponent(manifest.icon);
+            this.icon = this.config.get("EDGE_GET_RESOURCE_URL") + encodeURIComponent(manifest.icon);
         this.version_canonical = manifest.version_canonical;
         this.publish_date = this.getManifestDate(manifest.publish_date);
         this.readme = manifest.readme;
