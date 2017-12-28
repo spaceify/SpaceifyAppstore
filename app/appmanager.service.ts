@@ -24,7 +24,7 @@ declare class SpaceifyApplicationManager
 	public saveCoreSettings(settings: Object, origin: SpaceifyHandler, handler: Function): void;
 	public getEdgeSettings(origin: SpaceifyHandler, handler: Function): void;
 	public saveEdgeSettings(settings: Object, origin: SpaceifyHandler, handler: Function): void;
-	public getServiceRuntimeStates(origin: SpaceifyHandler, handler): void;
+	public getRuntimeServiceStates(origin: SpaceifyHandler, handler): void;
 	public getApplications(types: string[], origin: SpaceifyHandler, handler: Function): void;
 	public appStoreGetPackages(o: Object, handler: Function): void;
 	}
