@@ -51,9 +51,15 @@
 	<body id="edgeBody" style="display: none;">
 
 		<div class="topBar">
-			<a class="topBarLogoLink" routerLink="/intro"><img spe_src="images/icon-80p.png" alt="" /></a>
-			<div class="topBarLogoText">Spaceify Edge</div>
-			<a class="topBarPageLink" onclick="net.loadLaunchPage(); return false;"><img spe_src="images/launchpage.png" alt="" data-language="title>global.back_to_launchpage" /></a>
+
+			<a class="topBarLogoLink" routerLink="/intro">
+				<img spe_src="images/icon-80p.png" alt="" />
+			</a>
+
+			<div class="topBarLogoText" data-language="global.edge"></div>
+
+			<img spe_src="images/launchpage.png" onclick="net.loadLaunchPage();" class="topBarPopMenu" alt="" data-language="title>global.back_to_launchpage" />
+
 		</div>
 
 		<div class="large_background_footer">&nbsp;</div>

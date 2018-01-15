@@ -168,41 +168,35 @@ input#search {
 
 .topBarLogoLink {
 	float: left;
-	margin-left: 40px;
+	padding-left: 40px;
+	overflow: hidden;
 }
-
 .topBarLogoLink img {
 	width: 115px;
 	height: 80px;
 	display: block;
-	margin: auto;
-}
-
-.topBarPageLink {
-	height: 80px;
-	line-height: 80px;
-	float: right;
-	margin: auto 40px auto auto;
-}
-
-.topBarPageLink:hover {
-	cursor: pointer;
-}
-
-.topBarPageLink img {
-	width: 64px;
-	height: 64px;
-	display: block;
-	margin: 8px auto auto auto;
-	vertical-align: middle;
 }
 
 .topBarLogoText {
-	font-family: 'Roboto Light', sans-serif;
 	float: left;
+	font-family: 'Roboto Light', sans-serif;
+	height: 80px;
+	line-height: 80px;
+	overflow: hidden;
 	color: #1ca7ce;
 	font-size: 40px;
 	margin-left: 15px;
+}
+
+.topBarPopMenu {
+	float: right;
+	width: 64px;
+	height: 64px;
+	display: block;
+	margin: 8px 40px 0px 0px;
+}
+.topBarPopMenu:hover {
+	cursor: pointer;
 }
 
 .footer {

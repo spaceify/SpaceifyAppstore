@@ -1,10 +1,5 @@
 <div id="main" style="float: left">
-<!--
-	<div class="topBar">
-		<a class="topBarLogoLink" routerLink="/intro"><img sp_src="assets/images/icon-80p.png" alt="" /></a>
-		<div class="topBarLogoText">Spaceify Store</div>
-	</div>
--->
+
 	<div class="topBar">
 
 		<a class="topBarLogoLink" routerLink="/intro">
@@ -13,9 +8,7 @@
 
 		<div class="topBarLogoText">Spaceify Edge</div>
 
-		<a class="topBarPageLink" id="btn_menu" (click)="showMenu()">
-			<img sp_src="assets/images/menu.png" alt="" />
-		</a>
+		<img sp_src="assets/images/menu.png" (click)="showMenu()" class="topBarPopMenu" id="btn_menu" alt="" />
 
 	</div>
 
