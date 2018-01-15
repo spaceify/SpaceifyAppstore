@@ -9,7 +9,7 @@ html, body {
 
 body, input[text], button {
 	color: #888;
-	background-color: #5fc4b4;
+	background-color: #fff;
 	font-family: Verdana, Arial, Helvetica, sans-serif, Roboto, 'Segoe UI Light_', 'Open Sans Light';
 }
 
@@ -204,8 +204,8 @@ input#search {
 	clear: both;
 	font-family: 'Roboto Light', sans-serif;
 	font-size: 1.0em;
-	height: 32px;
-	line-height: 32px;
+	height: 40px;
+	line-height: 40px;
 	width: 100%;
 	box-sizing: border-box;
 	margin: 0px;
@@ -213,6 +213,7 @@ input#search {
 	vertical-align: middle;
 	color: #003b47;
 	font-weight: normal;
+	background-color: #5fc4b4;
 }
 
 .footerContentLeft {
