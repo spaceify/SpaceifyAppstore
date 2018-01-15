@@ -6,10 +6,17 @@
 	</div>
 -->
 	<div class="topBar">
-		<a class="topBarLogoLink" routerLink="/intro"><img sp_src="assets/images/icon-80p.png" alt="" /></a>
+
+		<a class="topBarLogoLink" routerLink="/intro">
+			<img sp_src="assets/images/icon-80p.png" alt="" />
+		</a>
+
 		<div class="topBarLogoText">Spaceify Edge</div>
-		<a class="topBarPageLink" (click)="loadLaunchPage()"><img sp_src="assets/images/launchpage.png" alt="" /></a>
-		<a class="topBarPageLink" (click)="adminLogOut()"><img sp_src="assets/images/logout.png" alt="" /></a>
+
+		<a class="topBarPageLink" id="btn_menu" (click)="showMenu()">
+			<img sp_src="assets/images/menu.png" alt="" />
+		</a>
+
 	</div>
 
 	<!--
@@ -29,6 +36,34 @@
 
 	<div class="contentContainer">
 		<router-outlet></router-outlet>
+	</div>
+
+	<!-- POPUPS -- -- -- -- -- -- -- -- -- -- -- -->
+	<div id="popups" class="popups" (click)="showPopup('popups', false)" style="display: none;">
+
+		<!-- MENU -- -- -- -- -- -- -- -- -- -- -- -->
+		<div id="popup_menu" class="popup_menu" style="display: none;">
+
+			<span class="popup_menu_row">
+				<a (click)="loadLaunchPage()">
+					<img sp_src="assets/images/launchpage.png" alt="" />
+					<span>Launchpage</span>
+				</a>
+			</span>
+			<div class="breaker"></div>
+
+			<div id="adminlogoutsep" class="popup_menu_separator"></div>
+
+			<span id="adminlogout" class="popup_menu_row separator">
+				<a (click)="adminLogOut()">
+					<img sp_src="assets/images/logout.png" alt="" />
+					<span>Log Out</span>
+				</a>
+			</span>
+			<div class="breaker"></div>
+
+		</div>
+
 	</div>
 
 	<div id="footer" class="footer">

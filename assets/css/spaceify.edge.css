@@ -265,6 +265,68 @@ body, input[text], button {
 	cursor: pointer;
 }
 
+	/* POPUPS / MENU -- -- -- -- -- -- -- -- -- -- */
+.popups {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+	z-index: 10;
+}
+
+.popup_menu {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 200px;
+	height: auto;
+	margin: 0px;
+	padding: 0px;
+	display: none;
+	cursor: pointer;
+	box-sizing: border-box;
+	background-color: #fff;
+	border: 1px solid #ddd;
+}
+.popup_menu img {
+	float: left;
+	clear: none;
+	width: 64px;
+	height: 64px;
+	display: block;
+	padding: 0px 8px 0px 0px;
+}
+.popup_menu span {
+	float: left;
+	width: auto;
+	height: 64px;
+	line-height: 64px;
+	vertical-align: middle;
+}
+
+.popup_menu_row {
+	display: block;
+	width: 184px;
+	min-width: 184px;
+	box-sizing: border-box;
+	margin: 8px 8px 8px 8px;
+}
+.popup_menu_row:hover {
+	background-color: #cbcbcb;
+}
+
+.popup_menu_separator {
+	height: 1px;
+	width: 184px;
+	min-width: 184px;
+	margin-left: 8px;
+	box-sizing: border-box;
+	border-bottom: 1px solid #ababab;
+}
+
 	/* MISC -- -- -- -- -- -- -- -- -- -- */
 .breaker {
 	clear: both;

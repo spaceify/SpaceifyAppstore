@@ -19,6 +19,8 @@ declare class SpaceifyNet
 	{
 	public loadLaunchPage(): void;
 	public adminLogOut(): void;
+	public showMenu(): void;
+	public showPopup(id: string, status: boolean): void;
 	}
 
 @Component({
@@ -142,6 +144,17 @@ loadLaunchPage()
 adminLogOut()
 	{
 	this.net.adminLogOut();
+	}
+
+showMenu()
+	{
+	this.net.showMenu();
+	}
+
+showPopup(id: string, status: boolean)
+	{
+console.log(id, status);
+	this.net.showPopup(id, status);
 	}
 
 }
