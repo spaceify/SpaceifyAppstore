@@ -94,6 +94,13 @@ var AppComponent = (function () {
     AppComponent.prototype.adminLogOut = function () {
         this.net.adminLogOut();
     };
+    AppComponent.prototype.showMenu = function () {
+        this.net.showMenu();
+    };
+    AppComponent.prototype.showPopup = function (id, status) {
+        console.log(id, status);
+        this.net.showPopup(id, status);
+    };
     return AppComponent;
 }());
 AppComponent = __decorate([
