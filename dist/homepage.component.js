@@ -10,8 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var appmanager_service_1 = require("./appmanager.service");
-var LaunchPageComponent = (function () {
-    function LaunchPageComponent(_appservice) {
+var HomepageComponent = (function () {
+    function HomepageComponent(_appservice) {
         this._appservice = _appservice;
         this.apps = {};
         this.appsAll = [];
@@ -24,10 +24,10 @@ var LaunchPageComponent = (function () {
         for (var i = 0; i < this.appTypes.length; i++)
             this.apps[this.appTypes[i]] = [];
     }
-    LaunchPageComponent.prototype.doSearch = function (str) {
+    HomepageComponent.prototype.doSearch = function (str) {
         this.getInstalledApps();
     };
-    LaunchPageComponent.prototype.getInstalledApps = function () {
+    HomepageComponent.prototype.getInstalledApps = function () {
         this.appsAll = this._appservice.getInstalledApps();
         for (var i = 0; i < this.appTypes.length; i++)
             this.apps[this.appTypes[i]] = [];
@@ -37,23 +37,23 @@ var LaunchPageComponent = (function () {
         }
         this._appservice.updateInstalledApplicationsList();
     };
-    LaunchPageComponent.prototype.ngOnInit = function () {
+    HomepageComponent.prototype.ngOnInit = function () {
         console.log("appstore.component: ngOnInit");
         this._appservice.updateInstalledApplicationsList();
         this.getInstalledApps();
     };
-    LaunchPageComponent.prototype.ngOnDestroy = function () {
-        console.log("launchpage.component: ngOnDestroy");
+    HomepageComponent.prototype.ngOnDestroy = function () {
+        console.log("homepage.component: ngOnDestroy");
     };
-    return LaunchPageComponent;
+    return HomepageComponent;
 }());
-LaunchPageComponent = __decorate([
+HomepageComponent = __decorate([
     core_1.Component({
-        selector: 'launchpage',
-        templateUrl: 'appstore/app/launchpage.component.html',
-        styleUrls: ['appstore/app/launchpage.component.css'],
+        selector: 'homepage',
+        templateUrl: 'appstore/app/homepage.component.html',
+        styleUrls: ['appstore/app/homepage.component.css'],
     }),
     __metadata("design:paramtypes", [appmanager_service_1.AppManagerService])
-], LaunchPageComponent);
-exports.LaunchPageComponent = LaunchPageComponent;
-//# sourceMappingURL=launchpage.component.js.map
+], HomepageComponent);
+exports.HomepageComponent = HomepageComponent;
+//# sourceMappingURL=homepage.component.js.map

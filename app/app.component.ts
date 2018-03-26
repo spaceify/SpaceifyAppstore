@@ -17,7 +17,7 @@ import 'rxjs/add/operator/switchMap';
 
 declare class SpaceifyNet
 	{
-	public loadLaunchPage(): void;
+	public loadHomepage(): void;
 	public adminLogOut(): void;
 	public showMenu(): void;
 	public showPopup(id: string, status: boolean): void;
@@ -136,9 +136,9 @@ setMode(mode: string)
 		}
 	}
 
-loadLaunchPage()
+loadHomepage()
 	{
-	this.net.loadLaunchPage();
+	this.net.loadHomepage();
 	}
 
 adminLogOut()

@@ -4,13 +4,13 @@ import { FormsModule }   from '@angular/forms';
 import { HttpModule }     from '@angular/http';
 
 import { AppComponent }  from './app.component';
-import { LaunchPageApplistComponent }  from './launchpage.applist.component';
+import { HomepageApplistComponent }  from './homepage.applist.component';
 import { ApplistComponent }  from './applist.component';
 import { AppItemComponent }  from './appitem.component';
 
 import {ContextbarComponent} from './contextbar.component'
 
-import { LaunchPageComponent }  from './launchpage.component';
+import { HomepageComponent }  from './homepage.component';
 import { ManageComponent }  from './manage.component';
 import { ManageAppComponent }  from './manageapp.component';
 import { InstallComponent }  from './install.component';
@@ -46,11 +46,11 @@ import { routing } from './app.routes';
 	declarations:
 		[
 			AppComponent,
-			LaunchPageApplistComponent,
+			HomepageApplistComponent,
 			ApplistComponent,
 			AppItemComponent,
 			ContextbarComponent,
-			LaunchPageComponent,
+			HomepageComponent,
 			ManageComponent,
 			ManageAppComponent,
 			InstallComponent,

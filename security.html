@@ -35,7 +35,7 @@
 			lang.processDocument("edgeBody", "data-language", {title: {section: "security", index: "title"}});
 
 			var url = "https://" + window.location.hostname + "/";
-			spaceifyLoader.loadResource("location.conf", 80, url, url, function(result)
+			spaceifyLoader.loadResource(config.LOCATION_FILE, 80, url, url, function(result)
 				{
 				if (result.crtErr)
 					spdom.show("certificateerror", true);
@@ -58,7 +58,7 @@
 
 			<div class="topBarLogoText" data-language="global.edge"></div>
 
-			<img spe_src="images/launchpage.png" onclick="net.loadLaunchPage();" class="topBarPopMenu" alt="" data-language="title>global.back_to_launchpage" />
+			<img spe_src="images/homepage.png" onclick="net.loadHomepage();" class="topBarPopMenu" alt="" data-language="title>global.back_to_homepage" />
 
 		</div>
 

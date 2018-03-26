@@ -5,12 +5,12 @@ import {AppItem} from './appitem';
 import {SpaceifySourceDirective} from './spaceifysrc.directive';
 
 @Component({
-	selector: 'launchpageapplist',
-	templateUrl: 'appstore/app/launchpage.applist.component.html',
-	styleUrls: [ 'appstore/app/launchpage.applist.component.css' ]
+	selector: 'homepageapplist',
+	templateUrl: 'appstore/app/homepage.applist.component.html',
+	styleUrls: [ 'appstore/app/homepage.applist.component.css' ]
 })
 
-export class LaunchPageApplistComponent
+export class HomepageApplistComponent
 {
 selectedApp: AppItem;
 

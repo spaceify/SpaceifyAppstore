@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {AppManagerService} from './appmanager.service';
 import {AppItem} from './appitem';
-import {LaunchPageApplistComponent} from './launchpage.applist.component';
+import {HomepageApplistComponent} from './homepage.applist.component';
 import {SpaceifyBgndDirective} from './spaceifybgnd.directive';
 
 declare class SpaceifyConfig
@@ -11,13 +11,13 @@ declare class SpaceifyConfig
 	}
 
 @Component({
-	selector: 'launchpage',
-	templateUrl: 'appstore/app/launchpage.component.html',
-	styleUrls: [ 'appstore/app/launchpage.component.css' ],
-	//directives: [LaunchPageApplistComponent]
+	selector: 'homepage',
+	templateUrl: 'appstore/app/homepage.component.html',
+	styleUrls: [ 'appstore/app/homepage.component.css' ],
+	//directives: [HomepageApplistComponent]
 })
 
-export class LaunchPageComponent
+export class HomepageComponent
 {
 apps: Object = {};
 appsAll: AppItem[] = [];
@@ -71,7 +71,7 @@ ngOnInit()
 
 ngOnDestroy()
 	{
-	console.log("launchpage.component: ngOnDestroy");
+	console.log("homepage.component: ngOnDestroy");
 	}
 
 }

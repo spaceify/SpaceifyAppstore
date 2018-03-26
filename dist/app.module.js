@@ -13,11 +13,11 @@ var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/http");
 var app_component_1 = require("./app.component");
-var launchpage_applist_component_1 = require("./launchpage.applist.component");
+var homepage_applist_component_1 = require("./homepage.applist.component");
 var applist_component_1 = require("./applist.component");
 var appitem_component_1 = require("./appitem.component");
 var contextbar_component_1 = require("./contextbar.component");
-var launchpage_component_1 = require("./launchpage.component");
+var homepage_component_1 = require("./homepage.component");
 var manage_component_1 = require("./manage.component");
 var manageapp_component_1 = require("./manageapp.component");
 var install_component_1 = require("./install.component");
@@ -45,11 +45,11 @@ AppModule = __decorate([
         ],
         declarations: [
             app_component_1.AppComponent,
-            launchpage_applist_component_1.LaunchPageApplistComponent,
+            homepage_applist_component_1.HomepageApplistComponent,
             applist_component_1.ApplistComponent,
             appitem_component_1.AppItemComponent,
             contextbar_component_1.ContextbarComponent,
-            launchpage_component_1.LaunchPageComponent,
+            homepage_component_1.HomepageComponent,
             manage_component_1.ManageComponent,
             manageapp_component_1.ManageAppComponent,
             install_component_1.InstallComponent,

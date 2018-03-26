@@ -11,30 +11,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var appmanager_service_1 = require("./appmanager.service");
-var LaunchPageApplistComponent = (function () {
-    function LaunchPageApplistComponent(_appservice, router) {
+var HomepageApplistComponent = (function () {
+    function HomepageApplistComponent(_appservice, router) {
         this._appservice = _appservice;
         this.router = router;
     }
-    LaunchPageApplistComponent.prototype.onSelect = function (app) {
+    HomepageApplistComponent.prototype.onSelect = function (app) {
     };
-    return LaunchPageApplistComponent;
+    return HomepageApplistComponent;
 }());
 __decorate([
     core_1.Input(),
     __metadata("design:type", Array)
-], LaunchPageApplistComponent.prototype, "apps", void 0);
+], HomepageApplistComponent.prototype, "apps", void 0);
 __decorate([
     core_1.Input(),
     __metadata("design:type", String)
-], LaunchPageApplistComponent.prototype, "selectedMode", void 0);
-LaunchPageApplistComponent = __decorate([
+], HomepageApplistComponent.prototype, "selectedMode", void 0);
+HomepageApplistComponent = __decorate([
     core_1.Component({
-        selector: 'launchpageapplist',
-        templateUrl: 'appstore/app/launchpage.applist.component.html',
-        styleUrls: ['appstore/app/launchpage.applist.component.css']
+        selector: 'homepageapplist',
+        templateUrl: 'appstore/app/homepage.applist.component.html',
+        styleUrls: ['appstore/app/homepage.applist.component.css']
     }),
     __metadata("design:paramtypes", [appmanager_service_1.AppManagerService, router_1.Router])
-], LaunchPageApplistComponent);
-exports.LaunchPageApplistComponent = LaunchPageApplistComponent;
-//# sourceMappingURL=launchpage.applist.component.js.map
+], HomepageApplistComponent);
+exports.HomepageApplistComponent = HomepageApplistComponent;
+//# sourceMappingURL=homepage.applist.component.js.map

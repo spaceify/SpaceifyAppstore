@@ -1,6 +1,6 @@
 "use strict";
 var router_1 = require("@angular/router");
-var launchpage_component_1 = require("./launchpage.component");
+var homepage_component_1 = require("./homepage.component");
 var manage_component_1 = require("./manage.component");
 var manageapp_component_1 = require("./manageapp.component");
 var install_component_1 = require("./install.component");
@@ -13,8 +13,8 @@ var routes = [
         component: manageapp_component_1.ManageAppComponent
     },
     {
-        path: 'launchpage',
-        component: launchpage_component_1.LaunchPageComponent
+        path: 'homepage',
+        component: homepage_component_1.HomepageComponent
     },
     {
         path: 'manage',

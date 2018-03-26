@@ -21,8 +21,8 @@ var ContextbarComponent = (function () {
             value: searchString
         });
     };
-    ContextbarComponent.prototype.loadLaunchPage = function () {
-        this.net.loadLaunchPage();
+    ContextbarComponent.prototype.loadHomepage = function () {
+        this.net.loadHomepage();
     };
     return ContextbarComponent;
 }());
@@ -41,7 +41,7 @@ ContextbarComponent = __decorate([
         //templateUrl: 'appstore/app/app.component.html',
         //styleUrls: [ 'appstore/app/app.component.css' ],
         //directives: [ROUTER_DIRECTIVES]
-        template: "<nav class=\"menu_container\">\n\t\t<!--<a class=\"menu_topic\" routerLink=\"/launchpage\" routerLinkActive=\"navActive\">LAUNCH PAGE</a>-->\n\t\t<a class=\"menu_topic\" (click)=\"loadLaunchPage()\" style=\"cursor: pointer;\">LAUNCH PAGE</a>\n\t\t<a class=\"menu_topic\" routerLink=\"/install\" routerLinkActive=\"navActive\">STORE</a>\n\t\t<a class=\"menu_topic\" routerLink=\"/manage\" routerLinkActive=\"navActive\">INSTALLED APPLICATIONS</a>\n\n\t\t<div *ngIf='searchEnabled' id=\"search_bar\" class=\"search_bar\">\n\t\t\t<input type=\"search\" id=\"search\" placeholder=\"Search\" #search (keyup.enter)=\"doSearch(search.value)\">\n\t\t</div>\n\n\t\t<br class=\"menu_clear\" />\n\t\t</nav>",
+        template: "<nav class=\"menu_container\">\n\t\t<!--<a class=\"menu_topic\" routerLink=\"/homepage\" routerLinkActive=\"navActive\">HOMEPAGE</a>-->\n\t\t<a class=\"menu_topic\" (click)=\"loadHomepage()\" style=\"cursor: pointer;\">HOMEPAGE</a>\n\t\t<a class=\"menu_topic\" routerLink=\"/install\" routerLinkActive=\"navActive\">STORE</a>\n\t\t<a class=\"menu_topic\" routerLink=\"/manage\" routerLinkActive=\"navActive\">INSTALLED APPLICATIONS</a>\n\n\t\t<div *ngIf='searchEnabled' id=\"search_bar\" class=\"search_bar\">\n\t\t\t<input type=\"search\" id=\"search\" placeholder=\"Search\" #search (keyup.enter)=\"doSearch(search.value)\">\n\t\t</div>\n\n\t\t<br class=\"menu_clear\" />\n\t\t</nav>",
     }),
     __metadata("design:paramtypes", [])
 ], ContextbarComponent);

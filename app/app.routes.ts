@@ -2,7 +2,7 @@ import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 
-import { LaunchPageComponent } from './launchpage.component';
+import { HomepageComponent } from './homepage.component';
 import { ManageComponent } from './manage.component';
 import { ManageAppComponent } from './manageapp.component';
 import { InstallComponent } from './install.component';
@@ -16,8 +16,8 @@ const routes: Routes = [
 	component: ManageAppComponent
 	},
 	{
-	path: 'launchpage',
-	component: LaunchPageComponent
+	path: 'homepage',
+	component: HomepageComponent
 	},
 	{
 	path: 'manage',

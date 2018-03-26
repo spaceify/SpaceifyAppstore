@@ -88,8 +88,8 @@ var AppComponent = (function () {
             this.getInstalledApps();
         }
     };
-    AppComponent.prototype.loadLaunchPage = function () {
-        this.net.loadLaunchPage();
+    AppComponent.prototype.loadHomepage = function () {
+        this.net.loadHomepage();
     };
     AppComponent.prototype.adminLogOut = function () {
         this.net.adminLogOut();
