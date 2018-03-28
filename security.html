@@ -17,7 +17,7 @@
 		<!-- -->
 
 		<!-- -->
-		<script src="libs/spaceify.loader.js"></script>
+		<script src="libs/spaceify.loader.bundle.js"></script>
 		<script spe_src="libs/spaceify.edge.js"></script>
 		<!-- -->
 
@@ -25,12 +25,16 @@
 		var net;
 		var spdom;
 		var lang = null;
+		var config = null;
 
 		window.addEventListener("spaceifyReady", function()
 			{
 			net = new SpaceifyNet();
 			spdom = new SpaceifyDOM();
 			lang = new SpaceifyLanguage();
+			config = new SpaceifyConfig();
+
+			config.initialize("");
 
 			lang.processDocument("edgeBody", "data-language", {title: {section: "security", index: "title"}});
 
