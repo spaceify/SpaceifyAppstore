@@ -18,7 +18,7 @@ var SpaceifySourceDirective = (function () {
     Object.defineProperty(SpaceifySourceDirective.prototype, "spaceifySource", {
         set: function (src) {
             this.el.setAttribute("sp_src", src); // Dynamic and static, e.g. dynamic: [sp_src]="app.icon", static: sp_src="assets/images/icon.png"
-            /*this.windowRef.*/ spaceifyLoader.loadData(this.el, {}, null);
+            /*this.windowRef.*/ spaceifyLoader.loadData(this.el, null);
         },
         enumerable: true,
         configurable: true
